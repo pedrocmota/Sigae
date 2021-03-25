@@ -33,6 +33,31 @@ const GlobalStyle = createGlobalStyle`
     width: 100vw;
     height:100vh;
   }
+
+  .MuiButtonBase-root {
+    text-transform: none !important;
+  }
+
+  .react-toast-notifications__container {
+    & > div {
+      height: 60px !important;
+      margin-bottom: 10px;
+      .react-toast-notifications__toast {
+        height: 100%;
+        margin-bottom: 0px !important;
+        .react-toast-notifications__toast__icon-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        .react-toast-notifications__toast__content {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+        }
+      }
+    }
+  }
 `
 
 export default GlobalStyle

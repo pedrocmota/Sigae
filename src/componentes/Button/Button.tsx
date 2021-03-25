@@ -7,6 +7,7 @@ export const Button = styled(MaterialUIButton)<IButton>`
   height: ${props => props.height || '36px'};
   background-color: ${props => colors[props.tipo].background} !important;
   color: ${props => colors[props.tipo].foreground} !important;
+  font-size: 16px !important;
   &:hover {
     background-color: ${props => colors[props.tipo].background};
   }

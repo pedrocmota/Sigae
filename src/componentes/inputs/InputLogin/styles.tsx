@@ -47,6 +47,7 @@ export const InputLoginStyled = styled(GenericInput)<IInputLoginStyled>`
   &::placeholder {
     color: #9392b9;
   }
+  transition: color, border-color 200ms, opacity 250ms;
 `
 
 export const Placeholder = styled.div<IInputLoginStyled>`

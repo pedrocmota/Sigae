@@ -1,24 +1,29 @@
 import React, {memo, useContext, useState, useEffect, useRef} from 'react'
+import {Redirect} from 'react-router-dom'
 import Form from '../../componentes/Form/Form'
 import InputLogin from '../../componentes/inputs/InputLogin/InputLogin'
 import Button from '../../componentes/Button/Button'
 import {LoadingContext} from '../../hooks/LoadingProvider'
-import {ReactComponent as Sigae} from '../../assets/sigae.svg'
+import {APIContext} from '../../hooks/APIProvider'
+import {useToasts} from 'react-toast-notifications'
 import {
   Container, Center, Header, Main, LinksContainer,
-  LinksColuna, LinksRow, BottomLinkContainer, Footer, IconeError
+  LinksColuna, LinksRow, Footer, IconeError, Spinner
 } from './styles'
+import {ReactComponent as Sigae} from '../../assets/sigae.svg'
 
 const Login: React.FC = () => {
   const {hideLogin} = useContext(LoadingContext)
-
+  const {Requests, setToken} = useContext(APIContext)
+  const {addToast} = useToasts()
   useEffect(() => {
     hideLogin()
   }, [])
   const inputMatricula = useRef<HTMLInputElement | null>(null)
   const inputSenha = useRef<HTMLInputElement | null>(null)
   const botao = useRef<HTMLButtonElement | null>(null)
-  const [enviado, setEnviado] = useState(false)
+  const [enviando, setEnviando] = useState(false)
+  const [redirect, setRedirect] = useState(false)
   const [erro1, setErro1] = useState(false)
   const [erro2, setErro2] = useState(false)
 
@@ -31,18 +36,41 @@ const Login: React.FC = () => {
     if (e.key === 'Enter') botao.current?.click()
   }
   const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget.id)
+    const id = e.currentTarget.id
+    if (id == 'matricula') setErro1(false)
+    if (id == 'senha') setErro2(false)
   }
 
   const logar = () => {
-    const matricula = inputMatricula.current?.value
-    const senha = inputSenha.current?.value
-    if (matricula?.length == 0) {
+    const matricula = inputMatricula.current?.value as string
+    const senha = inputSenha.current?.value as string
+    if (matricula.length == 0) {
       setErro1(true)
     }
-    if (senha?.length == 0) {
+    if (senha.length == 0) {
       setErro2(true)
     }
+    if(matricula.length > 0 && senha.length > 0 && !enviando) {
+      setEnviando(true)
+      Requests.logar(matricula, senha, (param) => {
+        setEnviando(false)
+        if(param.erro == 'USUARIO_DESCONHECIDO') {
+          addToast('Usuário não encontrado', {appearance: 'error'})
+        }
+        if(param.erro == 'SENHA_INCORRETA') {
+          addToast('Senha incorreta', {appearance: 'error'})
+        }
+        if(param.token) {
+          setToken(param.token)
+          setRedirect(true)
+        }
+      }, () => {
+        setEnviando(false)
+      })
+    }
+  }
+  if(redirect) {
+    return <Redirect to="/"/>
   }
   return (
     <Container>
@@ -57,17 +85,21 @@ const Login: React.FC = () => {
         </Header>
         <Main>
           <Form method="POST" name="Login">
-            <InputLogin id="matricula" placeholder="Sua Matrícula" type="email" error={erro1} 
-            ref={inputMatricula} onKeyUp={onMatriculaTyped} onFocus={onFocus}>
-              <IconeError style={{opacity: erro1 ? 100 : 0}}/>
+            <InputLogin id="matricula" placeholder="Sua Matrícula" type="text" error={erro1}
+              ref={inputMatricula} onKeyUp={onMatriculaTyped} onFocus={onFocus}>
+              <IconeError visible={erro1 ? 100 : 0} />
             </InputLogin>
-            <InputLogin id="senha" placeholder="Sua senha" margintop={15} type="password" error={erro2} 
-            ref={inputSenha} onKeyUp={onSenhaTyped} onFocus={onFocus}>
-              <IconeError style={{opacity: erro2 ? 100 : 0}}/>
+            <InputLogin id="senha" placeholder="Sua senha" margintop={15} type="password" error={erro2}
+              ref={inputSenha} onKeyUp={onSenhaTyped} onFocus={onFocus}>
+              <IconeError visible={erro2 ? 100 : 0} />
             </InputLogin>
-            <Button variant="contained" tipo="generic" margintop={10} ref={botao}
-              onClick={logar}>
-              Realizar login
+            <Button type="submit" variant="contained" tipo="generic" margintop={10} ref={botao} onClick={logar}>
+              {!enviando && (
+                <div>Realizar login</div>
+              )}
+              {enviando && (
+                <Spinner/>
+              )}
             </Button>
           </Form>
           <LinksContainer>

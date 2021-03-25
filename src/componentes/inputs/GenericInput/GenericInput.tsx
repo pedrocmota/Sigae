@@ -12,6 +12,7 @@ const GenericInput = styled.input<IInput>`
   border: ${props => props.borderSize || '2px'} solid "#98ACC9";
   border-radius: 2px;
   outline: none;
+  overflow: hidden;
   ${({margintop}) => margintop && css`
     margin-top: ${margintop}px;
   `}
@@ -28,11 +29,15 @@ const GenericInput = styled.input<IInput>`
     border-color: #5B66B9 !important;
   }
   &:-webkit-autofill {
-    box-shadow: 0 0 0px 1000px white;
-    -webkit-text-fill-color: white !important; 
-    -webkit-box-shadow: 0 0 0px 1000px white !important;
-    -webkit-text-fill-color: #17161a !important;
+    box-shadow:0 0 0 50px white inset;
+    -webkit-box-shadow:0 0 0 50px white inset;
+    -webkit-text-fill-color: #17161a;
   }
+  &:-webkit-autofill:focus {
+    box-shadow: 0 0 0 50px white inset;
+    -webkit-box-shadow: 0 0 0 50px white inset;
+    -webkit-text-fill-color: #17161a;
+  }  
   &:-webkit-autofill::first-line {
     font-family: Arial !important;
     font-size: 18px !important;
