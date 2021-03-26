@@ -1,5 +1,4 @@
 import React, {useRef, useEffect} from 'react'
-import styled from 'styled-components'
 import $ from 'jquery'
 import useDidMountEffect from '../../hooks/useeffects/useDidMountEffect'
 
@@ -15,10 +14,8 @@ const Fade: React.FC<IFade> = ({children, style, className, visible = false, tim
   useEffect(() => {
     if(visible == false) $(container.current as any).hide()
   }, [])
-  console.log(visible)
   useDidMountEffect(() => {
     setTimeout(() => {
-      // console.log('toggle')
       $(container.current as any).fadeToggle(timer)
     }, 100)
   }, [visible])

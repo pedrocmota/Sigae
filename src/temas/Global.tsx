@@ -58,6 +58,10 @@ const GlobalStyle = createGlobalStyle`
       }
     }
   }
+
+  .popup_opacity {
+    opacity: 0.05
+  }
 `
 
 export default GlobalStyle

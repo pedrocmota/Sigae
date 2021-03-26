@@ -1,18 +1,20 @@
 import styled, {css} from 'styled-components'
 import Fade from '../../Fade/Fade'
 
-interface IFadeStyled {
+interface IPopupContainer {
   id?: string,
   zIndex: number,
   largura?: string,
   altura?: string
 }
 
-export const FadeStyled = styled(Fade)<IFadeStyled>`
+export const PopupContainer = styled.div<IPopupContainer>`
   position: fixed;
+  display: none;
   min-width: 100px;
   min-height: 100px;
   z-index: ${props => props.zIndex};
+  transition: opacity 200ms;
   ${({largura}) => largura && css`
     width: ${largura};
     @media (max-width: calc(${largura} + 20px)) {

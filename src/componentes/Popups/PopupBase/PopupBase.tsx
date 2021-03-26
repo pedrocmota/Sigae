@@ -1,5 +1,5 @@
-import React, {useState, useContext, memo} from 'react'
-import {FadeStyled, Container, Top, Main, Footer} from './styles'
+import React, {useContext, memo} from 'react'
+import {PopupContainer, Container, Top, Main, Footer} from './styles'
 import {IPopupInstance} from '../../../popups/PopupsInterface'
 import {PopupButtonOK, PopupButtonFechar} from '../PopupButton/PopupButton'
 import {PopupContext} from '../../../hooks/PopupProvider'
@@ -10,7 +10,6 @@ interface IPopupBase extends IPopupInstance {
 }
 
 const PopupBase: React.FC<IPopupBase> = ({id, popup, props, zIndex}) => {
-  const [visible, setVisible] = useState(true)
   const {removePopup} = useContext(PopupContext)
   const largura = props.largura || popup.largura
   const altura = props.altura || popup.altura
@@ -21,7 +20,7 @@ const PopupBase: React.FC<IPopupBase> = ({id, popup, props, zIndex}) => {
   const textoFechar = props.textoFechar || popup.textoFechar || 'Fechar'
   const Componente = popup!.componente as React.FC<any>
   return (
-    <FadeStyled id={id} visible={visible} timer={300} largura={largura} altura={altura} zIndex={zIndex}>
+    <PopupContainer id={id} largura={largura} altura={altura} zIndex={zIndex}>
       <Container className="container">
         <Top>
           <img src={Sigae} width={200} height={69} />
@@ -42,14 +41,14 @@ const PopupBase: React.FC<IPopupBase> = ({id, popup, props, zIndex}) => {
           )}
           {ocultarFechar == false || ocultarFechar == undefined && (
             <PopupButtonFechar onClick={() => {
-              removePopup(id, setVisible)
+              removePopup(id)
             }}>
               {textoFechar}
             </PopupButtonFechar>
           )}
         </Footer>
       </Container>
-    </FadeStyled>
+    </PopupContainer>
   )
 }
 
