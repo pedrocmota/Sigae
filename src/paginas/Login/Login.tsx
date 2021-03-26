@@ -1,10 +1,11 @@
 import React, {memo, useContext, useState, useEffect, useRef} from 'react'
 import {Redirect} from 'react-router-dom'
+import Loading from '../../componentes/Loading/Loading'
 import Form from '../../componentes/Form/Form'
 import InputLogin from '../../componentes/inputs/InputLogin/InputLogin'
 import Button from '../../componentes/Button/Button'
-import {LoadingContext} from '../../hooks/LoadingProvider'
 import {APIContext} from '../../hooks/APIProvider'
+import {PopupContext} from '../../hooks/PopupProvider'
 import {useToasts} from 'react-toast-notifications'
 import {
   Container, Center, Header, Main, LinksContainer,
@@ -13,15 +14,14 @@ import {
 import {ReactComponent as Sigae} from '../../assets/sigae.svg'
 
 const Login: React.FC = () => {
-  const {hideLogin} = useContext(LoadingContext)
   const {Requests, setToken} = useContext(APIContext)
+  const {showPopup} = useContext(PopupContext)
   const {addToast} = useToasts()
-  useEffect(() => {
-    hideLogin()
-  }, [])
+
   const inputMatricula = useRef<HTMLInputElement | null>(null)
   const inputSenha = useRef<HTMLInputElement | null>(null)
   const botao = useRef<HTMLButtonElement | null>(null)
+  
   const [enviando, setEnviando] = useState(false)
   const [redirect, setRedirect] = useState(false)
   const [erro1, setErro1] = useState(false)
@@ -50,17 +50,17 @@ const Login: React.FC = () => {
     if (senha.length == 0) {
       setErro2(true)
     }
-    if(matricula.length > 0 && senha.length > 0 && !enviando) {
+    if (matricula.length > 0 && senha.length > 0 && !enviando) {
       setEnviando(true)
       Requests.logar(matricula, senha, (param) => {
         setEnviando(false)
-        if(param.erro == 'USUARIO_DESCONHECIDO') {
+        if (param.erro == 'USUARIO_DESCONHECIDO') {
           addToast('Usuário não encontrado', {appearance: 'error'})
         }
-        if(param.erro == 'SENHA_INCORRETA') {
+        if (param.erro == 'SENHA_INCORRETA') {
           addToast('Senha incorreta', {appearance: 'error'})
         }
-        if(param.token) {
+        if (param.token) {
           setToken(param.token)
           setRedirect(true)
         }
@@ -69,57 +69,73 @@ const Login: React.FC = () => {
       })
     }
   }
-  if(redirect) {
-    return <Redirect to="/"/>
+  if (redirect) {
+    return <Redirect to="/" />
   }
   return (
-    <Container>
-      <Center>
-        <Header>
-          <Sigae />
-          <h1>
-            Sistema de gerenciamento
+    <>
+      <Loading timer={500}/>
+      <Container>
+        <Center>
+          <Header>
+            <Sigae />
+            <h1>
+              Sistema de gerenciamento
             <br />
             Atendimento ao estudante
           </h1>
-        </Header>
-        <Main>
-          <Form method="POST" name="Login">
-            <InputLogin id="matricula" placeholder="Sua Matrícula" type="text" error={erro1}
-              ref={inputMatricula} onKeyUp={onMatriculaTyped} onFocus={onFocus}>
-              <IconeError visible={erro1 ? 100 : 0} />
-            </InputLogin>
-            <InputLogin id="senha" placeholder="Sua senha" margintop={15} type="password" error={erro2}
-              ref={inputSenha} onKeyUp={onSenhaTyped} onFocus={onFocus}>
-              <IconeError visible={erro2 ? 100 : 0} />
-            </InputLogin>
-            <Button type="submit" variant="contained" tipo="generic" margintop={10} ref={botao} onClick={logar}>
-              {!enviando && (
-                <div>Realizar login</div>
-              )}
-              {enviando && (
-                <Spinner/>
-              )}
-            </Button>
-          </Form>
-          <LinksContainer>
-            <LinksColuna>
-              <LinksRow className="leftLink">
-                <a href="../registrar">Registrar novo usuário</a>
-              </LinksRow>
-            </LinksColuna>
-            <LinksColuna>
-              <LinksRow className="rightLink">
-                <a href="../registrar">Esqueci minha senha</a>
-              </LinksRow>
-            </LinksColuna>
-          </LinksContainer>
-        </Main>
-        <Footer>
-          <div>© 2020 | Desenvolvimento: <a href="https://portal.ifba.edu.br/">IFBA</a></div>
-        </Footer>
-      </Center>
-    </Container>
+          </Header>
+          <Main>
+            <Form method="POST" name="Login">
+              <InputLogin id="matricula" placeholder="Sua Matrícula" type="text" error={erro1}
+                ref={inputMatricula} onKeyUp={onMatriculaTyped} onFocus={onFocus}>
+                <IconeError visible={erro1 ? 100 : 0} />
+              </InputLogin>
+              <InputLogin id="senha" placeholder="Sua senha" margintop={15} type="password" error={erro2}
+                ref={inputSenha} onKeyUp={onSenhaTyped} onFocus={onFocus}>
+                <IconeError visible={erro2 ? 100 : 0} />
+              </InputLogin>
+              <Button type="submit" variant="contained" tipo="generic" margintop={10} ref={botao} onClick={logar}>
+                {!enviando && (
+                  <div>Realizar login</div>
+                )}
+                {enviando && (
+                  <Spinner />
+                )}
+              </Button>
+            </Form>
+            <LinksContainer>
+              <LinksColuna>
+                <LinksRow className="leftLink">
+                  <a href="../registrar">Registrar novo usuário</a>
+                </LinksRow>
+              </LinksColuna>
+              <LinksColuna>
+                <LinksRow className="rightLink">
+                  <a onClick={() => {
+                    showPopup('recuperarSenha', {
+                      // largura: '500px'
+                      titulo: 'Lorena',
+                      teste: 'testando',
+                    })
+                    /*
+                    showPopup('recuperarSenha, {
+                      onClose: (tipo) => {
+                        
+                      }
+                    })
+                    */
+                  }}>Esqueci minha senha</a>
+                </LinksRow>
+              </LinksColuna>
+            </LinksContainer>
+          </Main>
+          <Footer>
+            <div>© 2020 | Desenvolvimento: <a href="https://portal.ifba.edu.br/">IFBA</a></div>
+          </Footer>
+        </Center>
+      </Container>
+    </>
   )
 }
 

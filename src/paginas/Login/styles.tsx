@@ -68,7 +68,7 @@ export const LinksContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 8px;
+  margin-top: 12px;
   @media (max-width: 436px) {
     flex-direction: column;
     justify-content: center;
