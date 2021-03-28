@@ -1,7 +1,31 @@
+import React, {forwardRef, InputHTMLAttributes} from 'react'
 import styled, {css} from 'styled-components'
+import MaskedInput from 'react-text-mask'
+import {Masks} from '../Mask'
 import {IInput} from '../InterfacesInput'
 
-const GenericInput = styled.input<IInput>`
+export interface HTMLInputMaskElement extends HTMLInputElement {
+  inputElement: HTMLInputElement
+}
+
+const GenericInput: React.ForwardRefRenderFunction<any, IInput> = (props, ref) => {
+  if (props.mask) {
+    const m = Masks[props.mask]
+    return (
+      <MaskedInput
+      ref={ref}
+      mask={m}
+      render={(ref, p) => (
+        <CustumInput {...props} ref={(input) => ref(input as HTMLElement)} {...p} />
+      )}
+      />
+    )
+  } else {
+    return <CustumInput spellCheck={false} ref={ref} {...props}/>
+  }
+}
+
+const CustumInput = styled.input<IInput>`
   width: ${props => props.width || '100%'};
   height: ${props => props.height || '50px'};
   font-size: ${props => props.fontSize || '18px'};
@@ -9,10 +33,11 @@ const GenericInput = styled.input<IInput>`
   background-color: white;
   color: #17161a;
   caret-color: #17161a;
-  border: ${props => props.borderSize || '2px'} solid "#98ACC9";
+  border: ${props => props.borderSize || '2px'} solid #98ACC9;
   border-radius: 2px;
   outline: none;
   overflow: hidden;
+  transition: color, border-color 200ms, opacity 250ms;
   ${({margintop}) => margintop && css`
     margin-top: ${margintop}px;
   `}
@@ -47,4 +72,5 @@ const GenericInput = styled.input<IInput>`
     display: none;
   }
 `
-export default GenericInput
+
+export default forwardRef(GenericInput)

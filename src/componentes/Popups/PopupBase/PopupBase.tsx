@@ -29,7 +29,7 @@ const PopupBase: React.FC<IPopupBase> = ({id, popup, props, zIndex}) => {
           </div>
         </Top>
         <Main>
-          <Componente {...props}/>
+          <Componente style="aa" {...props}/>
         </Main>
         <Footer>
           {!ocultarOk == false || ocultarOk == undefined && (

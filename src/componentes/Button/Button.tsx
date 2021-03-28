@@ -41,8 +41,8 @@ const colors = {
 }
 
 export interface IButton extends ButtonProps  {
-  width?: number,
-  height?: number,
+  width?: string,
+  height?: string,
   margintop?: number,
   marginbottom?: number,
   marginleft?: number,

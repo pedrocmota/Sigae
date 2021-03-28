@@ -1,16 +1,18 @@
 import React, {memo, useContext, useState, useEffect, useRef} from 'react'
-import {Redirect} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import Loading from '../../componentes/Loading/Loading'
 import Form from '../../componentes/Form/Form'
 import InputLogin from '../../componentes/inputs/InputLogin/InputLogin'
 import Button from '../../componentes/Button/Button'
+import Spinner from '../../componentes/Spinner/Spinner'
 import {APIContext} from '../../hooks/APIProvider'
 import {PopupContext} from '../../hooks/PopupProvider'
 import {useToasts} from 'react-toast-notifications'
 import {
   Container, Center, Header, Main, LinksContainer,
-  LinksColuna, LinksRow, Footer, IconeError, Spinner
+  LinksColuna, LinksRow, Footer
 } from './styles'
+import {InputErrorIcon} from '../../componentes/Icons/Icons'
 import {ReactComponent as Sigae} from '../../assets/sigae.svg'
 
 const Login: React.FC = () => {
@@ -89,42 +91,31 @@ const Login: React.FC = () => {
             <Form method="POST" name="Login">
               <InputLogin id="matricula" placeholder="Sua Matrícula" type="text" error={erro1}
                 ref={inputMatricula} onKeyUp={onMatriculaTyped} onFocus={onFocus}>
-                <IconeError visible={erro1 ? 100 : 0} />
+                <InputErrorIcon visible={erro1 ? 100 : 0} />
               </InputLogin>
               <InputLogin id="senha" placeholder="Sua senha" margintop={15} type="password" error={erro2}
                 ref={inputSenha} onKeyUp={onSenhaTyped} onFocus={onFocus}>
-                <IconeError visible={erro2 ? 100 : 0} />
+                <InputErrorIcon visible={erro2 ? 100 : 0} />
               </InputLogin>
               <Button type="submit" variant="contained" tipo="generic" margintop={10} ref={botao} onClick={logar}>
                 {!enviando && (
                   <div>Realizar login</div>
                 )}
                 {enviando && (
-                  <Spinner />
+                  <Spinner/>
                 )}
               </Button>
             </Form>
             <LinksContainer>
               <LinksColuna>
                 <LinksRow className="leftLink">
-                  <a href="../registrar">Registrar novo usuário</a>
+                  <Link to="../registrar">Registrar novo usuário</Link>
                 </LinksRow>
               </LinksColuna>
               <LinksColuna>
                 <LinksRow className="rightLink">
                   <a onClick={() => {
-                    showPopup('recuperarSenha', {
-                      // largura: '500px'
-                      titulo: 'Lorena',
-                      teste: 'testando',
-                    })
-                    /*
-                    showPopup('recuperarSenha, {
-                      onClose: (tipo) => {
-                        
-                      }
-                    })
-                    */
+                    showPopup('recuperarSenha')
                   }}>Esqueci minha senha</a>
                 </LinksRow>
               </LinksColuna>

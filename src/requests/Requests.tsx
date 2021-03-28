@@ -23,6 +23,11 @@ const Requests: IRequests = {
     //   callback(erro)
     // })
   },
+  recuperarSenha: (email: string, callback) => {
+    setTimeout(() => {
+      callback()
+    }, 1000)
+  }
 }
 
 export default Requests

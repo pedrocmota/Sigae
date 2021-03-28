@@ -66,11 +66,24 @@ export const Top = styled.div`
 `
 
 export const Main = styled.div`
+  display: flex;
   width: 100%;
   flex: 1;
   padding-left: 30px;
   padding-right: 30px;
   overflow: hidden;
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+  /* div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  } */
 `
 
 export const Footer = styled.div`

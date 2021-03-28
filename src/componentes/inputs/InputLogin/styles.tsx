@@ -47,7 +47,6 @@ export const InputLoginStyled = styled(GenericInput)<IInputLoginStyled>`
   &::placeholder {
     color: #9392b9;
   }
-  transition: color, border-color 200ms, opacity 250ms;
 `
 
 export const Placeholder = styled.div<IInputLoginStyled>`
@@ -58,7 +57,7 @@ export const Placeholder = styled.div<IInputLoginStyled>`
   left: 10px;
   padding: 0px 3px 3px 3px;
   background: linear-gradient(0deg, white, #fafafa);
-  color: #9392b9;
+  color: ${props => props.error ? '#e44a4a' : '#9392b9'};
   transition: color 200ms, opacity 250ms;
   opacity: ${props => props.visible ? 100 : 0};
 `

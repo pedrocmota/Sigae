@@ -16,7 +16,8 @@ export interface IRequests {
       token?: string,
       erro?: 'SENHA_INCORRETA' | 'USUARIO_DESCONHECIDO'
     }
-  ) => void, callbackError?: (erro: any) => void) => void
+  ) => void, callbackError?: (erro: any) => void) => void,
+  recuperarSenha: (email: string, callback: () => void, callbackError?: (erro: any) => void) => void
 }
 
 export interface IRequestError {

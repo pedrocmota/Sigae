@@ -3,7 +3,7 @@ import {Container, InputLoginStyled, Placeholder} from './styles'
 import {IInputLogin} from '../InterfacesInput'
 
 const InputLogin: React.ForwardRefRenderFunction<any, IInputLogin> = ({
-  children, margintop, marginbottom, marginleft, marginright, ...props
+  children, error, margintop, marginbottom, marginleft, marginright, ...props
 }, ref) => {
   const [visible, setVisible] = useState(false)
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,10 +17,10 @@ const InputLogin: React.ForwardRefRenderFunction<any, IInputLogin> = ({
   return (
     <Container margintop={margintop} marginbottom={marginbottom}
       marginleft={marginleft} marginright={marginright}>
-      <Placeholder visible={visible}>
+      <Placeholder visible={visible} error={error}>
         {props.placeholder}
       </Placeholder>
-      <InputLoginStyled spellCheck={false} onChange={onChange} {...props} ref={ref} />
+      <InputLoginStyled error={error} spellCheck={false} onChange={onChange} {...props} ref={ref} />
       {children}
     </Container>
   )

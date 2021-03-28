@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import ErrorIcon from '@material-ui/icons/Error'
-import {ReactComponent as SpinnerSVG} from '../../assets/spinner.svg'
 
 export const Container = styled.div`
   width: 100vw;
@@ -62,6 +60,9 @@ export const Main = styled.main`
   @media (max-width: 400px) {
     width: 85%;
   }
+  @media (max-height: 600px) {
+    margin-top: 25px;
+  }
 `
 
 export const LinksContainer = styled.div`
@@ -80,7 +81,6 @@ export const LinksContainer = styled.div`
       margin-top: 25px;
       display: inline-flex;
     }
-
   }
 `
 
@@ -148,25 +148,4 @@ export const Footer = styled.footer`
       }
     }
   }
-`
-
-interface IIconeError {
-  visible: number
-}
-
-export const IconeError = styled(ErrorIcon)<IIconeError>`
-  position: absolute;
-  width: 30px !important;
-  height: 100% !important;
-  left: 6px;
-  bottom: 1px;
-  color: crimson;
-  opacity: ${props => props.visible};
-  transition: opacity 200ms !important;
-`
-
-export const Spinner = styled(SpinnerSVG)`
-  color: white;
-  width: 30px;
-  height: 30px;
 `

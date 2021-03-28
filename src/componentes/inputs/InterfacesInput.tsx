@@ -1,4 +1,6 @@
 export interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
+  error?: boolean,
+  mask?: maskTypes,
   width?: number,
   height?: number,
   margintop?: number,
@@ -9,8 +11,13 @@ export interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
   borderSize?: number
 }
 
+export type maskTypes = 'CPF' | 'data' | 'octaCode'
+
+export type IMask = {
+  [key in maskTypes]: (string | RegExp)[];
+}
+
 export interface IInputLogin extends IInput {
-  placeholder: string,
   error?: boolean
 }
 

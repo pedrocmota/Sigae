@@ -10,7 +10,7 @@ const Popups:IPopupProps = {
     altura: '300px',
   },
   recuperarSenha: {
-    titulo: 'Recuperar sua senha',
+    titulo: 'Esqueceu sua senha?',
     componente: RecuperarSenha,
     largura: '400px',
     altura: '425px',

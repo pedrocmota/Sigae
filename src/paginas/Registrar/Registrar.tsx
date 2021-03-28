@@ -1,34 +1,37 @@
 import React, {useState} from 'react'
-import styled from 'styled-components'
-import Fade from '../../componentes/Fade/Fade'
+import Loading from '../../componentes/Loading/Loading'
+import Footer from '../../componentes/pages/Footer/Footer'
+import CodigoPage from './paginas/codigo/CodigoPage'
+import FormularioPage from './paginas/formulario/FormularioPage'
+import {Container, Top, Main, Bottom, PageContainer} from './styles'
+import {ReactComponent as Sigae} from '../../assets/sigae.svg'
 
 const Registrar: React.FC = () => {
-  const [show, setShow] = useState(false)
+  // const [pagina, setPagina] = useState<'1' | '2'>('1')
+  const [paginaCodigo, setPaginaCodigo] = useState(true)
+  const [paginaForm, setPaginaForm] = useState(false)
   return (
-    <div>
-      <button onClick={() => {
-        setShow(!show)
-      }}>
-        {show && (
-          <div>Ocultar</div>
-        )}
-        {!show && (
-          <div>Mostrar</div>
-        )}
-      </button>
-      <div style={{margin: '20px'}}>
-        <Fade visible={show}>
-          <Quadrado/>
-        </Fade>
-      </div>
-    </div>
+    <>
+      <Loading timer={300}/>
+      <Container>
+        <Top>
+          <Sigae/>
+          <h1>Registrar novo usuário</h1>
+        </Top>
+        <Main>
+          <PageContainer visible={paginaCodigo}>
+            <CodigoPage/>
+          </PageContainer>
+          <PageContainer visible={paginaForm}>
+            <FormularioPage/>
+          </PageContainer>
+        </Main>
+        <Bottom>
+          <Footer/>
+        </Bottom>
+      </Container>
+    </>
   )
 }
-
-const Quadrado = styled.div`
-  width: 300px;
-  height: 300px;
-  background-color: #7c24af;
-`
 
 export default Registrar
