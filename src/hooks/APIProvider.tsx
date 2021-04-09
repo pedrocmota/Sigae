@@ -1,8 +1,9 @@
 import React, {useState, useEffect, createContext} from 'react'
-import usePeristedState from './usestates/usePeristedState'
 import axios from 'axios'
-import isDev from '../utils/DevDetect'
+import usePeristedState from './usestates/usePeristedState'
 import Requests from '../requests/Requests'
+import {isDev, fixRoute, parseToNumber} from '../utils/Utils'
+import Crash, {ICrash} from '../componentes/pages/Crash/Crash'
 import {IMethods, IRequests} from '../requests/RequestsInterface'
 
 interface IAPIContext {
@@ -11,8 +12,8 @@ interface IAPIContext {
   setToken: Function,
   isAuth: () => boolean,
   resetAuth: () => void,
-  apiError: boolean,
-  setAPIError: React.Dispatch<React.SetStateAction<boolean>>,
+  // apiError: number,
+  // setAPIError: React.Dispatch<React.SetStateAction<number>>,
   Requests: IRequests
 }
 
@@ -23,7 +24,7 @@ export let Methods:IMethods
 export const APIProvider: React.FC = (props) => {
   const [token, setToken] = usePeristedState('token', '')
   const [endereco, setEndereco] = useState('')
-  const [apiError, setAPIError] = useState(false)
+  const [crash, setCrash] = useState<ICrash | null>(null)
   useEffect(() => {
     const loading = async() => {
       const adress = isDev() ? '/api.adress.json' : '/public/api.adress.json'
@@ -36,74 +37,69 @@ export const APIProvider: React.FC = (props) => {
   const isAuth = () => {
     return token.length > 0
   }
+
   const resetAuth = () => {
     return setToken('')
   }
 
   Methods = {
     post: async (route, data, auth, callbackOk, callbackError) => {
-      if (!route.startsWith('/')) route = `/${route}`
-      axios.post(`${endereco}${route}`, data, {
+      axios.post(`${endereco}${fixRoute(route)}`, data, {
         headers: {
           'token': auth ? token : null
         }
       }).then((resposta: any) => {
-        if(resposta.data.tokenErro == undefined) {
+        const code = resposta.headers.statuscode
+        if(code == undefined) {
           callbackOk(resposta.data)
         } else {
-          if(callbackError != undefined) callbackError(null)
-          requestError(null)
+          if(callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
-        requestError(erro)
+        crashApp(erro.response)
       })
     },
     
     get: async (route, data, auth, callbackOk, callbackError) => {
-      if (!route.startsWith('/')) route = `/${route}`
-      axios.get(`${endereco}${route}`, {
+      axios.get(`${endereco}${fixRoute(route)}`, {
         params: data,
         headers: {
           'token': auth ? token : null
         }
       }).then((resposta:any) => {
-        if(resposta.data.tokenErro == undefined) {
+        const code = resposta.headers.statuscode
+        if(code == undefined) {
           callbackOk(resposta.data)
         } else {
-          if(callbackError != undefined) callbackError(null)
-          requestError(null)
+          if(callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
-        requestError(erro)
+        crashApp(erro.response)
       })
-    },
-
-    put: async (route, data, auth, callbackOk, callbackError) => {
-      if (!route.startsWith('/')) route = `/${route}`
-      axios.put(`${endereco}${route}`, data, {
-        headers: {
-          'token': auth ? token : null
-        }
-      }).then((resposta: any) => {
-        if(resposta.data.tokenErro == undefined) {
-          callbackOk(resposta.data)
-        } else {
-          if(callbackError != undefined) callbackError(null)
-          requestError(null)
-        }
-      }).catch((erro) => {
-        requestError(erro)
-      })
-    },
+    }
   }
 
-  const requestError = (erro: any) => {
-    
+  const crashApp = (erro: any) => {
+    if(erro == undefined) {
+      return setCrash({statusCode: '404', texto: 'Não foi possível contatar a API'})
+    }
+    if(typeof erro.data == 'object') {
+      const dataString = Object.entries(erro.data)[0][1] as any
+      setCrash({statusCode: erro.status, texto: dataString})
+    } else {
+      return setCrash({statusCode: erro.status, texto: erro.data})
+    }
+  }
+
+  if(crash != null) {
+    return (
+      <Crash statusCode={crash.statusCode} texto={crash.texto}/>
+    )
   }
 
   return (
     <APIContext.Provider value={{
-      endereco, token, setToken, apiError, setAPIError, isAuth, resetAuth, Requests
+      endereco, token, setToken, isAuth, resetAuth, Requests
     }}>
       {props.children}
     </APIContext.Provider>

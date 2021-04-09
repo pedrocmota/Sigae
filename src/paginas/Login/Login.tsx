@@ -54,20 +54,27 @@ const Login: React.FC = () => {
     }
     if (matricula.length > 0 && senha.length > 0 && !enviando) {
       setEnviando(true)
-      Requests.logar(matricula, senha, (param) => {
+      Requests.session.logar(matricula, senha, (param) => {
+        setToken(param.token)
+        setRedirect(true)
+      }, (param) => {
         setEnviando(false)
-        if (param.erro == 'USUARIO_DESCONHECIDO') {
-          addToast('Usuário não encontrado', {appearance: 'error'})
+        if(param?.erro == 'USUARIO_DESCONHECIDO') {
+          return addToast('Matrícula não encontrada', {appearance: 'error'})
         }
-        if (param.erro == 'SENHA_INCORRETA') {
-          addToast('Senha incorreta', {appearance: 'error'})
+        if(param?.erro == 'SENHA_INCORRETA') {
+          return addToast('A senha digitada está incorreta', {appearance: 'error'})
         }
-        if (param.token) {
-          setToken(param.token)
-          setRedirect(true)
+        if(param?.erro == 'CONTA_NAO_REGISTRADA') {
+          return addToast('Esta matrícula ainda não foi registrada', {appearance: 'error'})
         }
-      }, () => {
-        setEnviando(false)
+        if(param?.erro == 'CONTA_ESPERANDO_VALIDACAO') {
+          return
+        }
+        if(param?.erro == 'ESTADO_DA_CONTA_DESCONHECIDO') {
+          return addToast('Esta matrícula está com estado desconhecido. Isso é um erro!', {appearance: 'error'})
+        }
+        return addToast('Erro não previsto', {appearance: 'error'})
       })
     }
   }

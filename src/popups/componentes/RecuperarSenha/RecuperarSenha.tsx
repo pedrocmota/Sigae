@@ -4,7 +4,7 @@ import Button from '../../../componentes/Button/Button'
 import Spinner from '../../../componentes/Spinner/Spinner'
 import Banner from '../../../componentes/Banner/Banner'
 import {APIContext} from '../../../hooks/APIProvider'
-import {RegexUtils} from '../../../utils/Utils'
+import {validarEmail} from '../../../utils/Validar'
 import {Container, CustumInputLogin} from './styles'
 import {InputErrorIcon} from '../../../componentes/Icons/Icons'
 
@@ -19,11 +19,13 @@ const RecuperarSenha: React.FC = () => {
     const email = input.current!.value
     if (email.length <= 0) return setErro(true)
     setShowBanner(false)
-    if(RegexUtils.validEmail(email)) {
+    if(validarEmail(email)) {
       setEnviando(true)
-      Requests.recuperarSenha(email, () => {
-        setEnviando(false)
-        setShowBanner(true)
+      Requests.session.recuperarSenha(email, (param) => {
+        if(param.retorno == 'OK') {
+          setEnviando(false)
+          setShowBanner(true)
+        }
       }, () => {
         setEnviando(false)
       })

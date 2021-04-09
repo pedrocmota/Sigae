@@ -4,8 +4,9 @@ import Form from '../.././../../componentes/Form/Form'
 import Button from '../../../../componentes/Button/Button'
 import Spinner from '../../../../componentes/Spinner/Spinner'
 import {Container, InputContainer, CustumInputText} from './styles'
+import {IRegistroProps} from '../../../../types/Registrar'
 
-const CodigoPage: React.FC = () => {
+const CodigoPage: React.FC<IRegistroProps> = ({setDados}) => {
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState(false)
   const inputCodigo = useRef<HTMLInputMaskElement | null>(null)
