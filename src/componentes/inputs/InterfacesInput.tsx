@@ -1,8 +1,8 @@
 export interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: boolean,
   mask?: maskTypes,
-  width?: number,
-  height?: number,
+  width?: string,
+  height?: string,
   margintop?: number,
   marginbottom?: number,
   marginleft?: number,

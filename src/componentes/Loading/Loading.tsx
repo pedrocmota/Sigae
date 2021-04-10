@@ -10,9 +10,12 @@ interface ILoading {
 const Loading: React.FC<ILoading> = (props) => {
   const [visible, setVisible] = useState(true)
   useEffect(() => {
-    setTimeout(() => {
+    const counter = setTimeout(() => {
       setVisible(false)
     }, props.timer)
+    return () => {
+      clearTimeout(counter)
+    }
   }, [])
   return (
     <Fade visible={visible} timer={500} style={{

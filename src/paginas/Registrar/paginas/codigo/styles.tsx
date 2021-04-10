@@ -19,16 +19,3 @@ export const InputContainer = styled.div`
     width: 300px;
   }
 `
-
-export const CustumInputText = styled(InputText)`
-  text-align: center;
-  font-family: 'courier';
-  &::placeholder {
-    font-family: 'Arial';
-    font-size: 17px;
-  }
-  &:-webkit-autofill::first-line {
-    font-family: 'courier' !important;
-    font-size: 18px !important;
-  }
-`

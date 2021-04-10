@@ -50,6 +50,9 @@ const CustumInput = styled.input<IInput>`
   ${({marginright}) => marginright && css`
     margin-right: ${marginright}px;
   `}
+  &:hover {
+    border-color: #7b91b3 !important;
+  }
   &:focus {
     border-color: #5B66B9 !important;
   }
@@ -62,7 +65,7 @@ const CustumInput = styled.input<IInput>`
     box-shadow: 0 0 0 50px white inset;
     -webkit-box-shadow: 0 0 0 50px white inset;
     -webkit-text-fill-color: #17161a;
-  }  
+  }
   &:-webkit-autofill::first-line {
     font-family: Arial !important;
     font-size: 18px !important;

@@ -8,6 +8,14 @@ const GlobalStyle = createGlobalStyle`
     transition: background-color 200ms, color 200ms;
   }
 
+  @font-face {
+    font-family: 'Fira Code';
+    src: url('../assets/fontes/FiraCode-Regular.woff2') format('woff2'),
+      url("../assets/fontes/FiraCode-Regular.woff2") format("woff");
+    font-weight: 400;
+    font-style: normal;
+  }
+  
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

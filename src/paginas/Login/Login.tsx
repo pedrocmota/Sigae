@@ -1,4 +1,4 @@
-import React, {memo, useContext, useState, useEffect, useRef} from 'react'
+import React, {memo, useContext, useState, useRef} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import Loading from '../../componentes/Loading/Loading'
 import Form from '../../componentes/Form/Form'

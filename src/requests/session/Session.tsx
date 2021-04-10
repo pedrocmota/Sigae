@@ -13,7 +13,7 @@ const Requests: ISessionRequest = {
     })
   },
 
-  recuperarSenha: (email: string, callback, callbackError) => {
+  recuperarSenha: (email, callback, callbackError) => {
     Methods.post('/mail/codigo/recuperarSenha/email', {
       email: email
     }, true, (resposta) => {
