@@ -6,6 +6,7 @@ import Button from '../../../../componentes/Button/Button'
 import Spinner from '../../../../componentes/Spinner/Spinner'
 import {RegistrarContext} from '../../Registrar'
 import Parse from '../../../../utils/Parse'
+import Validador from './components/Validador'
 import {Container, Info, Row, Form} from './styles'
 import {
   Person as PersonIcon,
@@ -17,7 +18,6 @@ import {
 
 interface IFormularioPageContext {
   valido: boolean, setValido: React.Dispatch<React.SetStateAction<boolean>>,
-  turmas: String[], setTurmas: React.Dispatch<React.SetStateAction<String[]>>,
   enviando: boolean, setEnviando: React.Dispatch<React.SetStateAction<boolean>>,
   inputNome: React.RefObject<HTMLInputElement>,
   inputCurso: React.RefObject<HTMLInputElement>,
@@ -27,14 +27,10 @@ interface IFormularioPageContext {
   inputSenha1: React.RefObject<HTMLInputElement>,
   inputSenha2: React.RefObject<HTMLInputElement>,
   button: React.RefObject<HTMLButtonElement>,
-  inputNomeErro: boolean, setInputNomeErro: React.Dispatch<React.SetStateAction<boolean>>,
-  inputCursoErro: boolean, setInputCursoErro: React.Dispatch<React.SetStateAction<boolean>>,
-  inputTurmaErro: boolean, setInputTurmaErro: React.Dispatch<React.SetStateAction<boolean>>,
-  inputDisciplinaErro: boolean, setInputDisciplinaErro: React.Dispatch<React.SetStateAction<boolean>>,
+  turmas: String[], setTurmas: React.Dispatch<React.SetStateAction<String[]>>,
   inputEmailErro: boolean, setInputEmailErro: React.Dispatch<React.SetStateAction<boolean>>,
   inputSenha1Erro: boolean, setInputSenha1Erro: React.Dispatch<React.SetStateAction<boolean>>,
   inputSenha2Erro: boolean, setInputSenha2Erro: React.Dispatch<React.SetStateAction<boolean>>,
-  inputEmailErroTexto: boolean, setInputEmailErroTexto: React.Dispatch<React.SetStateAction<boolean>>,
   popupSenhaOpen: boolean, setPopupSenhaOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -70,23 +66,19 @@ export const FormularioPage: React.FC = () => {
   return (
     <FormularioPageContext.Provider value={{
       valido, setValido,
-      turmas, setTurmas,
       enviando, setEnviando,
       inputNome, inputCurso,
       inputTurma, inputDisciplina,
       inputEmail, inputSenha1,
       inputSenha2, button,
-      inputNomeErro, setInputNomeErro,
-      inputCursoErro, setInputCursoErro,
-      inputTurmaErro, setInputTurmaErro,
-      inputDisciplinaErro, setInputDisciplinaErro,
+      turmas, setTurmas,
       inputEmailErro, setInputEmailErro,
       inputSenha1Erro, setInputSenha1Erro,
       inputSenha2Erro, setInputSenha2Erro,
-      inputEmailErroTexto, setInputEmailErroTexto,
       popupSenhaOpen, setPopupSenhaOpen
     }}>
       <Container>
+        <Validador/>
         <Info>
           <div className="nome">
             {dados.nome}
