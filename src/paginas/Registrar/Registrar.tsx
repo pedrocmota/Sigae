@@ -2,7 +2,7 @@ import React, {useState, createContext, memo} from 'react'
 import Loading from '../../componentes/Loading/Loading'
 import Footer from '../../componentes/pages/Footer/Footer'
 import CodigoPage from './paginas/codigo/CodigoPage'
-import FormularioPage from './paginas/formulario/FormularioPage'
+import {FormularioPage} from './paginas/formulario/FormularioPage'
 import Parse from '../../utils/Parse'
 import {Container, Top, Main, Bottom, PageContainer} from './styles'
 import {ReactComponent as Sigae} from '../../assets/sigae.svg'
@@ -26,7 +26,7 @@ export const RegistrarProvider: React.FC = (props) => {
     setDados(dados)
     setPaginaCodigo(false)
     setHeader(
-      `Dados do ${Parse.tipo(dados?.tipo)}:`
+      `Dados do ${Parse.tipo(dados?.tipo, false)}:`
     )
     setTimeout(() => {
       setPaginaForm(true)

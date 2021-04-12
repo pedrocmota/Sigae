@@ -56,6 +56,9 @@ const CustumInput = styled.input<IInput>`
   &:focus {
     border-color: #5B66B9 !important;
   }
+  &:disabled {
+    background-color: #e4dfdf;
+  }
   &:-webkit-autofill {
     box-shadow:0 0 0 50px white inset;
     -webkit-box-shadow:0 0 0 50px white inset;

@@ -5,6 +5,6 @@ export interface IDadosRegistro {
   matricula: string,
   campus: string,
   tipo: tiposUsuario,
-  turmas?: IListaCursoTurmas[],
+  turmas?: IListaCursoTurmas,
   disciplinas?: string[]
 }

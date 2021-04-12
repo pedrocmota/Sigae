@@ -70,6 +70,18 @@ const GlobalStyle = createGlobalStyle`
   .popup_opacity {
     opacity: 0.05
   }
+
+  .fixedPopper {
+    ul {
+      .MuiAutocomplete-option[data-focus="true"] {
+        background-color: rgba(0, 0, 0, 0.055);
+      }
+      .MuiAutocomplete-option[aria-selected="true"] {
+        background-color: #5C67BC !important;
+        color: white !important;
+      }
+    }
+  }
 `
 
 export default GlobalStyle
