@@ -11,6 +11,9 @@ export const Button = styled(MaterialUIButton)<IButton>`
   &:hover {
     background-color: ${props => colors[props.tipo].background};
   }
+  &:disabled {
+    background-color: ${props => colors[props.tipo].disabled} !important;
+  }
   ${({margintop}) => margintop && css`
     margin-top: ${margintop}px !important;
   `}
@@ -28,15 +31,18 @@ export const Button = styled(MaterialUIButton)<IButton>`
 const colors = {
   generic: {
     background: '#5b7192',
-    foreground: '#ffffff'
+    foreground: '#ffffff',
+    disabled: '#a3a9b3',
   },
   success: {
     background: '#50aa5d',
-    foreground: '#fffffff'
+    foreground: '#fffffff',
+    disabled: '#c9cdd4',
   },
   error: {
     background: '#d1425d',
-    foreground: '#fffffff'
+    foreground: '#fffffff',
+    disabled: '#c9cdd4',
   },
 }
 

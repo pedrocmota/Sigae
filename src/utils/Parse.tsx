@@ -27,16 +27,6 @@ const Parse = {
       array.push(curso)
     })
     return array
-  },
-
-  selectSingleOptions: (array: string[]) => {
-    const returnArray:object[] = []
-    array.forEach(el => {
-      returnArray.push({
-        value: el
-      })
-    })
-    return returnArray
   }
 }
 

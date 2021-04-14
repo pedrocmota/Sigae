@@ -1,12 +1,16 @@
-import React, {forwardRef} from 'react'
-import Autocomplete, {AutocompleteProps} from '@material-ui/lab/Autocomplete'
+import React, {forwardRef, useRef} from 'react'
+import Autocomplete from '@material-ui/lab/Autocomplete'
 import InputText from '../../../componentes/inputs/InputText/InputText'
 import RootRef from '@material-ui/core/RootRef'
+import {converter, createPlaceholder} from '../SelectFunctions'
+import {Container} from './styles'
 
 interface IBasicSelect {
   placeholder: string,
-  options: object,
-  onChange?: (event: React.ChangeEvent<{}>, value: object | null) => void,
+  options: any,
+  multiple?: boolean,
+  disabled?: boolean,
+  onChange?: (obj: any, event?: React.ChangeEvent<{}>) => void,
   input?: {
     width?: string,
     height?: string,
@@ -14,47 +18,52 @@ interface IBasicSelect {
     marginbottom?: number,
     marginleft?: number,
     marginright?: number
-  },
-  disabled?: boolean
+  }
 }
+
+export interface IOptions {
+  valor: string,
+  grupo?: string
+}
+
 const BasicSelect: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect> = ({
   input, options, onChange, ...props}, ref) => {
-  const defaultRef = React.useRef()
-  const values = converter(options)
+  const selecionados = useRef(0)
   return (
     <Autocomplete
-      options={values}
-      getOptionLabel={(option: any) => option.value}
+      options={converter(options) as IOptions[]}
       noOptionsText="Nada encontrado"
+      getOptionLabel={(option: any) => option.valor}
+      groupBy={(option: any) => option.grupo}
+      getOptionSelected={(option, value) => {
+        return option.valor === value.valor
+      }}
+      onChange={(ev, value) => {
+        if (Array.isArray(value)) {
+          selecionados.current = value.length
+        }
+        if (onChange != undefined) onChange(value, ev)
+      }}
       classes={{
         paper: 'fixedPopper',
         input: 'input'
       }}
-      {...props}
       renderInput={params => (
-        <div ref={params.InputProps.ref}>
-          <RootRef rootRef={ref != null ? ref : defaultRef}>
+        <Container ref={params.InputProps.ref}>
+          <RootRef rootRef={ref != null ? ref : React.useRef()}>
             <InputText {...params.inputProps} autoFocus
-              placeholder={props.placeholder} {...input} />
+              placeholder={createPlaceholder(
+                props.placeholder,
+                selecionados.current,
+                props.multiple
+                )} {...input}
+              {...(props.disabled ? {value: ''} : {})} />
           </RootRef>
-        </div>
+        </Container>
       )}
+      {...props}
     />
   )
 }
 
 export default forwardRef(BasicSelect)
-
-const converter = (obj: object) => {
-  if(Array.isArray(obj)) {
-    const array = obj as String[]
-    const returnArray:object[] = []
-    array.forEach(el => {
-      returnArray.push({
-        value: el
-      })
-    })
-    return returnArray
-  }
-  return {} as object[]
-}
