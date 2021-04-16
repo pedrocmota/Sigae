@@ -12,3 +12,25 @@ export const parseToNumber = (str: any) => {
   const n = parseInt(str)
   return n == NaN ? -1 : n
 }
+
+export const numbersOfTrues = (...args: boolean[]) => {
+  let n = 0
+  args.forEach((el) => {
+    if(el) n++
+  })
+  return n
+}
+
+export const getRefValue = <T extends unknown>(ref: React.RefObject<T>) => {
+  const current = ref.current
+  if(current == null || current == undefined) return ''
+  const value = (current as any).value
+  if(value == null || value == undefined) return ''
+  return value as string
+}
+
+export const getArrayValue = <T extends unknown>(ref: React.RefObject<T>) => {
+  const current = ref.current
+  if(current == null || current == undefined) return [] as T
+  return current as T
+}

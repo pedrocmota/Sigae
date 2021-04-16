@@ -1,7 +1,10 @@
 import {IDadosRegistro} from '../../../../../types/Registrar'
 import {IOptions} from '../../../../../componentes/selects/BasicSelect/BasicSelect'
+import {validarEmail} from '../../../../../utils/Validar'
+import {Senha} from '../../../../../utils/Senha'
+import {getRefValue, getArrayValue} from '../../../../../utils/Utils'
 
-interface IValidadorProps {
+export interface IValidadorProps {
   dados: IDadosRegistro,
   valido: boolean, setValido: React.Dispatch<React.SetStateAction<boolean>>,
   enviando: boolean, setEnviando: React.Dispatch<React.SetStateAction<boolean>>,
@@ -21,5 +24,38 @@ interface IValidadorProps {
 }
 
 export const validar = (props: IValidadorProps) => {
-  
-}
+  const email = getRefValue(props.inputEmail)
+  const senha1 = getRefValue(props.inputSenha1)
+  const senha2 = getRefValue(props.inputSenha2)
+  const senhaValida = Senha.calcularForcaSenha(senha1).valido
+
+  const emailErro = email.length > 0 && !validarEmail(email)
+  props.setInputEmailErro(emailErro)
+  const senha1Erro = senha1.length > 0 && !senhaValida
+  props.setInputSenha1Erro(senha1Erro)
+  const senha2Erro = (senha2.length > 0 && senha1.length > 0) && senha1 != senha2
+  props.setInputSenha2Erro(senha2Erro)
+
+  const nomeValido = getRefValue(props.inputNome).length > 0
+  const emailValido = email.length > 0 && !emailErro
+  const senha1Valido = senha1.length > 0 && !senha1Erro
+  const senha2Valido = senha2.length > 0 && !senha2Erro
+
+  const tipoValido = () => {
+    if(props.dados.tipo == 'DISCENTE') {
+      const cursoValido = getRefValue(props.inputCurso).length > 0
+      const turmaValido = getRefValue(props.inputTurma).length > 0
+      return cursoValido && turmaValido
+    }
+    if(props.dados.tipo == 'DOCENTE') {
+      console.log(getArrayValue<IOptions[]>(props.inputDisciplina))
+      const disciValido = getArrayValue<IOptions[]>(props.inputDisciplina).length > 0
+      return disciValido
+    }
+    return true
+  }
+
+  props.setValido(
+    emailValido && senha1Valido && senha2Valido && nomeValido && tipoValido
+  )
+} 

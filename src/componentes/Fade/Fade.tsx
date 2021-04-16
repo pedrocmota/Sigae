@@ -2,7 +2,7 @@ import React, {useRef, useEffect} from 'react'
 import $ from 'jquery'
 import useDidMountEffect from '../../hooks/useeffects/useDidMountEffect'
 
-interface IFade {
+export interface IFade {
   visible: boolean,
   timer?: number,
   style?: React.CSSProperties | undefined,

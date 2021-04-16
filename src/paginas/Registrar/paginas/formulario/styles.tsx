@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import FormStyled from '../../../../componentes/Form/Form'
+import Fade from '../../../../componentes/Fade/Fade'
 
 export const Container = styled.div`
   display: flex;
@@ -50,24 +51,19 @@ export const Row = styled.div`
   margin-bottom: 25px;
 `
 
-export const Banner = styled.div`
-  width: 100%;
-  min-height: 100px;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #546274;
-  color: white;
-  .inLine {
-    display: flex;
-    word-break: break-word;
-    span {
-      display: flex;
-      align-items: center;
-      margin-left: 6px;
-      font-size: 18px;
-    }
-  }
-  .conteudo {
-    margin-left: 5px;
-  }
+export const InputContainer = styled.div`
+  position: relative;
+`
+
+interface IAlerta {
+  visible: boolean
+}
+
+export const Alerta = styled.div<IAlerta>`
+  font-size: 17px;
+  color: crimson;
+  margin-top: 10px;
+  padding-left: 5px;
+  transition: opacity 200ms;
+  opacity: ${props => props.visible ? '100%' : '0%'};
 `
