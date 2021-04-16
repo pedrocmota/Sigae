@@ -42,14 +42,16 @@ const BasicSelect: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect
         if (Array.isArray(value)) {
           selecionados.current = value.length
         }
-        if (onChange != undefined) onChange(value, ev)
+        setTimeout(() => {
+          if (onChange != undefined) onChange(value, ev)
+        }, 50)
       }}
       classes={{
         paper: 'fixedPopper',
         input: 'input'
       }}
       renderInput={params => (
-        <Container ref={params.InputProps.ref}>
+        <div ref={params.InputProps.ref}>
           <RootRef rootRef={ref != null ? ref : React.useRef()}>
             <InputText {...params.inputProps} autoFocus
               placeholder={createPlaceholder(
@@ -59,7 +61,7 @@ const BasicSelect: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect
                 )} {...input}
               {...(props.disabled ? {value: ''} : {})} />
           </RootRef>
-        </Container>
+        </div>
       )}
       {...props}
     />

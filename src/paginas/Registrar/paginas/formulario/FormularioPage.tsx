@@ -1,5 +1,5 @@
 import React, {useState, useRef, useContext} from 'react'
-import Banner from './components/Banner'
+import Banner from './componentes/Banner'
 import BasicSelect, {IOptions} from '../../../../componentes/selects/BasicSelect/BasicSelect'
 import InputText from '../../../../componentes/inputs/InputText/InputText'
 import Button from '../../../../componentes/Button/Button'
@@ -7,7 +7,7 @@ import Spinner from '../../../../componentes/Spinner/Spinner'
 import PopupSenha from '../../../../componentes/PopupSenha/PopupSenha'
 import {RegistrarContext} from '../../Registrar'
 import Parse from '../../../../utils/Parse'
-import {validar, IValidadorProps} from './components/Validador'
+import {validar, IValidadorProps} from './componentes/Validador'
 import {Container, Info, Row, Form, InputContainer, Alerta} from './styles'
 import {
   Person as PersonIcon,
@@ -42,7 +42,6 @@ export const FormularioPage: React.FC = () => {
   const dadosValidar: IValidadorProps = {
     dados: dados,
     valido: valido, setValido: setValido,
-    enviando: enviando, setEnviando: setEnviando,
     inputNome: inputNome,
     inputCurso: inputCurso,
     inputTurma: inputTurma,
@@ -50,12 +49,9 @@ export const FormularioPage: React.FC = () => {
     inputEmail: inputEmail,
     inputSenha1: inputSenha1,
     inputSenha2: inputSenha2,
-    button: button,
-    turmas: turmas, setTurmas: setTurmas,
     inputEmailErro: inputEmailErro, setInputEmailErro: setInputEmailErro,
     inputSenha1Erro: inputSenha1Erro, setInputSenha1Erro: setInputSenha1Erro,
-    inputSenha2Erro: inputSenha2Erro, setInputSenha2Erro: setInputSenha2Erro,
-    popupSenhaOpen: popupSenhaOpen, setPopupSenhaOpen: setPopupSenhaOpen
+    inputSenha2Erro: inputSenha2Erro, setInputSenha2Erro: setInputSenha2Erro
   }
   return (
     <Container>
@@ -80,7 +76,7 @@ export const FormularioPage: React.FC = () => {
             }>
           </Banner>
           <BasicSelect placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)}
-            input={{height: '40px', margintop: 12}} ref={inputNome} onChange={(val) => {
+            disabled={enviando} input={{height: '40px', margintop: 12}} ref={inputNome} onChange={() => {
               validar(dadosValidar)
             }} />
         </Row>
@@ -95,7 +91,7 @@ export const FormularioPage: React.FC = () => {
                 }>
               </Banner>
               <BasicSelect placeholder="Escolha seu curso" options={Parse.cursos(dados.turmas as any)}
-                ref={inputCurso} input={{height: '40px', margintop: 12}} onChange={(obj) => {
+                disabled={enviando} ref={inputCurso} input={{height: '40px', margintop: 12}} onChange={(obj) => {
                   if (obj != null && obj != undefined) {
                     const valor = obj.valor
                     const turmas = dados.turmas![valor]
@@ -131,7 +127,7 @@ export const FormularioPage: React.FC = () => {
               }>
             </Banner>
             <BasicSelect placeholder="Escolha sua disciplina" options={dados.disciplinas} multiple
-              input={{height: '40px', margintop: 12}} onChange={(obj) => {
+              disabled={enviando} input={{height: '40px', margintop: 12}} onChange={(obj) => {
                 inputDisciplina.current = obj
                 validar(dadosValidar)
               }} />
@@ -146,7 +142,7 @@ export const FormularioPage: React.FC = () => {
             }>
           </Banner>
           <InputText id="emailRegistro" type="email" placeholder="Digite seu Email" ref={inputEmail}
-            error={inputEmailErro} margintop={12} height={'40px'} onChange={() => {
+            disabled={enviando} error={inputEmailErro} margintop={12} height={'40px'} onChange={() => {
               validar(dadosValidar)
             }} />
         </Row>
@@ -163,7 +159,7 @@ export const FormularioPage: React.FC = () => {
             }>
           </Banner>
           <InputContainer>
-            <InputText id="password1" type="password" placeholder="Digite sua senha"
+            <InputText id="password1" type="password" placeholder="Digite sua senha" disabled={enviando}
               error={inputSenha1Erro} margintop={12} height={'40px'} ref={inputSenha1} onChange={() => {
                 if (inputSenha1?.current?.value != undefined) {
                   const senha = inputSenha1.current.value
@@ -178,8 +174,8 @@ export const FormularioPage: React.FC = () => {
               }} />
             <PopupSenha visible={popupSenhaOpen} senha={senha} timer={200} />
           </InputContainer>
-          <InputText id="password2" type="password" placeholder="Repita sua senha"
-              error={inputSenha2Erro} margintop={12} height={'40px'} ref={inputSenha2} onChange={() => {
+          <InputText id="password2" type="password" placeholder="Repita sua senha" disabled={enviando}
+            error={inputSenha2Erro} margintop={12} height={'40px'} ref={inputSenha2} onChange={() => {
               validar(dadosValidar)
             }} />
           <Alerta visible={inputSenha2Erro}>
