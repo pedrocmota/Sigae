@@ -1,3 +1,5 @@
+import {IOptions} from '../componentes/selects/BasicSelect/BasicSelect'
+
 export function isDev() {
   const development = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
   return development
@@ -33,4 +35,12 @@ export const getArrayValue = <T extends unknown>(ref: React.RefObject<T>) => {
   const current = ref.current
   if(current == null || current == undefined) return [] as T
   return current as T
+}
+
+export const iOptionsToStringArray = (options: IOptions[]) => {
+  const stringArray = [] as string[]
+  options.forEach(element => {
+    stringArray.push(element.valor)
+  })
+  return stringArray
 }

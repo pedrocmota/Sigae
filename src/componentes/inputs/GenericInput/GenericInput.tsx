@@ -57,7 +57,15 @@ const CustumInput = styled.input<IInput>`
     border-color: #5B66B9 !important;
   }
   &:disabled {
-    background-color: #e4dfdf;
+    background-color: #e4dfdf !important;
+    &:-webkit-autofill {
+      box-shadow:0 0 0 50px #e4dfdf inset;
+      -webkit-box-shadow:0 0 0 50px #e4dfdf inset;
+    }
+    &:-webkit-autofill:focus {
+      box-shadow: 0 0 0 50px #e4dfdf inset;
+      -webkit-box-shadow: 0 0 0 50px #e4dfdf inset;
+    }
   }
   &:-webkit-autofill {
     box-shadow:0 0 0 50px white inset;

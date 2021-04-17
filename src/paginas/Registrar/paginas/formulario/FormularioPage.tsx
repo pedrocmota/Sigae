@@ -8,6 +8,8 @@ import PopupSenha from '../../../../componentes/PopupSenha/PopupSenha'
 import {RegistrarContext} from '../../Registrar'
 import Parse from '../../../../utils/Parse'
 import {validar, IValidadorProps} from './componentes/Validador'
+import {enviar, IEnvio} from './componentes/Envio'
+import {iOptionsToStringArray} from '../../../../utils/Utils'
 import {Container, Info, Row, Form, InputContainer, Alerta} from './styles'
 import {
   Person as PersonIcon,
@@ -19,7 +21,7 @@ import {
 } from '@material-ui/icons'
 
 export const FormularioPage: React.FC = () => {
-  const {dados} = useContext(RegistrarContext)
+  const {codigo, dados} = useContext(RegistrarContext)
   const [valido, setValido] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [turmas, setTurmas] = useState<String[]>([])
@@ -111,7 +113,8 @@ export const FormularioPage: React.FC = () => {
                 }>
               </Banner>
               <BasicSelect placeholder="Escolha sua turma" options={turmas} ref={inputTurma}
-                disabled={turmas.length == 0} input={{height: '40px', margintop: 12}} onChange={() => {
+                disabled={turmas.length == 0 || enviando} input={{height: '40px', margintop: 12}} 
+                onChange={() => {
                   validar(dadosValidar)
                 }} />
             </Row>
@@ -183,7 +186,28 @@ export const FormularioPage: React.FC = () => {
           </Alerta>
         </Row>
         <Button type="submit" variant="contained" tipo="generic"
-          disabled={!valido} margintop={10} marginbottom={20} ref={button}>
+          disabled={!valido} margintop={10} marginbottom={20} ref={button}
+          onClick={() => {
+            if(!enviando) {
+              const dadosEnvio:IEnvio = {
+                codigo: codigo,
+                nomePreferencial: inputNome?.current?.value as string,
+                email: inputEmail?.current?.value as string,
+                senha: inputSenha1?.current?.value as string,
+              }
+              if(dados.tipo == 'DISCENTE') {
+                dadosEnvio.curso = inputCurso?.current?.value as string
+                dadosEnvio.turma = inputTurma?.current?.value as string
+              }
+              if(dados.tipo == 'DOCENTE') {
+                dadosEnvio.disciplinas = iOptionsToStringArray(inputDisciplina.current)
+              }
+              setEnviando(true)
+              enviar(dadosEnvio, (sucesso) => {
+
+              })
+            }
+          }}>
           {!enviando && (
             <div>Finalizar inscrição</div>
           )}

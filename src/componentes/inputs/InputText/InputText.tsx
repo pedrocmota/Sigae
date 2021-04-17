@@ -6,7 +6,6 @@ const InputText = styled(GenericInput)<IInput>`
   height: ${props => props.height || '35px'};
   border: ${props => props.borderSize || '2px'} solid black;
   border-color: #6985af;
-  /* border-color: ${props => props.error ? '#e44a4a' : '#6985af'}; */
   border-radius: 3px;
   padding-left: 10px;
   padding-right: 10px;

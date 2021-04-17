@@ -11,6 +11,8 @@ import {IDadosRegistro} from '../../types/Registrar'
 interface IRegistrarContext {
   dados: IDadosRegistro | undefined,
   setDados: React.Dispatch<React.SetStateAction<IDadosRegistro | undefined>>,
+  codigo: string,
+  setCodigo: React.Dispatch<React.SetStateAction<string>>,
   irParaForm: (dados: IDadosRegistro) => void
 }
 
@@ -20,6 +22,7 @@ export const RegistrarProvider: React.FC = (props) => {
   const [paginaCodigo, setPaginaCodigo] = useState(true)
   const [paginaForm, setPaginaForm] = useState(false)
   const [header, setHeader] = useState('Registrar novo usuário')
+  const [codigo, setCodigo] = useState('')
   const [dados, setDados] = useState<IDadosRegistro>()
 
   const irParaForm = (dados: IDadosRegistro) => {
@@ -34,7 +37,7 @@ export const RegistrarProvider: React.FC = (props) => {
   }
   return (
     <RegistrarContext.Provider value={{
-      dados, setDados, irParaForm
+      dados, codigo, setCodigo, setDados, irParaForm
     }}>
       <>
         <Loading timer={300} />

@@ -10,7 +10,7 @@ import {HTMLInputMaskElement} from '../../../../componentes/inputs/GenericInput/
 import {Container, InputContainer} from './styles'
 
 const CodigoPage: React.FC = () => {
-  const {irParaForm} = useContext(RegistrarContext)
+  const {setCodigo, irParaForm} = useContext(RegistrarContext)
   const {Requests} = useContext(APIContext)
   const {addToast} = useToasts()
   const [enviando, setEnviando] = useState(false)
@@ -22,6 +22,7 @@ const CodigoPage: React.FC = () => {
       setEnviando(true)
       Requests.registro.getDadosRegistro(codigo, (param) => {
         setEnviando(false)
+        setCodigo(codigo)
         irParaForm(param)
       }, (param) => {
         setEnviando(false)
