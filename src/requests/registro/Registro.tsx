@@ -11,6 +11,15 @@ const Requests: IRegistroInterface = {
       callbackError(erro)
     })
   },
+  enviar: (dados, callback, callbackError) => {
+    Methods.get('/registro/registrar', {
+      ...dados
+    }, true, (resposta) => {
+      callback(resposta)
+    }, (erro) => {
+      callbackError(erro)
+    })
+  },
 }
 
 export default Requests

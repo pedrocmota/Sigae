@@ -1,4 +1,5 @@
-import {tiposUsuario} from '../../../../../types/DadosEstaticos'
+import {useContext} from 'react'
+import {APIContext} from '../../../../../hooks/APIProvider'
 
 export interface IEnvio {
   codigo: string,
@@ -11,5 +12,6 @@ export interface IEnvio {
 }
 
 export const enviar = (props: IEnvio, callback: (sucesso: boolean) => void) => {
-  console.log(props)
+  const {Requests} = useContext(APIContext)
+  console.log(Requests)
 }

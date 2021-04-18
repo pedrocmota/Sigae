@@ -1,6 +1,7 @@
 export type IPopupList =
   'confirmar' |
-  'recuperarSenha'
+  'recuperarSenha' |
+  'confirmarInscricao'
 
 export interface IPopupInstance {
   id: string,
@@ -26,7 +27,7 @@ export interface IPopupProps {
 
 export interface IPopup {
   id?: string,
-  componente: React.FC | null,
+  componente: React.FC<any> | null,
   titulo: string,
   largura?: string,
   altura?: string,

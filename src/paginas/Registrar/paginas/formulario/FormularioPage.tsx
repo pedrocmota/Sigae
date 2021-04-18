@@ -5,10 +5,13 @@ import InputText from '../../../../componentes/inputs/InputText/InputText'
 import Button from '../../../../componentes/Button/Button'
 import Spinner from '../../../../componentes/Spinner/Spinner'
 import PopupSenha from '../../../../componentes/PopupSenha/PopupSenha'
+import {APIContext} from '../../../../hooks/APIProvider'
+import {PopupContext} from '../../../../hooks/PopupProvider'
+import {useToasts} from 'react-toast-notifications'
 import {RegistrarContext} from '../../Registrar'
 import Parse from '../../../../utils/Parse'
 import {validar, IValidadorProps} from './componentes/Validador'
-import {enviar, IEnvio} from './componentes/Envio'
+import {IEnvio} from './componentes/Envio'
 import {iOptionsToStringArray} from '../../../../utils/Utils'
 import {Container, Info, Row, Form, InputContainer, Alerta} from './styles'
 import {
@@ -22,6 +25,10 @@ import {
 
 export const FormularioPage: React.FC = () => {
   const {codigo, dados} = useContext(RegistrarContext)
+  const {Requests} = useContext(APIContext)
+  const {showPopup} = useContext(PopupContext)
+  const {addToast} = useToasts()
+
   const [valido, setValido] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [turmas, setTurmas] = useState<String[]>([])
@@ -55,8 +62,18 @@ export const FormularioPage: React.FC = () => {
     inputSenha1Erro: inputSenha1Erro, setInputSenha1Erro: setInputSenha1Erro,
     inputSenha2Erro: inputSenha2Erro, setInputSenha2Erro: setInputSenha2Erro
   }
+  // showPopup('confirmarInscricao', {
+  //   codigo: codigo
+  // })
   return (
     <Container>
+      <button onClick={() => {
+        showPopup('confirmarInscricao', {
+          codigo: codigo
+        })
+      }}>
+        Teste
+      </button>
       <Info>
         <div className="nome">
           {dados.nome}
@@ -189,22 +206,64 @@ export const FormularioPage: React.FC = () => {
           disabled={!valido} margintop={10} marginbottom={20} ref={button}
           onClick={() => {
             if(!enviando) {
-              const dadosEnvio:IEnvio = {
-                codigo: codigo,
-                nomePreferencial: inputNome?.current?.value as string,
-                email: inputEmail?.current?.value as string,
-                senha: inputSenha1?.current?.value as string,
-              }
-              if(dados.tipo == 'DISCENTE') {
-                dadosEnvio.curso = inputCurso?.current?.value as string
-                dadosEnvio.turma = inputTurma?.current?.value as string
-              }
-              if(dados.tipo == 'DOCENTE') {
-                dadosEnvio.disciplinas = iOptionsToStringArray(inputDisciplina.current)
+              const dadosEnvio = () => {
+                const dadosRetorno:IEnvio = {
+                  codigo: codigo,
+                  nomePreferencial: inputNome?.current?.value as string,
+                  email: inputEmail?.current?.value as string,
+                  senha: inputSenha1?.current?.value as string,
+                }
+                if(dados.tipo == 'DISCENTE') {
+                  dadosRetorno.curso = inputCurso?.current?.value as string
+                  dadosRetorno.turma = inputTurma?.current?.value as string
+                }
+                if(dados.tipo == 'DOCENTE') {
+                  dados.disciplinas = iOptionsToStringArray(inputDisciplina.current)
+                }
+                return dadosRetorno
               }
               setEnviando(true)
-              enviar(dadosEnvio, (sucesso) => {
-
+              Requests.registro.enviar(dadosEnvio(), () => {
+                setEnviando(false)
+                
+              }, (param) => {
+                setEnviando(false)
+                if(param.erro == 'CODIGO_INVALIDO') {
+                  return addToast('O código é inválido', {appearance: 'error'})
+                }
+                if(param.erro == 'CODIGO_JA_USADO') {
+                  return addToast('O código já foi usado', {appearance: 'error'})
+                }
+                if(param.erro == 'NOME_PREFERENCIAL_INVALIDO') {
+                  return addToast('O nome preferencial é inválid', {appearance: 'error'})
+                }
+                if(param.erro == 'EMAIL_INVALIDO') {
+                  return addToast('O e-mail digitado é inválido', {appearance: 'error'})
+                }
+                if(param.erro == 'EMAIL_JA_USADO') {
+                  return addToast('O e-mail digitado já foi utilizado', {appearance: 'error'})
+                }
+                if(param.erro == 'SENHA_INVALIDA') {
+                  return addToast('A senha digitada é inválida', {appearance: 'error'})
+                }
+                if(param.erro == 'CURSO_INVALIDO') {
+                  return addToast('O curso digitado é inválido', {appearance: 'error'})
+                }
+                if(param.erro == 'TURMA_INVALIDA') {
+                  return addToast('A turma digitada é inválida', {appearance: 'error'})
+                }
+                if(param.erro == 'LISTA_DISCIPLINAS_INVALIDA') {
+                  return addToast('A lista de disciplinas é inválida', {appearance: 'error'})
+                }
+                if(param.erro == 'DISCIPLINA_DA_LISTA_INVALIDA') {
+                  return addToast('Uma das disciplinas digitadas é inválida', {appearance: 'error'})
+                }
+                if(param.erro == 'ERRO_DESCONHECIDO_EMAIL') {
+                  return addToast('Erro desconhecido ao enviar o e-mail', {appearance: 'error'})
+                }
+                if(param.erro == 'ERRO_DESCONHECIDO' || param.erro == 'ERRO_DESCONHECIDO (2)') {
+                  return addToast('Erro desconhecido', {appearance: 'error'})
+                }
               })
             }
           }}>
