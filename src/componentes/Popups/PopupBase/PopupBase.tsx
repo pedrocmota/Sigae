@@ -14,11 +14,19 @@ const PopupBase: React.FC<IPopupBase> = ({id, popup, props, zIndex}) => {
   const largura = props.largura || popup.largura
   const altura = props.altura || popup.altura
   const titulo = props.titulo || popup.titulo
-  const ocultarOk = props.ocultarOK || popup.ocultarOK
-  const ocultarFechar = props.ocultarFechar || popup.ocultarFechar
   const textoOk = props.textoOk || popup.textoOk || 'OK'
   const textoFechar = props.textoFechar || popup.textoFechar || 'Fechar'
   const Componente = popup!.componente as React.FC<any>
+
+  let mostrarOk = true
+  let mostrarFechar = true
+
+  if(popup.ocultarOK == true) mostrarOk = false
+  if(popup.ocultarFechar == true) mostrarFechar = false
+  if(props.ocultarOK != undefined) mostrarOk = !props.ocultarOK
+  if(props.ocultarFechar != undefined) mostrarFechar = !props.ocultarFechar
+  const mostrar = mostrarOk || mostrarFechar
+
   return (
     <PopupContainer id={id} largura={largura} altura={altura} zIndex={zIndex}>
       <Container className="container">
@@ -29,24 +37,28 @@ const PopupBase: React.FC<IPopupBase> = ({id, popup, props, zIndex}) => {
           </div>
         </Top>
         <Main>
-          <Componente id={id} {...props}/>
+          <Componente id={id} {...props} />
         </Main>
-        <Footer>
-          {!ocultarOk == false || ocultarOk == undefined && (
-            <PopupButtonOK onClick={() => {
-
-            }}>
-              {textoOk}
-            </PopupButtonOK>
-          )}
-          {ocultarFechar == false || ocultarFechar == undefined && (
-            <PopupButtonFechar onClick={() => {
-              removePopup(id)
-            }}>
-              {textoFechar}
-            </PopupButtonFechar>
-          )}
-        </Footer>
+        {mostrar && (
+          <Footer>
+            {mostrarOk && (
+              <PopupButtonOK onClick={() => {
+                removePopup(id)
+                if(typeof props.onClose == 'function') props.onClose('ok')
+              }}>
+                {textoOk}
+              </PopupButtonOK>
+            )}
+            {mostrarFechar && (
+              <PopupButtonFechar onClick={() => {
+                removePopup(id)
+                if(typeof props.onClose == 'function') props.onClose('fechar')
+              }}>
+                {textoFechar}
+              </PopupButtonFechar>
+            )}
+          </Footer>
+        )}
       </Container>
     </PopupContainer>
   )

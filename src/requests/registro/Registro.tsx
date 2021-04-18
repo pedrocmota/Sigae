@@ -12,7 +12,7 @@ const Requests: IRegistroInterface = {
     })
   },
   enviar: (dados, callback, callbackError) => {
-    Methods.get('/registro/registrar', {
+    Methods.post('/registro/registrar', {
       ...dados
     }, true, (resposta) => {
       callback(resposta)

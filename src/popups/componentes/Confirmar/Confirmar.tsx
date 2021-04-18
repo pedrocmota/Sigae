@@ -1,10 +1,23 @@
 import React from 'react'
+import styled from 'styled-components'
 
-const Confirmar: React.FC = () => {
+interface IConfirmar {
+  texto: string
+}
+
+const Confirmar: React.FC<IConfirmar> = ({texto = 'Você tem certeza?'}) => {
   return (
-    <div>
-    </div>
+    <Texto>
+      {texto}
+    </Texto>
   )
 }
+
+const Texto = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  text-align: center;
+`
 
 export default Confirmar

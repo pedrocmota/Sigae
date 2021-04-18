@@ -7,8 +7,10 @@ const Popups:IPopupProps = {
   confirmar: {
     titulo: 'Tem certeza?',
     componente: Confirmar,
-    largura: '400px',
-    altura: '300px'
+    largura: '420px',
+    altura: '200px',
+    textoOk: 'Sim',
+    textoFechar: 'Não'
   },
   recuperarSenha: {
     titulo: 'Esqueceu sua senha?',

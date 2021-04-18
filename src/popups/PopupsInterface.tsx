@@ -10,7 +10,7 @@ export interface IPopupInstance {
 }
 
 export interface IPopupInstanceProps {
-  onClose?: (botao: popupBotoes, props: any) => void,
+  onClose?: (botao: popupBotoes, props?: any) => void,
   titulo?: string,
   largura?: string,
   altura?: string,

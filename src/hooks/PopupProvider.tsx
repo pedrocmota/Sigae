@@ -18,12 +18,11 @@ export const PopupContext = createContext<IPopupContext>({} as IPopupContext)
 export const PopupProvider: React.FC = (props) => {
   const [popups, setPopups] = useStateCallback<IPopupInstance[]>([])
   const showPopup = (name: IPopupList, props?: IPopupInstanceProps) => {
-    if(props == undefined) props = {}
     const id = uuidv4()
     const popupSelecionado = Popups[name]
     const novo:IPopupInstance = {
       id: id,
-      props: props,
+      props: props || {},
       popup: popupSelecionado
     }
     setPopups([...popups, novo], () => {
