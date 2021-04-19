@@ -19,7 +19,7 @@ const Loading: React.FC<ILoading> = (props) => {
   }, [])
   return (
     <Fade visible={visible} timer={500} style={{
-      position: 'fixed', zIndex: 99999
+      position: 'fixed', zIndex: 6000
     }}>
       <Container>
         <Sigae/>

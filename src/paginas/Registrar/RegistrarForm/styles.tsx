@@ -1,8 +1,7 @@
 import styled from 'styled-components'
-import FormStyled from '../../../../componentes/Form/Form'
-import Fade from '../../../../componentes/Fade/Fade'
+import FormStyled from '../../../componentes/Form/Form'
 
-export const Container = styled.div`
+export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

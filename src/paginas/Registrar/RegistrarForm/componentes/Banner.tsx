@@ -1,5 +1,4 @@
 import React from 'react'
-import {SvgIconComponent} from '@material-ui/icons'
 import styled from 'styled-components'
 
 interface IBanner {

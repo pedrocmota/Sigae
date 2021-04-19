@@ -6,7 +6,7 @@ import {isDev, fixRoute, parseToNumber} from '../utils/Utils'
 import Crash, {ICrash} from '../componentes/pages/Crash/Crash'
 import {IMethods, IRequests} from '../requests/RequestsInterface'
 
-interface IAPIContext {
+export interface IAPIContext {
   endereco: string,
   token: string,
   setToken: Function,
@@ -32,7 +32,7 @@ export const APIProvider: React.FC = (props) => {
       setEndereco(dados['adress'])
     }
     loading()
-  })
+  }, [])
 
   const isAuth = () => {
     return token.length > 0
@@ -56,7 +56,7 @@ export const APIProvider: React.FC = (props) => {
           if(callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
-        crashApp(erro.response)
+        // crashApp(erro.response)
       })
     },
     
@@ -74,7 +74,7 @@ export const APIProvider: React.FC = (props) => {
           if(callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
-        crashApp(erro.response)
+        // crashApp(erro.response)
       })
     }
   }
@@ -101,7 +101,9 @@ export const APIProvider: React.FC = (props) => {
     <APIContext.Provider value={{
       endereco, token, setToken, isAuth, resetAuth, Requests
     }}>
-      {props.children}
+      {endereco.length > 0 && (
+        props.children
+      )}
     </APIContext.Provider>
   )
 }

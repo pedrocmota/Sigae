@@ -7,7 +7,7 @@ import Popups from '../popups/Popups'
 
 import useStateCallback from '../hooks/usestates/useStateCallback'
 
-interface IPopupContext {
+export interface IPopupContext {
   popups: IPopupInstance[],
   showPopup: (name: IPopupList, props?: IPopupInstanceProps) => void,
   removePopup: (id: string) => void

@@ -47,6 +47,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .react-toast-notifications__container {
+    z-index: 9000;
     & > div {
       height: 60px !important;
       margin-bottom: 10px;

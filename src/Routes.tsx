@@ -1,9 +1,10 @@
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
-import PrivateRoute from './componentes/PrivateRoute/PrivateRoute'
 
 import Login from './paginas/Login/Login'
-import Registrar from './paginas/Registrar/Registrar'
+import RegistrarCodigo from './paginas/Registrar/RegistrarCodigo/RegistrarCodigo'
+import RegistrarForm from './paginas/Registrar/RegistrarForm/RegistrarForm'
+// import Registrar from './paginas/Registrar/Registrar'
 
 const Routes: React.FC = () => {
   return (
@@ -16,7 +17,10 @@ const Routes: React.FC = () => {
           <Login />
         </Route>
         <Route path="/registrar" exact>
-          <Registrar/>
+          <RegistrarCodigo/>
+        </Route>
+        <Route path="/registrar/:codigo" exact>
+          <RegistrarForm/>
         </Route>
       </Switch>
     </Router>

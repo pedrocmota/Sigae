@@ -53,12 +53,11 @@ const BasicSelect: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect
       renderInput={params => (
         <div ref={params.InputProps.ref}>
           <RootRef rootRef={ref != null ? ref : React.useRef()}>
-            <InputText {...params.inputProps} autoFocus
-              placeholder={createPlaceholder(
-                props.placeholder,
-                selecionados.current,
-                props.multiple
-                )} {...input}
+            <InputText {...params.inputProps} placeholder={createPlaceholder(
+              props.placeholder,
+              selecionados.current,
+              props.multiple
+            )} {...input}
               {...(props.disabled ? {value: ''} : {})} />
           </RootRef>
         </div>
