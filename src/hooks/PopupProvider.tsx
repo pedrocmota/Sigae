@@ -9,8 +9,8 @@ import useStateCallback from '../hooks/usestates/useStateCallback'
 
 export interface IPopupContext {
   popups: IPopupInstance[],
-  showPopup: (name: IPopupList, props?: IPopupInstanceProps) => void,
-  removePopup: (id: string) => void
+  showPopup: (name: IPopupList, props?: IPopupInstanceProps) => string,
+  removePopup: (id: string, callback?: () => void) => void
 }
 
 export const PopupContext = createContext<IPopupContext>({} as IPopupContext)
@@ -29,14 +29,17 @@ export const PopupProvider: React.FC = (props) => {
       $(`#${id}`).fadeIn(200)
       atualizarOpacidade([...popups, novo])
     })
+    return id
   }
-  const removePopup = (id: string) => {
+  const removePopup = (id: string, callback?: () => void) => {
     const popup = popups.find(el => el.id == id)
     if(popup) {
       $(`#${id}`).fadeOut(200, () => {
         const comps = popups.filter(el => el.id != id)
-        setPopups(comps)
-        atualizarOpacidade(comps)
+        setPopups(comps, () => {
+          atualizarOpacidade(comps)
+          if(typeof callback == 'function') callback()
+        })
       })
     }
   }

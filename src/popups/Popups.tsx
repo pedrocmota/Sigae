@@ -2,6 +2,7 @@ import {IPopupProps} from './PopupsInterface'
 import Confirmar from './componentes/Confirmar/Confirmar'
 import RecuperarSenha from './componentes/RecuperarSenha/RecuperarSenha'
 import ConfirmarInscricao from './componentes/ConfirmarInscricao/ConfirmarInscricao'
+import Carregando from './componentes/Carregando/Carregando'
 
 const Popups:IPopupProps = {
   confirmar: {
@@ -23,6 +24,15 @@ const Popups:IPopupProps = {
   confirmarInscricao: {
     titulo: 'Confirmar inscrição',
     componente: ConfirmarInscricao,
+    largura: '450px',
+    altura: '325px',
+    ocultarOK: true,
+    ocultarFechar: true,
+    closeOnClick: false
+  },
+  carregando: {
+    titulo: 'Carregando...',
+    componente: Carregando,
     largura: '450px',
     altura: '325px',
     ocultarOK: true,

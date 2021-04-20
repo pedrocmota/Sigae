@@ -91,7 +91,7 @@ const RegistrarForm: React.FC = () => {
         Toasts.addToast('Esse código não é válido', {appearance: 'error'})
       }
       if (param.erro == 'CODIGO_JA_USADO') {
-        Toasts.addToast('Esse código já fou utilizado', {appearance: 'error'})
+        Toasts.addToast('Esse código já foi utilizado', {appearance: 'error'})
       }
       setRedirectCodigo(true)
     })
@@ -216,7 +216,7 @@ const RegistrarForm: React.FC = () => {
                     }>
                   </Banner>
                   <InputContainer>
-                    <InputText id="password1" type="password" placeholder="Digite sua senha" disabled={enviando}
+                    <InputText value="$ifba123A" id="password1" type="password" placeholder="Digite sua senha" disabled={enviando}
                       error={inputSenha1Erro} margintop={12} height={'40px'} ref={inputSenha1} onChange={() => {
                         if (inputSenha1?.current?.value != undefined) {
                           const senha = inputSenha1.current.value
@@ -231,7 +231,7 @@ const RegistrarForm: React.FC = () => {
                       }} />
                     <PopupSenha visible={popupSenhaOpen} senha={senha} timer={200} />
                   </InputContainer>
-                  <InputText id="password2" type="password" placeholder="Repita sua senha" disabled={enviando}
+                  <InputText value="$ifba123A" id="password2" type="password" placeholder="Repita sua senha" disabled={enviando}
                     error={inputSenha2Erro} margintop={12} height={'40px'} ref={inputSenha2} onChange={() => {
                       validar(dadosValidar)
                     }} />

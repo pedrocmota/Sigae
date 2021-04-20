@@ -43,16 +43,18 @@ const PopupBase: React.FC<IPopupBase> = ({id, popup, props, zIndex}) => {
           <Footer>
             {mostrarOk && (
               <PopupButtonOK onClick={() => {
-                removePopup(id)
-                if(typeof props.onClose == 'function') props.onClose('ok')
+                removePopup(id, () => {
+                  if(typeof props.onClose == 'function') props.onClose('ok')
+                })
               }}>
                 {textoOk}
               </PopupButtonOK>
             )}
             {mostrarFechar && (
               <PopupButtonFechar onClick={() => {
-                removePopup(id)
-                if(typeof props.onClose == 'function') props.onClose('fechar')
+                removePopup(id, () => {
+                  if(typeof props.onClose == 'function') props.onClose('fechar')
+                })
               }}>
                 {textoFechar}
               </PopupButtonFechar>

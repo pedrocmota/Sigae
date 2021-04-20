@@ -1,7 +1,8 @@
 export type IPopupList =
   'confirmar' |
   'recuperarSenha' |
-  'confirmarInscricao'
+  'confirmarInscricao' |
+  'carregando'
 
 export interface IPopupInstance {
   id: string,
