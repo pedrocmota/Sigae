@@ -1,7 +1,7 @@
 import React, {useState, createContext} from 'react'
 import Global from '../temas/Global'
 
-interface ITemaContext {
+export interface ITemaContext {
   
 }
 

@@ -32,6 +32,7 @@ export const Container = styled.div<IContainer>`
   padding-right: 30px;
   font-size: 17px;
   border-radius: 5px;
+  text-align: left;
   ${({margintop}) => margintop && css`
     margin-top: ${margintop}px !important;
   `}

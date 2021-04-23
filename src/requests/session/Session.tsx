@@ -13,13 +13,11 @@ const Requests: ISessionRequest = {
     })
   },
 
-  recuperarSenha: (email, callback, callbackError) => {
+  recuperarSenha: (email, callback) => {
     Methods.post('/mail/codigo/recuperarSenha/enviar', {
       email: email
     }, true, (resposta) => {
       callback(resposta)
-    }, (erro) => {
-      callbackError(erro)
     })
   },
 }

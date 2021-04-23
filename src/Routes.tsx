@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Login from './paginas/Login/Login'
 import RegistrarCodigo from './paginas/Registrar/RegistrarCodigo/RegistrarCodigo'
 import RegistrarForm from './paginas/Registrar/RegistrarForm/RegistrarForm'
-// import Registrar from './paginas/Registrar/Registrar'
+import Teste from './paginas/Teste/Teste'
 
 const Routes: React.FC = () => {
   return (
@@ -21,6 +21,9 @@ const Routes: React.FC = () => {
         </Route>
         <Route path="/registrar/:codigo" exact>
           <RegistrarForm/>
+        </Route>
+        <Route path="/teste" exact>
+          <Teste/>
         </Route>
       </Switch>
     </Router>

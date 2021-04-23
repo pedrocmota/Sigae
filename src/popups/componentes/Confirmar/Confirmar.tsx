@@ -7,16 +7,24 @@ interface IConfirmar {
 
 const Confirmar: React.FC<IConfirmar> = ({texto = 'Você tem certeza?'}) => {
   return (
-    <Texto>
-      {texto}
-    </Texto>
+    <Container>
+      <Texto>
+        {texto}
+      </Texto>
+    </Container>
   )
 }
 
-const Texto = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: center;
-  font-size: 18px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`
+
+const Texto = styled.div`
+  font-size: 20px;
   text-align: center;
 `
 

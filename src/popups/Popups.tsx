@@ -1,44 +1,51 @@
-import {IPopupProps} from './PopupsInterface'
+import {IPopupKey} from './PopupsInterface'
 import Confirmar from './componentes/Confirmar/Confirmar'
 import RecuperarSenha from './componentes/RecuperarSenha/RecuperarSenha'
-import ConfirmarInscricao from './componentes/ConfirmarInscricao/ConfirmarInscricao'
 import Carregando from './componentes/Carregando/Carregando'
+import ConfirmarRegistro from './componentes/ConfirmarRegistro/ConfirmarRegistro'
 
-const Popups:IPopupProps = {
+export type Keys = keyof typeof Popups;
+
+const Popups = {
   confirmar: {
     titulo: 'Tem certeza?',
     componente: Confirmar,
     largura: '420px',
     altura: '200px',
+    ocultarHeader: true,
+    mostrarOk: true,
+    mostrarFechar: true,
     textoOk: 'Sim',
-    textoFechar: 'Não'
+    textoFechar: 'Não',
+    closeOnClick: false
   },
   recuperarSenha: {
     titulo: 'Esqueceu sua senha?',
     componente: RecuperarSenha,
     largura: '400px',
-    altura: '425px',
-    ocultarOK: true,
+    altura: '320px',
+    mostrarFechar: true,
+    mostrarOk: false,
     closeOnClick: true
-  },
-  confirmarInscricao: {
-    titulo: 'Confirmar inscrição',
-    componente: ConfirmarInscricao,
-    largura: '450px',
-    altura: '325px',
-    ocultarOK: true,
-    ocultarFechar: true,
-    closeOnClick: false
   },
   carregando: {
     titulo: 'Carregando...',
     componente: Carregando,
-    largura: '450px',
-    altura: '325px',
-    ocultarOK: true,
-    ocultarFechar: true,
+    largura: '400px',
+    altura: '320px',
+    mostrarFechar: false,
+    mostrarOk: false,
+    closeOnClick: false
+  },
+  confirmarRegistro: {
+    titulo: 'Só mais essa etapa',
+    componente: ConfirmarRegistro,
+    largura: '420px',
+    altura: '350px',
+    mostrarFechar: false,
+    mostrarOk: false,
     closeOnClick: false
   }
 }
 
-export default Popups
+export default Popups as IPopupKey

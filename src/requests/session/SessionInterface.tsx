@@ -15,7 +15,7 @@ interface ISessionRequest {
 
   recuperarSenha: (email: string, callback: (param: {
     retorno: 'OK'
-  }) => void, callbackError: (erro: any) => void) => void
+  }) => void) => void
 }
 
 export default ISessionRequest

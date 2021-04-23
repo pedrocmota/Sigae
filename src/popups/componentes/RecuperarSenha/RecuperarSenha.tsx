@@ -1,34 +1,26 @@
-import React, {useState, useRef, useContext} from 'react'
+import React, {useState, useRef} from 'react'
 import Form from '../../../componentes/Form/Form'
 import Button from '../../../componentes/Button/Button'
-import Spinner from '../../../componentes/Spinner/Spinner'
-import Banner from '../../../componentes/Banner/Banner'
-import {APIContext} from '../../../hooks/APIProvider'
 import {validarEmail} from '../../../utils/Validar'
-import {Container, CustumInputLogin} from './styles'
+import {Container, CustumInputLogin} from './styles' 
 import {InputErrorIcon} from '../../../componentes/Icons/Icons'
+import {IPopupBody} from '../../../popups/PopupsInterface'
 
-const RecuperarSenha: React.FC = () => {
-  const {Requests} = useContext(APIContext)
+const RecuperarSenha: React.FC<IPopupBody> = ({APIContext, PopupContext}) => {
   const input = useRef<HTMLInputElement | null>(null)
   const button = useRef<HTMLButtonElement | null>(null)
-  const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState(false)
-  const [showBanner, setShowBanner] = useState(false)
+  const Requests = APIContext.Requests
+
   const enviar = () => {
     const email = input.current!.value
     if (email.length <= 0) return setErro(true)
-    setShowBanner(false)
     if(validarEmail(email)) {
-      setEnviando(true)
-      Requests.session.recuperarSenha(email, (param) => {
-        if(param.retorno == 'OK') {
-          setEnviando(false)
-          setShowBanner(true)
-        }
-      }, () => {
-        setEnviando(false)
-      })
+      Requests.session.recuperarSenha(email, () => {})
+      PopupContext.showAlerta('info', 'Aviso', `
+        Se este e-mail estiver em nossos registros, nós enviaremos um e-mail
+        com um código para que você possa recuperar sua senha.
+      `)
     } else {
       setErro(true)
     }
@@ -48,18 +40,9 @@ const RecuperarSenha: React.FC = () => {
           onFocus={onFocus} onKeyDown={onKeyDown}>
           <InputErrorIcon visible={erro ? 1 : 0} />
         </CustumInputLogin>
-        <Button type="submit" variant="contained" tipo="generic" margintop={10} onClick={enviar} ref={button}>
-          {enviando && (
-            <Spinner />
-          )}
-          {!enviando && (
-            <div>Enviar código</div>
-          )}
+        <Button type="button" variant="contained" tipo="generic" margintop={10} onClick={enviar} ref={button}>
+          Enviar código
         </Button>
-        <Banner visible={showBanner} setVisible={setShowBanner} tipo="generic" margintop={10}>
-          Se este e-mail estiver em nossos registros, nós enviaremos um e-mail
-          com um código para que você possa recuperar sua senha.
-        </Banner>
       </Form>
     </Container>
   )

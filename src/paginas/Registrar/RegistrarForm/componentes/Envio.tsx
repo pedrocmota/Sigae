@@ -21,27 +21,34 @@ export interface IEnvio {
 }
 
 export const enviar = (contexto: IContexto, dados: IEnvio) => {
-  contexto.popups.showPopup('confirmar', {
-    texto: 'Verifique se seus dados estão corretos',
-    onClose: (botao) => {
-      if (botao == 'ok') {
-        
-        // const popupID = contexto.popups.showPopup('carregando')
-        setTimeout(() => {
-          const popupID = contexto.popups.showPopup('carregando')
-          // contexto.popups.removePopup(popupID)
-        }, 3000)
-        // contexto.setEnviando(true)
-        // contexto.API.Requests.registro.enviar(dados, (param) => {
-        //   contexto.setEnviando(false)
+  // contexto.popups.showPopup('confirmar', {
+  //   texto: 'Verifique se seus dados estão corretos',
+  //   onClose: (botao) => {
+  //     if (botao == 'ok') {
+  //       // console.log(contexto.popups.popups)
+  //       // const popupID = contexto.popups.showPopup('carregando')
+  //       // setTimeout(() => {
+  //       //   console.log(contexto.popups.popups)
+  //       // }, 1000)
+  //       // setTimeout(() => {
+  //       //   contexto.popups.removePopup(popupID)
+  //       // }, 2000)
+  //       // const popupID = contexto.popups.showPopup('carregando')
+  //       // setTimeout(() => {
+  //       //   const popupID = contexto.popups.showPopup('carregando')
+  //       //   // contexto.popups.removePopup(popupID)
+  //       // }, 3000)
+  //       // contexto.setEnviando(true)
+  //       // contexto.API.Requests.registro.enviar(dados, (param) => {
+  //       //   contexto.setEnviando(false)
           
-        // }, (param) => {
-        //   contexto.setEnviando(false)
-        //   erros(param.erro, contexto.Toasts)
-        // })
-      }
-    }
-  })
+  //       // }, (param) => {
+  //       //   contexto.setEnviando(false)
+  //       //   erros(param.erro, contexto.Toasts)
+  //       // })
+  //     }
+  //   }
+  // })
 }
 
 const erros = (param: IErroEnviar, Toasts: any) => {

@@ -1,42 +1,37 @@
-export type IPopupList =
-  'confirmar' |
-  'recuperarSenha' |
-  'confirmarInscricao' |
-  'carregando'
+import {IAPIContext} from '../hooks/APIProvider'
+import {ITemaContext} from '../hooks/TemaProvider'
+import {IPopupContext} from '../hooks/PopupProvider'
 
-export interface IPopupInstance {
-  id: string,
-  popup: IPopup,
-  props: IPopupInstanceProps
-}
-
-export interface IPopupInstanceProps {
-  onClose?: (botao: popupBotoes, props?: any) => void,
+export interface IPopupProps {
   titulo?: string,
   largura?: string,
   altura?: string,
-  ocultarOK?: boolean,
-  ocultarFechar?: boolean,
+  ocultarHeader?: boolean,
+  mostrarOk?: boolean,
+  mostrarFechar?: boolean,
   textoOk?: string,
   textoFechar?: string,
+  closeOnClick?: boolean,
+  resizeHeight?: boolean
+}
+
+export interface IPopupElement extends IPopupProps {
+  componente: React.FC<any> | null
+}
+
+export interface IPopupInstanceProps extends IPopupProps {
+  onClose?: (botao: popupBotoes, props?: any) => void,
   [x: string]: any
 }
 
-export interface IPopupProps {
-  [key: string]: IPopup
+export interface IPopupKey {
+  [key: string]: IPopupElement
 }
 
-export interface IPopup {
-  id?: string,
-  componente: React.FC<any> | null,
-  titulo: string,
-  largura?: string,
-  altura?: string,
-  ocultarOK?: boolean,
-  ocultarFechar?: boolean,
-  textoOk?: string,
-  textoFechar?: string,
-  closeOnClick?: boolean
+export interface IPopupBody {
+  APIContext: IAPIContext,
+  TemaContext: ITemaContext,
+  PopupContext: IPopupContext 
 }
 
 export type popupBotoes = 'ok' | 'fechar'

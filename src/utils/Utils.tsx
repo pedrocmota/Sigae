@@ -23,6 +23,12 @@ export const numbersOfTrues = (...args: boolean[]) => {
   return n
 }
 
+export const compareVars = (var1: any, var2: any, defaultVar: any) => {
+  if(var1 != undefined) return var1
+  if(var2 != undefined) return var2
+  return defaultVar
+}
+
 export const getRefValue = <T extends unknown>(ref: React.RefObject<T>) => {
   const current = ref.current
   if(current == null || current == undefined) return ''

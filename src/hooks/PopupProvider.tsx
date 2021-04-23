@@ -1,68 +1,92 @@
-import React, {useState, createContext} from 'react'
-import $ from 'jquery'
-import {v4 as uuidv4} from 'uuid'
-import {IPopupInstance, IPopupInstanceProps, IPopup, IPopupList, IPopupProps} from '../popups/PopupsInterface'
-import PopupContainer from '../componentes/Popups/PopupContainer/PopupContainer'
+import React, {useContext, createContext} from 'react'
+import SwalAlert, {SweetAlertIcon} from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 import Popups from '../popups/Popups'
-
-import useStateCallback from '../hooks/usestates/useStateCallback'
+import PopupBase from '../componentes/PopupBase/PopupBase'
+import PopupStyles from '../componentes/PopupBase/PopupStyles'
+import AlertaBase from '../componentes/PopupBase/AlertaBase'
+import {APIContext} from './APIProvider'
+import {TemaContext} from './TemaProvider'
+import {compareVars} from '../utils/Utils'
+import {IPopupInstanceProps} from '../popups/PopupsInterface'
+import {Keys} from '../popups/Popups'
 
 export interface IPopupContext {
-  popups: IPopupInstance[],
-  showPopup: (name: IPopupList, props?: IPopupInstanceProps) => string,
-  removePopup: (id: string, callback?: () => void) => void
+  showPopup: (name: Keys, props?: IPopupInstanceProps) => void,
+  close: (id: string, callback?: (p?: any) => void) => void,
+  showAlerta: (icon: SweetAlertIcon, titulo: string, texto: string) => void
 }
 
 export const PopupContext = createContext<IPopupContext>({} as IPopupContext)
 
 export const PopupProvider: React.FC = (props) => {
-  const [popups, setPopups] = useStateCallback<IPopupInstance[]>([])
-  const showPopup = (name: IPopupList, props?: IPopupInstanceProps) => {
-    const id = uuidv4()
+  const Swal = withReactContent(SwalAlert)
+  const showPopup = (name: Keys, propsPopup?: IPopupInstanceProps) => {
     const popupSelecionado = Popups[name]
-    const novo:IPopupInstance = {
-      id: id,
-      props: props || {},
-      popup: popupSelecionado
-    }
-    setPopups([...popups, novo], () => {
-      $(`#${id}`).fadeIn(200)
-      atualizarOpacidade([...popups, novo])
-    })
-    return id
-  }
-  const removePopup = (id: string, callback?: () => void) => {
-    const popup = popups.find(el => el.id == id)
-    if(popup) {
-      $(`#${id}`).fadeOut(200, () => {
-        const comps = popups.filter(el => el.id != id)
-        setPopups(comps, () => {
-          atualizarOpacidade(comps)
-          if(typeof callback == 'function') callback()
-        })
-      })
-    }
-  }
+    const props = popupSelecionado
+    const Comp = popupSelecionado.componente as any
 
-  const atualizarOpacidade = (comps: IPopupInstance[]) => {
-    comps.forEach((popup, index) => {
-      const id = popup.id
-      const ultimo = index == (comps.length - 1)
-      const ref = $(`#${id}`)
-      if(comps.length == 0) {
-        ref.removeClass('popup_opacity')
-      } else {
-        if(!ultimo) {
-          if(comps.length > 1) ref.addClass('popup_opacity')
-        } else {
-          ref.removeClass('popup_opacity')
-        }
+    const largura = compareVars(propsPopup?.largura, props.largura, '400px')
+    const altura = compareVars(propsPopup?.altura, props.altura, '400px')
+    const ocultarHeader = compareVars(propsPopup?.ocultarHeader, props.ocultarHeader, false)
+    const titulo = compareVars(propsPopup?.titulo, props.titulo, '')
+    const mostrarOk = compareVars(propsPopup?.mostrarOk, props.mostrarOk, false)
+    const mostrarFechar = compareVars(propsPopup?.mostrarFechar, props.mostrarFechar, false)
+    const textoOk = compareVars(propsPopup?.textoOk, props.textoOk, 'OK')
+    const textoFechar = compareVars(propsPopup?.textoFechar, props.textoFechar, 'Fechar')
+    const closeOnClick = compareVars(propsPopup?.closeOnClick, props.closeOnClick, true)
+    const hideHeader = (mostrarOk == false && mostrarFechar == false)
+    contexts.PopupContext = {showPopup, showAlerta, close}
+    Swal.fire({
+      html: (
+        <PopupBase titulo={titulo} hideHeader={ocultarHeader} 
+        hideFooter={(mostrarOk == false && mostrarFechar == false)}>
+          <Comp {...contexts} {...props} {...propsPopup}/>
+        </PopupBase>
+      ),
+      didOpen: (componente) => {
+        componente.style.width = largura
+        componente.style.height = altura
+        if(hideHeader) componente.classList.add('swal2-content-height-100')
+      },
+      showConfirmButton: mostrarOk,
+      showDenyButton: mostrarFechar,
+      confirmButtonText: textoOk,
+      denyButtonText: textoFechar,
+      allowOutsideClick: closeOnClick,
+    }).then((result) => {
+      if(typeof propsPopup?.onClose == 'function') {
+        const botao = result.isConfirmed ? 'ok' : 'fechar'
+        propsPopup.onClose(botao)
       }
     })
   }
+
+  const showAlerta = (icon: SweetAlertIcon, titulo: string, texto: string) => {
+    Swal.fire({
+      icon: icon,
+      title: titulo,
+      html: (
+        <AlertaBase>
+          {texto}
+        </AlertaBase>
+      )
+    })
+  }
+
+  const close = () => {
+    Swal.close()
+  }
+
+  const contexts = {
+    APIContext: useContext(APIContext),
+    TemaContext: useContext(TemaContext),
+    PopupContext: {showPopup, showAlerta, close}
+  }
+
   return (
-    <PopupContext.Provider value={{popups, showPopup, removePopup}}>
-      <PopupContainer visible={popups.length > 0}/>
+    <PopupContext.Provider value={{showPopup, showAlerta, close}}>
+      <PopupStyles/>
       {props.children}
     </PopupContext.Provider>
   )
