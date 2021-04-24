@@ -70,12 +70,10 @@ const CustumInput = styled.input<IInput>`
   &:-webkit-autofill {
     box-shadow:0 0 0 50px white inset;
     -webkit-box-shadow:0 0 0 50px white inset;
-    -webkit-text-fill-color: #17161a;
   }
   &:-webkit-autofill:focus {
     box-shadow: 0 0 0 50px white inset;
     -webkit-box-shadow: 0 0 0 50px white inset;
-    -webkit-text-fill-color: #17161a;
   }
   &:-webkit-autofill::first-line {
     font-family: Arial !important;

@@ -7,6 +7,9 @@ export const FormContainer = styled.div`
   align-items: center;
   width: 650px;
   flex: 1;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `
 
 export const Info = styled.div`
@@ -34,6 +37,12 @@ export const Info = styled.div`
   b {
     font-weight: 500;
   }
+  @media (max-width: 600px) {
+    width: 90%;
+    .nome {
+      font-size: 20px;
+    }
+  }
 `
 
 export const Form = styled(FormStyled)`
@@ -42,6 +51,9 @@ export const Form = styled(FormStyled)`
   align-items: center;
   width: 80%;
   margin-top: 12px;
+  @media (max-width: 600px) {
+    width: 95%;
+  }
 `
 
 export const Row = styled.div`
@@ -57,6 +69,22 @@ export const InputContainer = styled.div`
 interface IAlerta {
   visible: boolean
 }
+
+export const PopupSenhaContainer = styled.div`
+  @media (max-width: 1220px) {
+    .popupSenhaContainer {
+      left: 0px;
+      top: -180px;
+      &::after {
+        transform: rotate(135deg);
+        right: 0px;
+        left: 15px;
+        top: auto;
+        bottom: -11px;
+      }
+    }
+  }
+`
 
 export const Alerta = styled.div<IAlerta>`
   font-size: 17px;

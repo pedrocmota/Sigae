@@ -12,7 +12,7 @@ interface IPopupSenha extends IFade {
 const PopupSenha: React.FC<IPopupSenha> = ({senha, ...props}) => {
   const estadoSenha = Senha.calcularForcaSenha(senha)
   return (
-    <FadeContainer {...props}>
+    <FadeContainer className="popupSenhaContainer" {...props}>
       <InternalContainer color={estadoSenha.color}>
         <div className="top">
           <span className="forcaTexto">Força da senha:</span>

@@ -13,7 +13,7 @@ import {PopupContext} from '../../../hooks/PopupProvider'
 import {useToasts} from 'react-toast-notifications'
 
 import {Container, Top, Main, Bottom} from '../styles'
-import {FormContainer, Info, Row, Form, InputContainer, Alerta} from './styles'
+import {FormContainer, Info, Row, Form, InputContainer, PopupSenhaContainer, Alerta} from './styles'
 
 import Parse from '../../../utils/Parse'
 import {IValidadorProps, validar} from './componentes/Validador'
@@ -40,7 +40,7 @@ const RegistrarForm: React.FC = () => {
   const [show, setShow] = useState(true)
   const [dados, setDados] = useState<IDadosRegistro>()
   const [redirectCodigo, setRedirectCodigo] = useState(false)
-  const [redirectLogin, setRedirectLogin] = useState(false)
+  const [redirectValidar, setRedirectValidar] = useState(false)
   const [header, setHeader] = useState('Carregando...')
 
   const [valido, setValido] = useState(false)
@@ -87,13 +87,13 @@ const RegistrarForm: React.FC = () => {
       dadosValidar.dados = param
       validar(dadosValidar)
     }, (param) => {
-      if (param.erro == 'CODIGO_INVALIDO') {
-        Toasts.addToast('Esse código não é válido', {appearance: 'error'})
+      if(param.erro == 'CODIGO_JA_USADO') {
+        return setRedirectValidar(true)
       }
-      if (param.erro == 'CODIGO_JA_USADO') {
-        Toasts.addToast('Esse código já foi utilizado', {appearance: 'error'})
+      if(param.erro == 'CODIGO_INVALIDO') {
+        setRedirectCodigo(true)
+        return Toasts.addToast('Esse código não é válido', {appearance: 'error'})
       }
-      setRedirectCodigo(true)
     })
   }, [])
 
@@ -108,6 +108,9 @@ const RegistrarForm: React.FC = () => {
         <Main>
           {(redirectCodigo) && (
             <Redirect to="/registrar" />
+          )}
+          {(redirectValidar) && (
+            <Redirect to={`/registrar/${codigo}/validar`} />
           )}
           {(dados != undefined && !redirectCodigo) && (
             <FormContainer>
@@ -128,7 +131,7 @@ const RegistrarForm: React.FC = () => {
                     titulo="Abreviação do nome"
                     conteudo={
                       `Essa configuração define a abreviação do seu nome.
-                    Seu nome aparecerá com essa abreviação na maioria das vezes.`
+                       Seu nome aparecerá com essa abreviação na maioria das vezes.`
                     }>
                   </Banner>
                   <BasicSelect placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)}
@@ -143,7 +146,7 @@ const RegistrarForm: React.FC = () => {
                         titulo="Seu curso"
                         conteudo={
                           `Escolha o curso que você cursa atualmente.
-                        Esta opção pode ser alterada posteriormente.`
+                           Esta opção pode ser alterada posteriormente.`
                         }>
                       </Banner>
                       <BasicSelect placeholder="Escolha seu curso" options={Parse.cursos(dados.turmas as any)}
@@ -163,7 +166,7 @@ const RegistrarForm: React.FC = () => {
                         titulo="Sua turma"
                         conteudo={
                           `Escolha a sua turma cujo você faz parte atualmente.
-                        Esta opção pode ser alterada posteriormente.`
+                           Esta opção pode ser alterada posteriormente.`
                         }>
                       </Banner>
                       <BasicSelect placeholder="Escolha sua turma" options={turmas} ref={inputTurma}
@@ -180,7 +183,7 @@ const RegistrarForm: React.FC = () => {
                       titulo="Suas disciplinas"
                       conteudo={
                         `Selecione as disciplinas que você ministra.
-                    Esta opção pode ser alterada posteriormente.`
+                         Esta opção pode ser alterada posteriormente.`
                       }>
                     </Banner>
                     <BasicSelect placeholder="Escolha sua disciplina" options={dados.disciplinas} multiple
@@ -195,7 +198,7 @@ const RegistrarForm: React.FC = () => {
                     titulo="Seu Email"
                     conteudo={
                       `O SiGAÊ enviará e-mails para a conta, informando a situação dos atendimentos, essa opção pode ser desativada posteriormente.
-                    O e-mail também servirá para recuperar a conta caso haja perda de senha.`
+                       O e-mail também servirá para recuperar a conta caso haja perda de senha.`
                     }>
                   </Banner>
                   <InputText id="emailRegistro" type="email" placeholder="Digite seu Email" ref={inputEmail}
@@ -208,15 +211,15 @@ const RegistrarForm: React.FC = () => {
                     titulo="Sua senha"
                     conteudo={
                       `Digite uma senha siga as seguintes regras:
-                    • Entre 6 e 500 caracteres.
-                    • Pelo menos uma letra maiúscula.
-                    • Pelo menos um número.
-                    • Pelo menos um caractere especial.
+                      • Entre 6 e 500 caracteres.
+                      • Pelo menos uma letra maiúscula.
+                      • Pelo menos um número.
+                      • Pelo menos um caractere especial.
                     `
                     }>
                   </Banner>
                   <InputContainer>
-                    <InputText value="$ifba123A" id="password1" type="password" placeholder="Digite sua senha" disabled={enviando}
+                    <InputText id="password1" type="password" placeholder="Digite sua senha" disabled={enviando}
                       error={inputSenha1Erro} margintop={12} height={'40px'} ref={inputSenha1} onChange={() => {
                         if (inputSenha1?.current?.value != undefined) {
                           const senha = inputSenha1.current.value
@@ -229,15 +232,17 @@ const RegistrarForm: React.FC = () => {
                       }} onBlur={() => {
                         setPopupSenhaOpen(false)
                       }} />
-                    <PopupSenha visible={popupSenhaOpen} senha={senha} timer={200} />
+                    <PopupSenhaContainer>
+                      <PopupSenha visible={popupSenhaOpen} senha={senha} timer={200} />
+                    </PopupSenhaContainer>
                   </InputContainer>
-                  <InputText value="$ifba123A" id="password2" type="password" placeholder="Repita sua senha" disabled={enviando}
+                  <InputText id="password2" type="password" placeholder="Repita sua senha" disabled={enviando}
                     error={inputSenha2Erro} margintop={12} height={'40px'} ref={inputSenha2} onChange={() => {
                       validar(dadosValidar)
                     }} />
                   <Alerta visible={inputSenha2Erro}>
                     ● As senhas digitadas não correspondem
-              </Alerta>
+                  </Alerta>
                 </Row>
                 <Button type="submit" variant="contained" tipo="generic"
                   disabled={!valido} margintop={10} marginbottom={20} ref={button}
@@ -264,7 +269,7 @@ const RegistrarForm: React.FC = () => {
                         popups: Popups,
                         Toasts: Toasts,
                         setEnviando: setEnviando,
-                        setRedirectLogin: setRedirectLogin
+                        setRedirectValidar: setRedirectValidar
                       }, dadosEnvio())
                     }
                   }}>

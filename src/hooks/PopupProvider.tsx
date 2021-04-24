@@ -13,7 +13,7 @@ import {Keys} from '../popups/Popups'
 
 export interface IPopupContext {
   showPopup: (name: Keys, props?: IPopupInstanceProps) => void,
-  close: (id: string, callback?: (p?: any) => void) => void,
+  close: () => void,
   showAlerta: (icon: SweetAlertIcon, titulo: string, texto: string) => void
 }
 

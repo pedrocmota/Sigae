@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import Login from './paginas/Login/Login'
 import RegistrarCodigo from './paginas/Registrar/RegistrarCodigo/RegistrarCodigo'
 import RegistrarForm from './paginas/Registrar/RegistrarForm/RegistrarForm'
+import RegistrarValidar from './paginas/Registrar/RegistrarValidar/RegistrarValidar'
 import Teste from './paginas/Teste/Teste'
 
 const Routes: React.FC = () => {
@@ -21,6 +22,9 @@ const Routes: React.FC = () => {
         </Route>
         <Route path="/registrar/:codigo" exact>
           <RegistrarForm/>
+        </Route>
+        <Route path="/registrar/:codigo/validar" exact>
+          <RegistrarValidar/>
         </Route>
         <Route path="/teste" exact>
           <Teste/>

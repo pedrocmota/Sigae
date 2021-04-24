@@ -1,7 +1,19 @@
 {
   "name": "sigae",
+  "displayName": "SiGAÊ - IFBA",
   "version": "0.1.0",
-  "private": true,
+  "description": "A aplicação web do Sigae",
+  "author":{
+    "name": "Pedro Mota e João Costa"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pedrocmota/Sigae"
+  },
+  "bugs": {
+    "url": "https://github.com/pedrocmota/Sigae/issues"
+  },
+  "license": "MIT",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
@@ -13,7 +25,6 @@
     "jquery": "^3.6.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-text-mask": "^5.4.3",
@@ -31,7 +42,6 @@
     "@types/material-ui": "^0.21.8",
     "@types/node": "^12.0.0",
     "@types/react-dom": "^17.0.0",
-    "@types/react-helmet": "^6.1.0",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-text-mask": "^5.4.6",
     "@types/styled-components": "^5.1.7",

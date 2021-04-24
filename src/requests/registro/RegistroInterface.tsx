@@ -11,13 +11,58 @@ interface IRegistroRequest {
       'CODIGO_JA_USADO'
     }
   ) => void) => void,
+
   enviar: (props: IEnvioRegistro, callback: (
-    param: 'OK'
+    param: {
+      retorno: 'OK'
+    }
   ) => void, callbackError: (
     param: {
       erro: IErroEnviar
     }
+  ) => void) => void,
+
+  getDadosValidar: (codigo: string, callback: (
+    param: {
+      nome: string,
+      email: string
+    }
+  ) => void, callbackError: (
+    param: {
+      erro: 'CODIGO_INVALIDO'
+    }
+  ) => void) => void,
+
+  validar: (codigo: string, callback: (
+    param: {
+      retorno: 'OK'
+    }
+  ) => void, callbackError: (
+    param: {
+      erro: 'CODIGO_INVALIDO' | 'ERRO_DESCONHECIDO'
+    }
+  ) => void) => void,
+
+  reenviarEmail: (codigo: string, callback: (
+    param: {
+      retorno: 'OK'
+    }
+  ) => void, callbackError: (
+    param: {
+      erro: 'CODIGO_INVALIDO' | 'ERRO_DESCONHECIDO_EMAIL'
+    }
+  ) => void) => void,
+
+  cancelar: (codigo: string, callback: (
+    param: {
+      retorno: 'OK'
+    }
+  ) => void, callbackError: (
+    param: {
+      erro: 'CODIGO_INVALIDO' | 'CODIGO_NAO_ATIVO' | 'ERRO_DESCONHECIDO'
+    }
   ) => void) => void
+
 }
 
 export type IErroEnviar =
