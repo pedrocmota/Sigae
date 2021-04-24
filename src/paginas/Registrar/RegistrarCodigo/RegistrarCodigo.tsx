@@ -12,7 +12,8 @@ import {ReactComponent as Sigae} from '../../../assets/sigae.svg'
 const RegistrarCodigo: React.FC = () => {
   const [redirecionarForm, setRedirecionarForm] = useState(false)
   const [erro, setErro] = useState(false)
-  const inputCodigo = useRef<HTMLInputMaskElement | null>(null)
+  const inputCodigo = useRef<HTMLInputMaskElement>(null)
+  const botao = useRef<HTMLButtonElement>(null)
   const enviar = () => {
     const codigo = inputCodigo.current!.inputElement!.value
     if (codigo.length > 0) {
@@ -35,10 +36,15 @@ const RegistrarCodigo: React.FC = () => {
         <Main>
           <InputContainer>
             <Form name="FormCodigo" method="GET">
-              <InputCode id="CodigoInscricao" mask="octaCode" spellCheck={false}
-                placeholder="Digite o código de inscrição" error={erro}
-                onFocus={() => setErro(false)} ref={inputCodigo} />
-              <Button type="button" tipo="generic" margintop={15} onClick={enviar}>
+              <InputCode id="CodigoInscricao" mask="octaCode" autoCapitalize="characters" 
+                spellCheck={false} error={erro}
+                placeholder="Digite o código de inscrição"
+                onFocus={() => setErro(false)} ref={inputCodigo} onKeyUp={(e) => {
+                  if(e.key == 'Enter') {
+                    botao.current?.click()
+                  }
+                }}/>
+              <Button type="button" tipo="generic" margintop={15} onClick={enviar} ref={botao}>
                 Enviar código
               </Button>
             </Form>

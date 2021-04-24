@@ -38,6 +38,7 @@ const BasicSelect: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect
       getOptionSelected={(option, value) => {
         return option.valor === value.valor
       }}
+      disableCloseOnSelect={props.multiple == true}
       onChange={(ev, value) => {
         if (Array.isArray(value)) {
           selecionados.current = value.length

@@ -29,6 +29,8 @@ const RegistrarForm: React.FC = () => {
   const {addToast} = useToasts()
   const isMounted = useIsMounted()
 
+  const botao = useRef<HTMLButtonElement>(null)
+
   const [show, setShow] = useState(false)
   const [dados, setDados] = useState<IDados>()
   const [erro, setErro] = useState(false)
@@ -155,10 +157,15 @@ const RegistrarForm: React.FC = () => {
               </div>
             </Lista>
             <Form method="POST" name="FormCodigoValidacao">
-              <InputCode id="CodigoValidacao" mask="octaCode" spellCheck={false}
-                placeholder="Digite o código de validação" error={erro}
-                onFocus={() => setErro(false)} ref={inputCodigo} />
-              <Button type="submit" tipo="generic" margintop={15} onClick={enviar}>
+              <InputCode id="CodigoValidacao" mask="octaCode" autoCapitalize="characters" 
+                spellCheck={false} error={erro}
+                placeholder="Digite o código de validação"
+                onFocus={() => setErro(false)} ref={inputCodigo} onKeyUp={(e) => {
+                  if(e.key == 'Enter') {
+                    botao.current?.click()
+                  }
+                }}/>
+              <Button type="submit" tipo="generic" margintop={15} onClick={enviar} ref={botao}>
                 {!enviando && (
                   <div>Enviar código</div>
                 )}
