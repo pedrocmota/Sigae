@@ -9,7 +9,7 @@ import {PopupProvider} from './hooks/PopupProvider'
 import Routes from './Routes'
 
 ReactDOM.render(
-  <ToastProvider autoDismiss={true} autoDismissTimeout={2500}>
+  <ToastProvider autoDismiss={true} autoDismissTimeout={4500}>
     <APIProvider>
       <TemaProvider>
         <PopupProvider>

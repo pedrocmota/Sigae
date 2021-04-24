@@ -8,7 +8,8 @@ interface IRegistroRequest {
     param: {
       erro:
       'CODIGO_INVALIDO' |
-      'CODIGO_JA_USADO'
+      'CODIGO_JA_USADO' |
+      'ESPERANDO_VALIDACAO'
     }
   ) => void) => void,
 

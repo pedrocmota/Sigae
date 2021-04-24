@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import FormStyled from '../../../componentes/Form/Form'
 
 export const FormContainer = styled.div`
@@ -8,6 +8,10 @@ export const FormContainer = styled.div`
   flex: 1;
   width: 500px;
   margin-top: 20px;
+  margin-bottom: 20px;
+  @media (max-width: 560px) {
+    width: 95%;
+  }
 `
 
 export const Text = styled.div`
@@ -15,6 +19,10 @@ export const Text = styled.div`
   font-size: 20px;
   text-align: justify;
   text-align-last: justify;
+  @media (max-width: 462px) {
+    text-align: left;
+    text-align-last: auto;
+  }
 `
 
 export const Lista = styled.div`
@@ -44,6 +52,9 @@ export const Lista = styled.div`
 export const Form = styled(FormStyled)`
   margin-top: 45px;
   width: 400px;
+  @media (max-width: 462px) {
+    width: 98%;
+  }
 `
 
 export const BottomRow = styled.div`
@@ -53,10 +64,19 @@ export const BottomRow = styled.div`
   margin-top: 10px;
 `
 
-export const Links = styled.a`
+interface ILinks {
+  disabled?: boolean
+}
+
+export const Links = styled.a<ILinks>`
   color: #5b7192;
   font-size: 16px;
   text-decoration: none;
+  ${({disabled}) => disabled && css`
+    color: #b6b7b9;
+    text-decoration: none !important;
+    cursor: not-allowed;
+  `}
   &:hover {
     text-decoration: underline;
   }

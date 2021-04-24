@@ -26,6 +26,7 @@ const Container = styled.div`
 const Texto = styled.div`
   font-size: 20px;
   text-align: center;
+  white-space: pre-line;
 `
 
 export default Confirmar

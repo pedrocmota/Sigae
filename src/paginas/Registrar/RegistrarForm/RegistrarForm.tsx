@@ -88,11 +88,15 @@ const RegistrarForm: React.FC = () => {
       validar(dadosValidar)
     }, (param) => {
       if(param.erro == 'CODIGO_JA_USADO') {
-        return setRedirectValidar(true)
+        setRedirectCodigo(true)
+        return Toasts.addToast('Esse código já foi utilizado', {appearance: 'error'})
       }
       if(param.erro == 'CODIGO_INVALIDO') {
         setRedirectCodigo(true)
         return Toasts.addToast('Esse código não é válido', {appearance: 'error'})
+      }
+      if(param.erro == 'ESPERANDO_VALIDACAO') {
+        return setRedirectValidar(true)
       }
     })
   }, [])
@@ -260,7 +264,7 @@ const RegistrarForm: React.FC = () => {
                           dadosRetorno.turma = inputTurma?.current?.value as string
                         }
                         if (dados.tipo == 'DOCENTE') {
-                          dados.disciplinas = iOptionsToStringArray(inputDisciplina.current)
+                          dadosRetorno.disciplinas = iOptionsToStringArray(inputDisciplina.current)
                         }
                         return dadosRetorno
                       }

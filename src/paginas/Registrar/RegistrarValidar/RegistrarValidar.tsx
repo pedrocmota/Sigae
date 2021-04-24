@@ -8,6 +8,7 @@ import Spinner from '../../../componentes/Spinner/Spinner'
 import {APIContext} from '../../../hooks/APIProvider'
 import {PopupContext} from '../../../hooks/PopupProvider'
 import {useToasts} from 'react-toast-notifications'
+import useIsMounted from '../../../hooks/useeffects/useIsMounted'
 import {HTMLInputMaskElement} from '../../../componentes/inputs/GenericInput/GenericInput'
 import {Container, Top, Main, Bottom} from '../styles'
 import {FormContainer, Text, Lista, Form, BottomRow, Links} from './styles'
@@ -26,11 +27,16 @@ const RegistrarForm: React.FC = () => {
   const {Requests} = useContext(APIContext)
   const Popups = useContext(PopupContext)
   const {addToast} = useToasts()
+  const isMounted = useIsMounted()
 
   const [show, setShow] = useState(false)
   const [dados, setDados] = useState<IDados>()
   const [erro, setErro] = useState(false)
+
   const [enviando, setEnviando] = useState(false)
+  const [enviandoEmail, setEnviandoEmail] = useState(false)
+  const [enviandoCancelar, setEnviandoCancelar] = useState(false)
+
   const [redirectCodigo, setRedirectCodigo] = useState(false)
   const [redirectLogin, setRedirectLogin] = useState(false)
 
@@ -47,14 +53,16 @@ const RegistrarForm: React.FC = () => {
   }, [])
 
   const enviar = () => {
-    if(!enviando) {
+    if(!enviando && !enviandoCancelar && !enviandoEmail) {
       const codigo = inputCodigo.current!.inputElement!.value
       if (codigo.length > 0) {
         setEnviando(true)
         Requests.registro.validar(codigo, () => {
-          addToast('Você foi registrado com sucesso!', {appearance: 'success',})
+          setEnviando(false)
           setRedirectLogin(true)
+          addToast('Você foi registrado com sucesso!', {appearance: 'success'})
         }, (param) => {
+          setEnviando(false)
           if(param.erro == 'CODIGO_INVALIDO') {
             addToast('Esse código é inválido', {appearance: 'error'})
           }
@@ -67,6 +75,50 @@ const RegistrarForm: React.FC = () => {
       }
     }
   }
+
+  const reenviarEmail = () => {
+    if(!enviando && !enviandoCancelar && !enviandoEmail) {
+      setEnviandoEmail(true)
+      Requests.registro.reenviarEmail(codigo, () => {
+        addToast('Email reenviado com sucesso!', {appearance: 'success'})
+        setTimeout(() => {
+          if(isMounted()) {
+            setEnviandoEmail(false)
+          }
+        }, 3000)
+      }, () => {
+        addToast('Erro desconhecido ao reenviar e-mail', {appearance: 'error'})
+      })
+    }
+  }
+
+  const cancelar = () => {
+    if(!enviando && !enviandoCancelar && !enviandoEmail) {
+      Popups.showPopup('confirmar', {
+        titulo: 'Tem certeza?',
+        altura: '255px',
+        texto: `
+          A sua inscrição será cancelada!
+          Mas você poderá refazê-la com o
+          seu código de acesso antigo.
+
+          Deseja continuar?
+        `,
+        onClose: (botao) => {
+          if(botao == 'ok') {
+            setEnviandoCancelar(true)
+            Requests.registro.cancelar(codigo, () => {
+              addToast('Sua inscrição foi cancelada com sucesso!', {appearance: 'success'})
+              setRedirectCodigo(true)
+            }, () => {
+              addToast('Erro desconhecido ao cancelar a inscrição', {appearance: 'error'})
+            })
+          }
+        }
+      })
+    }
+  }
+
   return (
     <>
       {redirectCodigo && (
@@ -106,7 +158,7 @@ const RegistrarForm: React.FC = () => {
               <InputCode id="CodigoValidacao" mask="octaCode" spellCheck={false}
                 placeholder="Digite o código de validação" error={erro}
                 onFocus={() => setErro(false)} ref={inputCodigo} />
-              <Button type="button" tipo="generic" margintop={15} onClick={enviar}>
+              <Button type="submit" tipo="generic" margintop={15} onClick={enviar}>
                 {!enviando && (
                   <div>Enviar código</div>
                 )}
@@ -115,11 +167,13 @@ const RegistrarForm: React.FC = () => {
                 )}
               </Button>
               <BottomRow>
-                <Links href="#" onClick={(e) => {
+                <Links href="#" disabled={enviandoCancelar} onClick={(e) => {
                   e.preventDefault()
+                  cancelar()
                 }}>Cancelar inscrição</Links>
-                <Links href="#" onClick={(e) => {
+                <Links href="#" disabled={enviandoEmail} onClick={(e) => {
                   e.preventDefault()
+                  reenviarEmail()
                 }}>Reenviar e-mail</Links>
               </BottomRow>
             </Form>

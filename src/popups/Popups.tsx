@@ -2,7 +2,6 @@ import {IPopupKey} from './PopupsInterface'
 import Confirmar from './componentes/Confirmar/Confirmar'
 import RecuperarSenha from './componentes/RecuperarSenha/RecuperarSenha'
 import Carregando from './componentes/Carregando/Carregando'
-import ConfirmarRegistro from './componentes/ConfirmarRegistro/ConfirmarRegistro'
 
 export type Keys = keyof typeof Popups;
 
@@ -33,15 +32,6 @@ const Popups = {
     componente: Carregando,
     largura: '400px',
     altura: '320px',
-    mostrarFechar: false,
-    mostrarOk: false,
-    closeOnClick: false
-  },
-  confirmarRegistro: {
-    titulo: 'Só mais essa etapa',
-    componente: ConfirmarRegistro,
-    largura: '420px',
-    altura: '350px',
     mostrarFechar: false,
     mostrarOk: false,
     closeOnClick: false
