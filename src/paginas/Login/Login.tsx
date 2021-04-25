@@ -23,7 +23,7 @@ const Login: React.FC = () => {
   const inputMatricula = useRef<HTMLInputElement | null>(null)
   const inputSenha = useRef<HTMLInputElement | null>(null)
   const botao = useRef<HTMLButtonElement | null>(null)
-  
+
   const [enviando, setEnviando] = useState(false)
   const [redirect, setRedirect] = useState(false)
   const [erro1, setErro1] = useState(false)
@@ -59,19 +59,19 @@ const Login: React.FC = () => {
         setRedirect(true)
       }, (param) => {
         setEnviando(false)
-        if(param?.erro == 'USUARIO_DESCONHECIDO') {
+        if (param?.erro == 'USUARIO_DESCONHECIDO') {
           return addToast('Matrícula não encontrada', {appearance: 'error'})
         }
-        if(param?.erro == 'SENHA_INCORRETA') {
+        if (param?.erro == 'SENHA_INCORRETA') {
           return addToast('A senha digitada está incorreta', {appearance: 'error'})
         }
-        if(param?.erro == 'CONTA_NAO_REGISTRADA') {
+        if (param?.erro == 'CONTA_NAO_REGISTRADA') {
           return addToast('Esta matrícula ainda não foi registrada', {appearance: 'error'})
         }
-        if(param?.erro == 'CONTA_ESPERANDO_VALIDACAO') {
+        if (param?.erro == 'CONTA_ESPERANDO_VALIDACAO') {
           return
         }
-        if(param?.erro == 'ESTADO_DA_CONTA_DESCONHECIDO') {
+        if (param?.erro == 'ESTADO_DA_CONTA_DESCONHECIDO') {
           return addToast('Esta matrícula está com estado desconhecido. Isso é um erro!', {appearance: 'error'})
         }
         return addToast('Erro não previsto', {appearance: 'error'})
@@ -83,16 +83,16 @@ const Login: React.FC = () => {
   }
   return (
     <>
-      <Loading timer={500}/>
+      <Loading timer={500} />
       <Container>
         <Center>
           <Header>
             <Sigae />
             <h1>
               Sistema de gerenciamento
-            <br />
-            Atendimento ao estudante
-          </h1>
+              <br />
+              Atendimento ao estudante
+            </h1>
           </Header>
           <Main>
             <Form method="POST" name="Login">
@@ -109,7 +109,7 @@ const Login: React.FC = () => {
                   <div>Realizar login</div>
                 )}
                 {enviando && (
-                  <Spinner/>
+                  <Spinner />
                 )}
               </Button>
             </Form>
