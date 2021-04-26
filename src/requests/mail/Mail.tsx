@@ -3,7 +3,7 @@ import IMailInterface from './MailInterface'
 
 const Requests: IMailInterface = {
   checarValidade: (codigo, tipo, callback) => {
-    Methods.post('/mail/codigo/recuperarSenha/enviar', {
+    Methods.get('/mail/codigo/recuperarSenha/checar', {
       codigo: codigo,
       tipo: tipo,
     }, true, (resposta) => {

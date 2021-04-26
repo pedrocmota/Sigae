@@ -1,5 +1,6 @@
 import ISessionRequest from './session/SessionInterface'
 import IRegistroInterface from './registro/RegistroInterface'
+import IMailInterface from './mail/MailInterface'
 
 export interface IMethods {
   post: (route: string, data: object, auth: boolean,
@@ -12,5 +13,6 @@ export interface IMethods {
 
 export interface IRequests {
   session: ISessionRequest,
-  registro: IRegistroInterface
+  registro: IRegistroInterface,
+  mail: IMailInterface
 }
