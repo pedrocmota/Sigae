@@ -18,10 +18,12 @@ export type IMask = {
 }
 
 export interface IInputLogin extends IInput {
-  error?: boolean
+  error?: boolean,
+  paddingRight?: boolean
 }
 
 export interface IInputLoginStyled {
   error?: boolean,
-  visible?: boolean
+  visible?: boolean,
+  paddingRight?: number
 }

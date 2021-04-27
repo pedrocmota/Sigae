@@ -5,6 +5,7 @@ import Form from '../../componentes/Form/Form'
 import InputLogin from '../../componentes/inputs/InputLogin/InputLogin'
 import Button from '../../componentes/Button/Button'
 import Spinner from '../../componentes/Spinner/Spinner'
+import ShowPassword from '../../componentes/ShowPassword/ShowPassword'
 import {APIContext} from '../../hooks/APIProvider'
 import {PopupContext} from '../../hooks/PopupProvider'
 import {useToasts} from 'react-toast-notifications'
@@ -29,6 +30,8 @@ const Login: React.FC = () => {
   const [erro1, setErro1] = useState(false)
   const [erro2, setErro2] = useState(false)
 
+  const [showPassword, setShowPassword] = useState(false)
+
   const onMatriculaTyped = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const tamanho = e.currentTarget?.value?.length
     if (e.key === 'Enter') inputSenha.current?.focus()
@@ -46,12 +49,8 @@ const Login: React.FC = () => {
   const logar = () => {
     const matricula = inputMatricula.current?.value as string
     const senha = inputSenha.current?.value as string
-    if (matricula.length == 0) {
-      setErro1(true)
-    }
-    if (senha.length == 0) {
-      setErro2(true)
-    }
+    if (matricula.length == 0) setErro1(true)
+    if (senha.length == 0) setErro2(true)
     if (matricula.length > 0 && senha.length > 0 && !enviando) {
       setEnviando(true)
       Requests.session.logar(matricula, senha, (param) => {
@@ -78,11 +77,11 @@ const Login: React.FC = () => {
       })
     }
   }
-  if (redirect) {
-    return <Redirect to="/" />
-  }
   return (
     <>
+      {redirect && (
+        <Redirect to="/" />
+      )}
       <Loading timer={500} />
       <Container>
         <Center>
@@ -100,9 +99,14 @@ const Login: React.FC = () => {
                 ref={inputMatricula} onKeyUp={onMatriculaTyped} onFocus={onFocus}>
                 <InputErrorIcon visible={erro1 ? 100 : 0} />
               </InputLogin>
-              <InputLogin id="senha" placeholder="Sua senha" margintop={15} type="password" error={erro2}
+              <InputLogin id="senha" placeholder="Sua senha" margintop={15} type={
+                showPassword ? 'text' : 'password'
+              } paddingRight error={erro2}
                 ref={inputSenha} onKeyUp={onSenhaTyped} onFocus={onFocus}>
                 <InputErrorIcon visible={erro2 ? 100 : 0} />
+                <ShowPassword top={12} selecionado={showPassword} onClick={() => {
+                  setShowPassword(!showPassword)
+                }}/>
               </InputLogin>
               <Button type="submit" variant="contained" tipo="generic" margintop={10} ref={botao} onClick={logar}>
                 {!enviando && (

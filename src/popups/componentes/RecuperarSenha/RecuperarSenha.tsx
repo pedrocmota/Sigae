@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react'
 import Form from '../../../componentes/Form/Form'
 import Button from '../../../componentes/Button/Button'
 import {validarEmail} from '../../../utils/Validar'
-import {Container, CustumInputLogin} from './styles' 
+import {Container, CustumInputLogin} from './styles'
 import {InputErrorIcon} from '../../../componentes/Icons/Icons'
 import {IPopupBody} from '../../../popups/PopupsInterface'
 
@@ -15,12 +15,15 @@ const RecuperarSenha: React.FC<IPopupBody> = ({APIContext, PopupContext}) => {
   const enviar = () => {
     const email = input.current!.value
     if (email.length <= 0) return setErro(true)
-    if(validarEmail(email)) {
-      Requests.session.recuperarSenha(email, () => {})
-      PopupContext.showAlerta('info', 'Aviso', `
-        Se este e-mail estiver em nossos registros, nós enviaremos um e-mail
-        com um código para que você possa recuperar sua senha.
-      `)
+    if (validarEmail(email)) {
+      Requests.session.recuperarSenha(email, () => { })
+      PopupContext.close()
+      setTimeout(() => {
+        PopupContext.showAlerta('info', 'Aviso', `
+          Se este e-mail estiver em nossos registros, nós enviaremos um e-mail
+          com um código para que você possa recuperar sua senha.
+        `)
+      }, 500)
     } else {
       setErro(true)
     }

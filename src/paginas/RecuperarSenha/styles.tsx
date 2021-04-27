@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import FormStyled from '../../componentes/Form/Form'
 
 export const Container = styled.div`
@@ -19,7 +19,6 @@ export const Center = styled.div`
   height: 348px;
   box-shadow: 6px 6px 5px 0px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  overflow: hidden;
   @media (max-width: 488px) {
     width: 96%;
   }
@@ -62,11 +61,17 @@ export const Form = styled(FormStyled)`
   margin-bottom: 15px;
 `
 
+export const InputContainer = styled.div`
+  position: relative;
+`
+
 export const PopupSenhaContainer = styled.div`
-  @media (max-width: 1220px) {
+  position: relative;
+  top: -112px !important;
+  @media (max-width: 1112px) {
     .popupSenhaContainer {
       left: 0px;
-      top: -180px;
+      top: -185px !important;
       &::after {
         transform: rotate(135deg);
         right: 0px;
@@ -76,4 +81,20 @@ export const PopupSenhaContainer = styled.div`
       }
     }
   }
+`
+
+interface IAlerta {
+  visible: boolean
+}
+
+export const Alerta = styled.div<IAlerta>`
+  font-size: 17px;
+  color: crimson;
+  margin-top: 10px;
+  padding-left: 5px;
+  transition: opacity 200ms;
+  ${({visible}) => !visible && css`
+    cursor: none;
+  `}
+  opacity: ${props => props.visible ? '100%' : '0%'};
 `

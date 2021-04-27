@@ -18,6 +18,17 @@ const Requests: IMailInterface = {
       callback(resposta)
     })
   },
+
+  enviarSenha: (codigo, senha, callback, callbackError) => {
+    Methods.post('/mail/codigo/recuperarSenha/validar', {
+      codigo: codigo,
+      senha: senha
+    }, true, (resposta) => {
+      callback(resposta)
+    }, (erro) => {
+      callbackError(erro)
+    })
+  }
 }
 
 export default Requests

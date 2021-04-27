@@ -66,10 +66,6 @@ export const InputContainer = styled.div`
   position: relative;
 `
 
-interface IAlerta {
-  visible: boolean
-}
-
 export const PopupSenhaContainer = styled.div`
   @media (max-width: 1220px) {
     .popupSenhaContainer {
@@ -85,6 +81,10 @@ export const PopupSenhaContainer = styled.div`
     }
   }
 `
+
+interface IAlerta {
+  visible: boolean
+}
 
 export const Alerta = styled.div<IAlerta>`
   font-size: 17px;

@@ -41,6 +41,9 @@ export const InputLoginStyled = styled(GenericInput)<IInputLoginStyled>`
   padding-left: 38px;
   padding-right: 10px;
   margin: 0px !important;
+  ${({paddingRight}) => paddingRight == 1 && css`
+    padding-right: 45px;
+  `}
   &:focus {
     border-color: #827ffe !important;
   }

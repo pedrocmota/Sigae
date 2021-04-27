@@ -7,6 +7,7 @@ import InputText from '../../../componentes/inputs/InputText/InputText'
 import BasicSelect, {IOptions} from '../../../componentes/selects/BasicSelect/BasicSelect'
 import Button from '../../../componentes/Button/Button'
 import Spinner from '../../../componentes/Spinner/Spinner'
+import ShowPassword from '../../../componentes/ShowPassword/ShowPassword'
 import PopupSenha from '../../../componentes/PopupSenha/PopupSenha'
 import {APIContext} from '../../../hooks/APIProvider'
 import {PopupContext} from '../../../hooks/PopupProvider'
@@ -62,6 +63,8 @@ const RegistrarForm: React.FC = () => {
   const [senha, setSenha] = useState('')
   const [popupSenhaOpen, setPopupSenhaOpen] = useState(false)
 
+  const [showPassword, setShowPassword] = useState(false)
+
   const dadosValidar: IValidadorProps = {
     dados: dados as any,
     valido: valido, setValido: setValido,
@@ -87,15 +90,15 @@ const RegistrarForm: React.FC = () => {
       dadosValidar.dados = param
       validar(dadosValidar)
     }, (param) => {
-      if(param.erro == 'CODIGO_JA_USADO') {
+      if (param.erro == 'CODIGO_JA_USADO') {
         setRedirectCodigo(true)
         return Toasts.addToast('Esse código já foi utilizado', {appearance: 'error'})
       }
-      if(param.erro == 'CODIGO_INVALIDO') {
+      if (param.erro == 'CODIGO_INVALIDO') {
         setRedirectCodigo(true)
         return Toasts.addToast('Esse código não é válido', {appearance: 'error'})
       }
-      if(param.erro == 'ESPERANDO_VALIDACAO') {
+      if (param.erro == 'ESPERANDO_VALIDACAO') {
         return setRedirectValidar(true)
       }
     })
@@ -223,7 +226,9 @@ const RegistrarForm: React.FC = () => {
                     }>
                   </Banner>
                   <InputContainer>
-                    <InputText id="password1" type="password" placeholder="Digite sua senha" disabled={enviando}
+                    <InputText id="password1" type={
+                      showPassword ? 'text' : 'password'
+                    } paddingRight placeholder="Digite sua senha" disabled={enviando}
                       error={inputSenha1Erro} margintop={12} height={'40px'} ref={inputSenha1} onChange={() => {
                         if (inputSenha1?.current?.value != undefined) {
                           const senha = inputSenha1.current.value
@@ -236,14 +241,24 @@ const RegistrarForm: React.FC = () => {
                       }} onBlur={() => {
                         setPopupSenhaOpen(false)
                       }} />
+                    <ShowPassword selecionado={showPassword} top={20} onClick={() => {
+                      setShowPassword(!showPassword)
+                    }} />
                     <PopupSenhaContainer>
                       <PopupSenha visible={popupSenhaOpen} senha={senha} timer={200} />
                     </PopupSenhaContainer>
                   </InputContainer>
-                  <InputText id="password2" type="password" placeholder="Repita sua senha" disabled={enviando}
-                    error={inputSenha2Erro} margintop={12} height={'40px'} ref={inputSenha2} onChange={() => {
-                      validar(dadosValidar)
+                  <InputContainer>
+                    <InputText id="password2" type={
+                      showPassword ? 'text' : 'password'
+                    } paddingRight placeholder="Repita sua senha" disabled={enviando}
+                      error={inputSenha2Erro} margintop={12} height={'40px'} ref={inputSenha2} onChange={() => {
+                        validar(dadosValidar)
+                      }} />
+                    <ShowPassword selecionado={showPassword} top={20} onClick={() => {
+                      setShowPassword(!showPassword)
                     }} />
+                  </InputContainer>
                   <Alerta visible={inputSenha2Erro}>
                     ● As senhas digitadas não correspondem
                   </Alerta>
