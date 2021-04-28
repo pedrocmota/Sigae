@@ -12,26 +12,27 @@ export interface IAPIContext {
   setToken: Function,
   isAuth: () => boolean,
   resetAuth: () => void,
-  // apiError: number,
-  // setAPIError: React.Dispatch<React.SetStateAction<number>>,
   Requests: IRequests
 }
 
 export const APIContext = createContext<IAPIContext>({} as IAPIContext)
 
-export let Methods:IMethods
+export let Methods: IMethods
 
 export const APIProvider: React.FC = (props) => {
   const [token, setToken] = usePeristedState('token', '')
-  const [endereco, setEndereco] = useState('')
+  const [endereco, setEndereco] = usePeristedState('api_adress', '')
   const [crash, setCrash] = useState<ICrash | null>(null)
   useEffect(() => {
-    const loading = async() => {
-      const adress = isDev() ? '/api.adress.json' : '/public/api.adress.json'
-      const dados = await (await axios.get(adress)).data
-      setEndereco(dados['adress'])
+    if (endereco == '') {
+      console.log('adress')
+      const loading = async () => {
+        const adress = isDev() ? '/api.adress.json' : '/public/api.adress.json'
+        const dados = await (await axios.get(adress)).data
+        setEndereco(dados['adress'])
+      }
+      loading()
     }
-    loading()
   }, [])
 
   const isAuth = () => {
@@ -50,28 +51,28 @@ export const APIProvider: React.FC = (props) => {
         }
       }).then((resposta: any) => {
         const code = resposta.headers.statuscode
-        if(code == undefined) {
+        if (code == undefined) {
           callbackOk(resposta.data)
         } else {
-          if(callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
+          if (callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
         // crashApp(erro.response)
       })
     },
-    
+
     get: async (route, data, auth, callbackOk, callbackError) => {
       axios.get(`${endereco}${fixRoute(route)}`, {
         params: data,
         headers: {
           'token': auth ? token : null
         }
-      }).then((resposta:any) => {
+      }).then((resposta: any) => {
         const code = resposta.headers.statuscode
-        if(code == undefined) {
+        if (code == undefined) {
           callbackOk(resposta.data)
         } else {
-          if(callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
+          if (callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
         // crashApp(erro.response)
@@ -80,10 +81,10 @@ export const APIProvider: React.FC = (props) => {
   }
 
   const crashApp = (erro: any) => {
-    if(erro == undefined) {
+    if (erro == undefined) {
       return setCrash({statusCode: '404', texto: 'Não foi possível contatar a API'})
     }
-    if(typeof erro.data == 'object') {
+    if (typeof erro.data == 'object') {
       const dataString = Object.entries(erro.data)[0][1] as any
       setCrash({statusCode: erro.status, texto: dataString})
     } else {
@@ -91,9 +92,9 @@ export const APIProvider: React.FC = (props) => {
     }
   }
 
-  if(crash != null) {
+  if (crash != null) {
     return (
-      <Crash statusCode={crash.statusCode} texto={crash.texto}/>
+      <Crash statusCode={crash.statusCode} texto={crash.texto} />
     )
   }
 

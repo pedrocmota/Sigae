@@ -133,7 +133,7 @@ const Login: React.FC = () => {
             </LinksContainer>
           </Main>
           <Footer>
-            <div>© 2020 | Desenvolvimento: <a href="https://portal.ifba.edu.br/">IFBA</a></div>
+            <div>© 2020 | Desenvolvimento: <a href="https://portal.ifba.edu.br/" target="_blank" rel="noreferrer">IFBA</a></div>
           </Footer>
         </Center>
       </Container>

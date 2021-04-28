@@ -33,13 +33,14 @@ const Routes: React.FC = () => {
           <Codigo/>
         </Route>
 
+        <Route path="/testar" exact>
+          <Teste/>
+        </Route>
+        
         <Route path="*" exact>
           <Erro404/>
         </Route>
 
-        <Route path="/teste" exact>
-          <Teste/>
-        </Route>
       </Switch>
     </Router>
   )

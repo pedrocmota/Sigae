@@ -1,17 +1,14 @@
 import React, {useContext} from 'react'
-import {PopupContext} from '../../hooks/PopupProvider'
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 
-const Teste: React.FC = () => {
-  const {showPopup} = useContext(PopupContext)
+import {ConsoleContext} from '../../hooks/ConsoleProvider'
+
+export default function FullScreenDialog() {
+  const {open, openConsole, closeConsole} = useContext(ConsoleContext)
+
   return (
     <div>
-      <button onClick={() => {
-        
-      }}>
-        Testar
-      </button>
+      
     </div>
   )
 }
-
-export default Teste
