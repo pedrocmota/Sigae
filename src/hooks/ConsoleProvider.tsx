@@ -22,6 +22,13 @@ export const ConsoleProvider: React.FC = (props) => {
     document.addEventListener('keydown', function onPress(event) {
       if (event.key === 'c' && event.altKey) openConsole()
     })
+    window.onerror = (erro, url, line) => {
+      adicionar('Erro', 
+      `${erro}
+      url: ${url}
+      linha: ${line}
+      `, 'ERROR')
+    }
   }, [])
 
   const openConsole = () => {

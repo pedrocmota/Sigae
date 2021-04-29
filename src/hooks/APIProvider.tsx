@@ -1,12 +1,13 @@
-import React, {useState, useEffect, createContext} from 'react'
+import React, {useState, useEffect, useContext, createContext} from 'react'
 import axios from 'axios'
 import usePeristedState from './usestates/usePeristedState'
 import Requests from '../requests/Requests'
+import {ConsoleContext} from '../hooks/ConsoleProvider'
 import {isDev, fixRoute, parseToNumber} from '../utils/Utils'
 import {IMethods, IRequests} from '../requests/RequestsInterface'
 
 export interface IAPIContext {
-  endereco: string,
+  config: IConfig,
   token: string,
   setToken: Function,
   isAuth: () => boolean,
@@ -14,20 +15,26 @@ export interface IAPIContext {
   Requests: IRequests
 }
 
+interface IConfig {
+  version: string,
+  apiAdress: string
+}
+
 export const APIContext = createContext<IAPIContext>({} as IAPIContext)
 
 export let Methods: IMethods
 
 export const APIProvider: React.FC = (props) => {
+  const {adicionar} = useContext(ConsoleContext)
   const [token, setToken] = usePeristedState('token', '')
-  const [endereco, setEndereco] = usePeristedState('api_adress', '')
+  const [config, setConfig] = useState<IConfig>()
+
   useEffect(() => {
-    if (endereco == '') {
-      console.log('adress')
+    if (config == undefined) {
       const loading = async () => {
-        const adress = isDev() ? '/api.adress.json' : '/public/api.adress.json'
+        const adress = isDev() ? '/app.config.json' : '/public/app.config.json'
         const dados = await (await axios.get(adress)).data
-        setEndereco(dados['adress'])
+        setConfig(dados)
       }
       loading()
     }
@@ -43,7 +50,7 @@ export const APIProvider: React.FC = (props) => {
 
   Methods = {
     post: async (route, data, auth, callbackOk, callbackError) => {
-      axios.post(`${endereco}${fixRoute(route)}`, data, {
+      axios.post(`${config?.apiAdress}${fixRoute(route)}`, data, {
         headers: {
           'token': auth ? token : null
         }
@@ -55,12 +62,12 @@ export const APIProvider: React.FC = (props) => {
           if (callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
-        // crashApp(erro.response)
+        adicionar('Erro de rede.', erro + '', 'ERROR')
       })
     },
 
     get: async (route, data, auth, callbackOk, callbackError) => {
-      axios.get(`${endereco}${fixRoute(route)}`, {
+      axios.get(`${config?.apiAdress}${fixRoute(route)}`, {
         params: data,
         headers: {
           'token': auth ? token : null
@@ -73,16 +80,16 @@ export const APIProvider: React.FC = (props) => {
           if (callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
-        // crashApp(erro.response)
+        adicionar('Erro de rede.', erro + '', 'ERROR')
       })
     }
   }
 
   return (
     <APIContext.Provider value={{
-      endereco, token, setToken, isAuth, resetAuth, Requests
+      config: config as IConfig, token, setToken, isAuth, resetAuth, Requests
     }}>
-      {endereco.length > 0 && (
+      {config != undefined && (
         props.children
       )}
     </APIContext.Provider>
