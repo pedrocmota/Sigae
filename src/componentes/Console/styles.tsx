@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import DialogStyled from '@material-ui/core/Dialog'
 
 export const Dialog = styled(DialogStyled)`
@@ -21,7 +21,7 @@ export const Dialog = styled(DialogStyled)`
   }
   @media (max-height: 860px) {
     height: 100% !important;
-  } 
+  }
 `
 
 export const ConsoleBar = styled.div`
@@ -58,12 +58,36 @@ export const ConsoleBar = styled.div`
       }
     }
   }
+  @media (max-width: 372px) {
+    .left > h2 {
+      font-size: 20px;
+      text-align: center;
+      padding-left: 0px;
+    }
+  }
 `
 
-export const Container = styled.div`
+interface IContainer {
+  vazio: boolean
+}
+
+export const Container = styled.div<IContainer>`
   display: flex;
   flex-direction: column;
   align-items: center;
   flex: 1;
+  overflow-y: auto;
   padding: 15px;
+  ${({vazio}) => vazio && css`
+    justify-content: center;
+  `}
+`
+
+export const TextoVazio = styled.div`
+  font-size: 25px;
+  color: #4e5f78;
+  text-align: center;
+  @media (max-width: 372px) {
+    font-size: 22px;
+  }
 `

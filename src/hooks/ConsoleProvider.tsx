@@ -1,38 +1,22 @@
 import React, {useState, useEffect, useRef, createContext} from 'react'
 import Console from '../componentes/Console/Console'
 import {IConsoleEntry, tipo} from '../types/Console'
+import {Time} from '../utils/DateTime'
 
 interface IConsoleContext {
   open: boolean,
   openConsole: () => void,
   closeConsole: () => void,
-  dados: React.MutableRefObject<IConsoleEntry[]>
+  dados: React.MutableRefObject<IConsoleEntry[]>,
+  adicionar: (titulo: string, conteudo: string, tipo: tipo) => void,
+  clear: () => void
 }
 
 export const ConsoleContext = createContext<IConsoleContext>({} as IConsoleContext)
 
 export const ConsoleProvider: React.FC = (props) => {
   const [open, setOpen] = useState(false)
-  const dados = useRef<IConsoleEntry[]>([
-    {
-      titulo: 'teste1',
-      conteudo: 'testando kkkk',
-      horario: '14:33',
-      tipo: 'ERROR'
-    },
-    {
-      titulo: 'teste1',
-      conteudo: 'testando kkkk',
-      horario: '14:33',
-      tipo: 'ERROR'
-    },
-    {
-      titulo: 'teste1',
-      conteudo: 'testando kkkk',
-      horario: '14:33',
-      tipo: 'ERROR'
-    },
-  ])
+  const dados = useRef<IConsoleEntry[]>([])
 
   useEffect(() => {
     document.addEventListener('keydown', function onPress(event) {
@@ -48,12 +32,12 @@ export const ConsoleProvider: React.FC = (props) => {
     setOpen(false)
   }
 
-  const add = (titulo: string, tipo: tipo, conteudo: string) => {
+  const adicionar = (titulo: string, conteudo: string, tipo: tipo) => {
     dados.current.push({
       titulo: titulo,
       tipo: tipo,
       conteudo: conteudo,
-      horario: ''
+      horario: Time.now()
     })
   }
 
@@ -63,7 +47,7 @@ export const ConsoleProvider: React.FC = (props) => {
 
   return (
     <ConsoleContext.Provider value={{
-      open, openConsole, closeConsole, dados
+      open, openConsole, closeConsole, dados, adicionar, clear
     }}>
       <Console/>
       {props.children}

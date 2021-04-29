@@ -7,7 +7,7 @@ import Slide from '@material-ui/core/Slide'
 import {TransitionProps} from '@material-ui/core/transitions'
 import Collapsible from './componentes/Collapsible/Collapsible'
 import {ConsoleContext} from '../../hooks/ConsoleProvider'
-import {Dialog, ConsoleBar, Container} from './styles'
+import {Dialog, ConsoleBar, Container, TextoVazio} from './styles'
 import {Delete, Close} from '@material-ui/icons'
 import Si from '../../assets/si.svg'
 
@@ -47,10 +47,13 @@ const Console: React.FC = () => {
           </Tooltip>
         </div>
       </ConsoleBar>
-      <Container>
+      <Container vazio={dados.current.length == 0}>
         {dados.current.map((item) => (
           <Collapsible {...item} key={uuidv4()} />
         ))}
+        {dados.current.length == 0 && (
+          <TextoVazio>O console, por enquanto, está vazio.</TextoVazio>
+        )}
       </Container>
     </Dialog>
   )
