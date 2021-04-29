@@ -42,7 +42,7 @@ export const ConsoleProvider: React.FC = (props) => {
   }
 
   const clear = () => {
-
+    dados.current = []
   }
 
   return (

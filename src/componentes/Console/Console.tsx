@@ -19,12 +19,8 @@ const Transition = React.forwardRef(function Transition(
 })
 
 const Console: React.FC = () => {
-  const {dados, open, closeConsole} = useContext(ConsoleContext)
+  const {dados, open, closeConsole, clear} = useContext(ConsoleContext)
   const forceUpdate = useForceUpdate()
-  const clearConsole = () => {
-    dados.current = []
-    forceUpdate()
-  }
   return (
     <Dialog fullScreen open={open} onClose={closeConsole} TransitionComponent={Transition}>
       <ConsoleBar>
@@ -35,7 +31,10 @@ const Console: React.FC = () => {
         <div className="consoleBar right">
           <Tooltip title="Limpar console">
             <IconButton className="limpar" edge="start" color="inherit"
-              onClick={clearConsole} aria-label="limpar">
+              onClick={() => {
+                clear()
+                forceUpdate()
+              }} aria-label="limpar">
               <Delete />
             </IconButton>
           </Tooltip>
