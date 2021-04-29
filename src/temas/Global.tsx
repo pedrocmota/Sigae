@@ -68,10 +68,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .popup_opacity {
-    opacity: 0.05
-  }
-
   .fixedPopper {
     ul {
       .MuiAutocomplete-option[data-focus="true"] {
@@ -82,6 +78,11 @@ const GlobalStyle = createGlobalStyle`
         color: white !important;
       }
     }
+  }
+
+  .MuiTooltip-popper > div {
+    background-color: #4e5f78;
+    color: #ffffff
   }
 `
 

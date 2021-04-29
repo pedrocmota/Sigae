@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import Fade from '../Fade/Fade'
 import {Container} from './styles'
-import {ReactComponent as Sigae} from '../../assets/loading.svg'
+import {ReactComponent as Sigae} from '../../assets/sigae-loading.svg'
 
 interface ILoading {
   timer: number

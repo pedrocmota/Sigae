@@ -26,7 +26,7 @@ const Container = styled.div`
   }
 `
 
-type ICumprido = Omit<IRequisito, 'texto'>;
+type ICumprido = Omit<IRequisito, 'texto'>
 
 const Cumprido = styled.div<ICumprido>`
   color: ${props => props.cumprido ? '#16a53a' : '#d84040'};

@@ -5,14 +5,34 @@ import {IConsoleEntry, tipo} from '../types/Console'
 interface IConsoleContext {
   open: boolean,
   openConsole: () => void,
-  closeConsole: () => void
+  closeConsole: () => void,
+  dados: React.MutableRefObject<IConsoleEntry[]>
 }
 
 export const ConsoleContext = createContext<IConsoleContext>({} as IConsoleContext)
 
 export const ConsoleProvider: React.FC = (props) => {
   const [open, setOpen] = useState(false)
-  const dados = useRef<IConsoleEntry[]>([])
+  const dados = useRef<IConsoleEntry[]>([
+    {
+      titulo: 'teste1',
+      conteudo: 'testando kkkk',
+      horario: '14:33',
+      tipo: 'ERROR'
+    },
+    {
+      titulo: 'teste1',
+      conteudo: 'testando kkkk',
+      horario: '14:33',
+      tipo: 'ERROR'
+    },
+    {
+      titulo: 'teste1',
+      conteudo: 'testando kkkk',
+      horario: '14:33',
+      tipo: 'ERROR'
+    },
+  ])
 
   useEffect(() => {
     document.addEventListener('keydown', function onPress(event) {
@@ -43,7 +63,7 @@ export const ConsoleProvider: React.FC = (props) => {
 
   return (
     <ConsoleContext.Provider value={{
-      open, openConsole, closeConsole
+      open, openConsole, closeConsole, dados
     }}>
       <Console/>
       {props.children}
