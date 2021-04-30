@@ -1,10 +1,24 @@
-import React from 'react'
+import React, {useState, createContext} from 'react'
+import Header from './componentes/Header/Header'
+import Container from './componentes/Container/Container'
+import Footer from '../../componentes/pages/Footer/Footer'
 
-const Main: React.FC = () => {
-  return (
-    <>
-    </>
-  )
+
+interface IMainContext {
+  open: boolean,
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default Main
+export const MainContext = createContext<IMainContext>({} as IMainContext)
+
+export const MainProvider: React.FC = (props) => {
+  const [open, setOpen] = useState(false)
+  return (
+    <MainContext.Provider value={{open, setOpen}}>
+      <Header/>
+      <Container/>
+      <Footer/>
+      {props.children}
+    </MainContext.Provider>
+  )
+}

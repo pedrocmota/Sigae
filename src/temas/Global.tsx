@@ -9,11 +9,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @font-face {
-    font-family: 'Fira Code';
-    src: url('../assets/fontes/FiraCode-Regular.woff2') format('woff2'),
-      url("../assets/fontes/FiraCode-Regular.woff2") format("woff");
-    font-weight: 400;
-    font-style: normal;
+    font-family: 'Comfortaa';
+    src: local('Comfortaa'), url('/fontes/Comfortaa-Regular.woff') format('woff');
   }
   
   body {
