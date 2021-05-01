@@ -11,6 +11,7 @@ interface IBasicSelect {
   multiple?: boolean,
   disabled?: boolean,
   onChange?: (obj: any, event?: React.ChangeEvent<{}>) => void,
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>,
   input?: {
     width?: string,
     height?: string,

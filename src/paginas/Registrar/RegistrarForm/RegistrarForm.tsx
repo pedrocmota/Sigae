@@ -144,6 +144,18 @@ const RegistrarForm: React.FC = () => {
                   <BasicSelect placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)}
                     disabled={enviando} input={{height: '40px', margintop: 12}} ref={inputNome} onChange={() => {
                       validar(dadosValidar)
+                    }} onKeyDown={(e) => {
+                      if (e.key == 'Enter') {
+                        if (dados.tipo == 'DISCENTE') {
+                          inputCurso.current?.focus()
+                        }
+                        if (dados.tipo == 'DOCENTE') {
+                          // inputDisciplina.current?.focus()
+                        }
+                        if (dados.tipo == 'DOCENTE') {
+                          inputEmail.current?.focus()
+                        }
+                      }
                     }} />
                 </Row>
                 {dados.tipo == 'DISCENTE' && (
@@ -166,6 +178,10 @@ const RegistrarForm: React.FC = () => {
                             setTurmas([])
                           }
                           validar(dadosValidar)
+                        }} onKeyDown={(e) => {
+                          if (e.key == 'Enter') {
+                            inputTurma.current?.focus()
+                          }
                         }} />
                     </Row>
                     <Row>
@@ -180,6 +196,10 @@ const RegistrarForm: React.FC = () => {
                         disabled={turmas.length == 0 || enviando} input={{height: '40px', margintop: 12}}
                         onChange={() => {
                           validar(dadosValidar)
+                        }} onKeyDown={(e) => {
+                          if (e.key == 'Enter') {
+                            inputEmail.current?.focus()
+                          }
                         }} />
                     </Row>
                   </>
@@ -197,6 +217,10 @@ const RegistrarForm: React.FC = () => {
                       disabled={enviando} input={{height: '40px', margintop: 12}} onChange={(obj) => {
                         inputDisciplina.current = obj
                         validar(dadosValidar)
+                      }} onKeyDown={(e) => {
+                        if (e.key == 'Enter') {
+                          inputEmail.current?.focus()
+                        }
                       }} />
                   </Row>
                 )}
@@ -211,6 +235,10 @@ const RegistrarForm: React.FC = () => {
                   <InputText id="emailRegistro" type="email" placeholder="Digite seu Email" ref={inputEmail}
                     disabled={enviando} error={inputEmailErro} margintop={12} height={'40px'} onChange={() => {
                       validar(dadosValidar)
+                    }} onKeyDown={(e) => {
+                      if (e.key == 'Enter') {
+                        inputSenha1.current?.focus()
+                      }
                     }} />
                 </Row>
                 <Row style={{marginBottom: '0px'}}>
@@ -240,6 +268,10 @@ const RegistrarForm: React.FC = () => {
                         setPopupSenhaOpen(true)
                       }} onBlur={() => {
                         setPopupSenhaOpen(false)
+                      }} onKeyDown={(e) => {
+                        if (e.key == 'Enter') {
+                          inputSenha2.current?.focus()
+                        }
                       }} />
                     <ShowPassword selecionado={showPassword} top={20} onClick={() => {
                       setShowPassword(!showPassword)
@@ -254,6 +286,10 @@ const RegistrarForm: React.FC = () => {
                     } paddingRight placeholder="Repita sua senha" disabled={enviando}
                       error={inputSenha2Erro} margintop={12} height={'40px'} ref={inputSenha2} onChange={() => {
                         validar(dadosValidar)
+                      }} onKeyDown={(e) => {
+                        if (e.key == 'Enter') {
+                          button.current?.click()
+                        }
                       }} />
                     <ShowPassword selecionado={showPassword} top={20} onClick={() => {
                       setShowPassword(!showPassword)

@@ -37,29 +37,31 @@ export const PopupProvider: React.FC = (props) => {
     const closeOnClick = compareVars(propsPopup?.closeOnClick, props.closeOnClick, true)
     const hideHeader = (mostrarOk == false && mostrarFechar == false)
     contexts.PopupContext = {showPopup, showAlerta, close}
-    Swal.fire({
-      html: (
-        <PopupBase titulo={titulo} hideHeader={ocultarHeader} 
-        hideFooter={(mostrarOk == false && mostrarFechar == false)}>
-          <Comp {...contexts} {...props} {...propsPopup}/>
-        </PopupBase>
-      ),
-      didOpen: (componente) => {
-        componente.style.width = largura
-        componente.style.height = altura
-        if(hideHeader) componente.classList.add('swal2-content-height-100')
-      },
-      showConfirmButton: mostrarOk,
-      showDenyButton: mostrarFechar,
-      confirmButtonText: textoOk,
-      denyButtonText: textoFechar,
-      allowOutsideClick: closeOnClick,
-    }).then((result) => {
-      if(typeof propsPopup?.onClose == 'function') {
-        const botao = result.isConfirmed ? 'ok' : 'fechar'
-        propsPopup.onClose(botao)
-      }
-    })
+    setTimeout(() => {
+      Swal.fire({
+        html: (
+          <PopupBase titulo={titulo} hideHeader={ocultarHeader}
+            hideFooter={(mostrarOk == false && mostrarFechar == false)}>
+            <Comp {...contexts} {...props} {...propsPopup} />
+          </PopupBase>
+        ),
+        didOpen: (componente) => {
+          componente.style.width = largura
+          componente.style.height = altura
+          if (hideHeader) componente.classList.add('swal2-content-height-100')
+        },
+        showConfirmButton: mostrarOk,
+        showDenyButton: mostrarFechar,
+        confirmButtonText: textoOk,
+        denyButtonText: textoFechar,
+        allowOutsideClick: closeOnClick,
+      }).then((result) => {
+        if (typeof propsPopup?.onClose == 'function') {
+          const botao = result.isConfirmed ? 'ok' : 'fechar'
+          propsPopup.onClose(botao)
+        }
+      })
+    }, 50)
   }
 
   const showAlerta = (icon: SweetAlertIcon, titulo: string, texto: string) => {
@@ -86,7 +88,7 @@ export const PopupProvider: React.FC = (props) => {
 
   return (
     <PopupContext.Provider value={{showPopup, showAlerta, close}}>
-      <PopupStyles/>
+      <PopupStyles />
       {props.children}
     </PopupContext.Provider>
   )

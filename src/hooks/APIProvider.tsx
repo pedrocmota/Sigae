@@ -7,17 +7,12 @@ import {isDev, fixRoute, parseToNumber} from '../utils/Utils'
 import {IMethods, IRequests} from '../requests/RequestsInterface'
 
 export interface IAPIContext {
-  config: IConfig,
+  APIAdress: string,
   token: string,
   setToken: Function,
   isAuth: () => boolean,
   resetAuth: () => void,
   Requests: IRequests
-}
-
-interface IConfig {
-  version: string,
-  apiAdress: string
 }
 
 export const APIContext = createContext<IAPIContext>({} as IAPIContext)
@@ -27,14 +22,18 @@ export let Methods: IMethods
 export const APIProvider: React.FC = (props) => {
   const {adicionar} = useContext(ConsoleContext)
   const [token, setToken] = usePeristedState('token', '')
-  const [config, setConfig] = useState<IConfig>()
+  const [APIAdress, setAPIAdress] = usePeristedState('api_adress', '')
+  const [adressError, setAdressError] = useState(false)
 
   useEffect(() => {
-    if (config == undefined) {
+    if (APIAdress == '') {
       const loading = async () => {
-        const adress = isDev() ? '/app.config.json' : '/public/app.config.json'
+        const adress = isDev() ? '/api.adress.json' : '/public/api.adress.json'
         const dados = await (await axios.get(adress)).data
-        setConfig(dados)
+        if(dados.apiAdress == undefined || typeof dados.apiAdress != 'string' || dados.apiAdress == '') {
+          return setAdressError(true)
+        }
+        setAPIAdress(dados.apiAdress)
       }
       loading()
     }
@@ -50,7 +49,7 @@ export const APIProvider: React.FC = (props) => {
 
   Methods = {
     post: async (route, data, auth, callbackOk, callbackError) => {
-      axios.post(`${config?.apiAdress}${fixRoute(route)}`, data, {
+      axios.post(`${APIAdress}${fixRoute(route)}`, data, {
         headers: {
           'token': auth ? token : null
         }
@@ -67,7 +66,7 @@ export const APIProvider: React.FC = (props) => {
     },
 
     get: async (route, data, auth, callbackOk, callbackError) => {
-      axios.get(`${config?.apiAdress}${fixRoute(route)}`, {
+      axios.get(`${APIAdress}${fixRoute(route)}`, {
         params: data,
         headers: {
           'token': auth ? token : null
@@ -87,10 +86,13 @@ export const APIProvider: React.FC = (props) => {
 
   return (
     <APIContext.Provider value={{
-      config: config as IConfig, token, setToken, isAuth, resetAuth, Requests
+      APIAdress: APIAdress as string, token, setToken, isAuth, resetAuth, Requests
     }}>
-      {config != undefined && (
+      {APIAdress != '' && (
         props.children
+      )}
+      {adressError && (
+        <h1>O caminho da API não foi configurado</h1>
       )}
     </APIContext.Provider>
   )
