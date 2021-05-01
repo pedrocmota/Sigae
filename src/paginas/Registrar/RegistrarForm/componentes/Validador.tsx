@@ -7,10 +7,11 @@ import {getRefValue, getArrayValue} from '../../../../utils/Utils'
 export interface IValidadorProps {
   dados: IDadosRegistro,
   valido: boolean, setValido: React.Dispatch<React.SetStateAction<boolean>>,
+  disciplinas: React.RefObject<IOptions[]>,
   inputNome: React.RefObject<HTMLInputElement>,
   inputCurso: React.RefObject<HTMLInputElement>,
   inputTurma: React.RefObject<HTMLInputElement>,
-  inputDisciplina: React.RefObject<IOptions[]>,
+  inputDisciplina: React.RefObject<HTMLInputElement>,
   inputEmail: React.RefObject<HTMLInputElement>,
   inputSenha1: React.RefObject<HTMLInputElement>,
   inputSenha2: React.RefObject<HTMLInputElement>,
@@ -44,7 +45,7 @@ export const validar = (props: IValidadorProps) => {
       return cursoValido && turmaValido
     }
     if(props.dados.tipo == 'DOCENTE') {
-      const disciValido = getArrayValue<IOptions[]>(props.inputDisciplina).length > 0
+      const disciValido = getArrayValue<IOptions[]>(props.disciplinas).length > 0
       return disciValido
     }
     return true

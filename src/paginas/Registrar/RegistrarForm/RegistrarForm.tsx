@@ -47,10 +47,11 @@ const RegistrarForm: React.FC = () => {
   const [valido, setValido] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [turmas, setTurmas] = useState<String[]>([])
+  const disciplinas = useRef<IOptions[]>([])
   const inputNome = useRef<HTMLInputElement>(null)
   const inputCurso = useRef<HTMLInputElement>(null)
   const inputTurma = useRef<HTMLInputElement>(null)
-  const inputDisciplina = useRef<IOptions[]>([])
+  const inputDisciplina = useRef<HTMLInputElement>(null)
   const inputEmail = useRef<HTMLInputElement>(null)
   const inputSenha1 = useRef<HTMLInputElement>(null)
   const inputSenha2 = useRef<HTMLInputElement>(null)
@@ -68,6 +69,7 @@ const RegistrarForm: React.FC = () => {
   const dadosValidar: IValidadorProps = {
     dados: dados as any,
     valido: valido, setValido: setValido,
+    disciplinas: disciplinas,
     inputNome: inputNome,
     inputCurso: inputCurso,
     inputTurma: inputTurma,
@@ -146,15 +148,9 @@ const RegistrarForm: React.FC = () => {
                       validar(dadosValidar)
                     }} onKeyDown={(e) => {
                       if (e.key == 'Enter') {
-                        if (dados.tipo == 'DISCENTE') {
-                          inputCurso.current?.focus()
-                        }
-                        if (dados.tipo == 'DOCENTE') {
-                          // inputDisciplina.current?.focus()
-                        }
-                        if (dados.tipo == 'DOCENTE') {
-                          inputEmail.current?.focus()
-                        }
+                        if (dados.tipo == 'DISCENTE') inputCurso.current?.focus()
+                        if (dados.tipo == 'DOCENTE') inputDisciplina.current?.focus()
+                        if (dados.tipo == 'ADMIN') inputEmail.current?.focus()
                       }
                     }} />
                 </Row>
@@ -213,9 +209,9 @@ const RegistrarForm: React.FC = () => {
                          Esta opção pode ser alterada posteriormente.`
                       }>
                     </Banner>
-                    <BasicSelect placeholder="Escolha sua disciplina" options={dados.disciplinas} multiple
-                      disabled={enviando} input={{height: '40px', margintop: 12}} onChange={(obj) => {
-                        inputDisciplina.current = obj
+                    <BasicSelect placeholder="Escolha sua disciplina" options={dados.disciplinas} ref={inputDisciplina}
+                      multiple disabled={enviando} input={{height: '40px', margintop: 12}} onChange={(obj) => {
+                        disciplinas.current = obj
                         validar(dadosValidar)
                       }} onKeyDown={(e) => {
                         if (e.key == 'Enter') {
@@ -315,7 +311,7 @@ const RegistrarForm: React.FC = () => {
                           dadosRetorno.turma = inputTurma?.current?.value as string
                         }
                         if (dados.tipo == 'DOCENTE') {
-                          dadosRetorno.disciplinas = iOptionsToStringArray(inputDisciplina.current)
+                          dadosRetorno.disciplinas = iOptionsToStringArray(disciplinas.current)
                         }
                         return dadosRetorno
                       }
