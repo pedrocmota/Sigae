@@ -7,12 +7,16 @@ import {isDev, fixRoute, parseToNumber} from '../utils/Utils'
 import {IMethods, IRequests} from '../requests/RequestsInterface'
 
 export interface IAPIContext {
-  APIAdress: string,
+  env: IEnv,
   token: string,
   setToken: Function,
   isAuth: () => boolean,
   resetAuth: () => void,
   Requests: IRequests
+}
+
+interface IEnv {
+  apiAdress: string
 }
 
 export const APIContext = createContext<IAPIContext>({} as IAPIContext)
@@ -21,19 +25,20 @@ export let Methods: IMethods
 
 export const APIProvider: React.FC = (props) => {
   const {adicionar} = useContext(ConsoleContext)
+  const [env, setEnv] = usePeristedState<IEnv | null | undefined>('env', null)
   const [token, setToken] = usePeristedState('token', '')
-  const [APIAdress, setAPIAdress] = usePeristedState('api_adress', '')
-  const [adressError, setAdressError] = useState(false)
 
   useEffect(() => {
-    if (APIAdress == '') {
+    if (env == null) {
       const loading = async () => {
-        const adress = isDev() ? '/api.adress.json' : '/public/api.adress.json'
-        const dados = await (await axios.get(adress)).data
-        if(dados.apiAdress == undefined || typeof dados.apiAdress != 'string' || dados.apiAdress == '') {
-          return setAdressError(true)
-        }
-        setAPIAdress(dados.apiAdress)
+        const adress = isDev() ? '/env.json' : '/public/env.json'
+        axios.get(adress)
+        .then((data) => {
+          setEnv(data.data)
+        })
+        .catch(() => {
+          setEnv(undefined)
+        })
       }
       loading()
     }
@@ -49,7 +54,7 @@ export const APIProvider: React.FC = (props) => {
 
   Methods = {
     post: async (route, data, auth, callbackOk, callbackError) => {
-      axios.post(`${APIAdress}${fixRoute(route)}`, data, {
+      axios.post(`${(env as IEnv).apiAdress}${fixRoute(route)}`, data, {
         headers: {
           'token': auth ? token : null
         }
@@ -66,7 +71,7 @@ export const APIProvider: React.FC = (props) => {
     },
 
     get: async (route, data, auth, callbackOk, callbackError) => {
-      axios.get(`${APIAdress}${fixRoute(route)}`, {
+      axios.get(`${(env as IEnv).apiAdress}${fixRoute(route)}`, {
         params: data,
         headers: {
           'token': auth ? token : null
@@ -86,13 +91,13 @@ export const APIProvider: React.FC = (props) => {
 
   return (
     <APIContext.Provider value={{
-      APIAdress: APIAdress as string, token, setToken, isAuth, resetAuth, Requests
+      env: env as IEnv, token, setToken, isAuth, resetAuth, Requests
     }}>
-      {APIAdress != '' && (
+      {env != null && env != undefined && (
         props.children
       )}
-      {adressError && (
-        <h1>O caminho da API não foi configurado</h1>
+      {env === undefined && (
+        <h1>Não foi possível carregar o arquivo .env</h1>
       )}
     </APIContext.Provider>
   )

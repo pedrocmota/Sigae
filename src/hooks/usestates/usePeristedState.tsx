@@ -10,7 +10,7 @@ function usePersistedState<T>(key: string, initialState: T | (() => T)): Respons
   })
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(state))
+    if(state != undefined && state != null) localStorage.setItem(key, JSON.stringify(state))
   }, [key, state])
 
   return [state, setState]
