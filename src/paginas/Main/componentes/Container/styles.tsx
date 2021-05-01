@@ -1,3 +1,6 @@
 import styled from 'styled-components'
 
-export {}
+export const Main = styled.main`
+  display: flex;
+  flex: 1;
+`

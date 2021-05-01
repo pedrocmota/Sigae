@@ -17,7 +17,7 @@ export const Left = styled.div`
   img {
     margin-bottom: 8px;
   }
-  @media (max-width: 865px) {
+  @media (max-width: 885px) {
     width: 100%;
   }
 `
@@ -48,12 +48,7 @@ export const Right = styled.div`
       font-size: 18px;
     }
   }
-  @media (max-width: 865px) {
-    h1 {
-      font-size: 16px;
-    }
-  }
-  @media (max-width: 806px) {
+  @media (max-width: 885px) {
     display: none;
   }
 `

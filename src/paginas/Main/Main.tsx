@@ -2,7 +2,7 @@ import React, {useState, createContext} from 'react'
 import Header from './componentes/Header/Header'
 import Container from './componentes/Container/Container'
 import Footer from '../../componentes/pages/Footer/Footer'
-
+import {MainContainer} from './styles'
 
 interface IMainContext {
   open: boolean,
@@ -15,10 +15,11 @@ export const MainProvider: React.FC = (props) => {
   const [open, setOpen] = useState(false)
   return (
     <MainContext.Provider value={{open, setOpen}}>
-      <Header/>
-      <Container/>
-      <Footer/>
-      {props.children}
+      <MainContainer>
+        <Header />
+        <Container />
+        <Footer />
+      </MainContainer>
     </MainContext.Provider>
   )
 }
