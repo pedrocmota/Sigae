@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext, useRef, memo} from 'react'
 import {Redirect, useParams} from 'react-router-dom'
 import LoadingPersistent from '../../../componentes/LoadingPersistent/LoadingPersistent'
-import Footer from '../../../componentes/pages/Footer/Footer'
+import Footer from '../../Main/componentes/Footer/Footer'
 import Banner from './componentes/Banner'
 import InputText from '../../../componentes/inputs/InputText/InputText'
 import BasicSelect, {IOptions} from '../../../componentes/selects/BasicSelect/BasicSelect'

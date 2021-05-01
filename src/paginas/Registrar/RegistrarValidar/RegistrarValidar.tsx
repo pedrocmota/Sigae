@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext, useRef, memo} from 'react'
 import {Redirect, useParams} from 'react-router-dom'
 import LoadingPersistent from '../../../componentes/LoadingPersistent/LoadingPersistent'
-import Footer from '../../../componentes/pages/Footer/Footer'
+import Footer from '../../Main/componentes/Footer/Footer'
 import InputCode from '../../../componentes/inputs/InputCode/InputCode'
 import Button from '../../../componentes/Button/Button'
 import Spinner from '../../../componentes/Spinner/Spinner'

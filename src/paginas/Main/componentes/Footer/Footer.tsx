@@ -1,9 +1,13 @@
 import React, {memo} from 'react'
 import {Container, Sigae, Copyright} from './styles'
 
-const Footer: React.FC = () => {
+export interface IFooter {
+  resizable?: boolean
+}
+
+const Footer: React.FC<IFooter> = (props) => {
   return (
-    <Container>
+    <Container resizable={props.resizable}>
       <Sigae>
         <div>Sistema de Gerenciamento de</div>
         <div className="footer_right">Atendimento ao Estudante</div>

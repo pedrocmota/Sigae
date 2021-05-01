@@ -1,7 +1,8 @@
 import React, {useState, createContext} from 'react'
 import Header from './componentes/Header/Header'
 import Container from './componentes/Container/Container'
-import Footer from '../../componentes/pages/Footer/Footer'
+import Sidebar from './componentes/Sidebar/Sidebar'
+import Footer from './componentes/Footer/Footer'
 import {MainContainer} from './styles'
 
 interface IMainContext {
@@ -18,7 +19,8 @@ export const MainProvider: React.FC = (props) => {
       <MainContainer>
         <Header />
         <Container />
-        <Footer />
+        <Sidebar/>
+        <Footer resizable/>
       </MainContainer>
     </MainContext.Provider>
   )

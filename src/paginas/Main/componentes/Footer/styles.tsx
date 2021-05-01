@@ -1,14 +1,18 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
+import {IFooter} from './Footer'
 
-export const Container = styled.div`
+export const Container = styled.div<IFooter>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100% !important;
-  height: 150px !important;
+  width: 100%;
+  height: 150px;
   min-height: 150px;
-  background-color: #4a5058 !important;
+  background-color: #4a5058;
+  ${({resizable}) => resizable && css` 
+    padding-left: 300px;
+  `}
 `
 
 export const Sigae = styled.div`

@@ -1,7 +1,7 @@
 import React, {useState, useRef, memo} from 'react'
 import {Redirect} from 'react-router-dom'
 import Loading from '../../../componentes/Loading/Loading'
-import Footer from '../../../componentes/pages/Footer/Footer'
+import Footer from '../../Main/componentes/Footer/Footer'
 import Form from '../../../componentes/Form/Form'
 import InputCode from '../../../componentes/inputs/InputCode/InputCode'
 import Button from '../../../componentes/Button/Button'
