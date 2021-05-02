@@ -9,7 +9,7 @@ import RegistrarValidar from './paginas/Registrar/RegistrarValidar/RegistrarVali
 import Codigo from './paginas/RecuperarSenha/RecuperarSenha'
 
 import Erro404 from './paginas/Erro404/Erro404'
-import Teste from './paginas/Teste/Teste'
+// import Teste from './paginas/Teste/Teste'
 
 const Routes: React.FC = () => {
   return (
@@ -34,9 +34,9 @@ const Routes: React.FC = () => {
           <Codigo/>
         </Route>
 
-        <Route path="/testar" exact>
+        {/* <Route path="/testar" exact>
           <Teste/>
-        </Route>
+        </Route> */}
         
         <Route path="*" exact>
           <Erro404/>
