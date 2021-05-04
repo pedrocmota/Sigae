@@ -1,4 +1,9 @@
 interface ISessionRequest {
+
+  validar: (token: string, callback: (param: {
+    status: 'VALIDO' | 'EXPIRED' | 'DESTROYED_TOKEN' | 'INVALID_USER'
+  }) => void) => void,
+
   logar: (matricula: string, senha: string, callback: (
     param: { token: string }
   ) => void, callbackError: (
