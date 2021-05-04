@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import {Main} from './styles'
 
 const Container: React.FC = () => {
@@ -8,4 +8,4 @@ const Container: React.FC = () => {
   )
 }
 
-export default Container
+export default memo(Container)

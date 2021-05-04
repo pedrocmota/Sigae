@@ -20,6 +20,11 @@ export const Left = styled.div`
   @media (max-width: 885px) {
     width: 100%;
   }
+  @media (max-width: 944px) {
+    img {
+      padding-left: 15px;
+    }
+  }
 `
 
 export const Right = styled.div`

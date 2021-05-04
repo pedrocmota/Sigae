@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {memo, useContext} from 'react'
 import {Container} from './styles'
 import {MainContext} from '../../Main'
 import '../Hamburguer/hamburger.css'
@@ -12,7 +12,6 @@ const Hamburguer: React.FC = () => {
         ${open ? 'is-active' : ''}
       `} onClick={() => {
           setOpen(!open)
-          // document.getElementById('hamburguer')?.classList.add('is-active')
         }}>
         <div className="hamburger-box">
           <div className="hamburger-inner"></div>
@@ -22,4 +21,4 @@ const Hamburguer: React.FC = () => {
   )
 }
 
-export default Hamburguer
+export default memo(Hamburguer)

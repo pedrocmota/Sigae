@@ -10,8 +10,10 @@ export const Container = styled.div<IFooter>`
   height: 150px;
   min-height: 150px;
   background-color: #4a5058;
-  ${({resizable}) => resizable && css` 
-    padding-left: 300px;
+  ${({resizable}) => resizable && css`
+    @media (min-width: 944px) {
+      padding-left: 300px;
+    }
   `}
 `
 

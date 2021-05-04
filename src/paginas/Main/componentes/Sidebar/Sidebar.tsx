@@ -1,11 +1,13 @@
-import React from 'react'
+import React, {memo, useContext} from 'react'
+import {MainContext} from '../../Main'
 import {Container} from './styles'
 
-const Sidebar: React.FC = () => {
+const Sidebar: React.FC = (props) => {
+  const {open} = useContext(MainContext)
   return (
-    <Container>
+    <Container open={open}>
     </Container>
   )
 }
 
-export default Sidebar
+export default memo(Sidebar)

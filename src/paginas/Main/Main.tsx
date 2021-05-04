@@ -13,7 +13,13 @@ interface IMainContext {
 export const MainContext = createContext<IMainContext>({} as IMainContext)
 
 export const MainProvider: React.FC = (props) => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(
+    window.matchMedia('(min-width:944px)').matches
+  )
+  window.addEventListener('resize', (e) => {
+    const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+    setOpen(width >= 944)
+  })
   return (
     <MainContext.Provider value={{open, setOpen}}>
       <MainContainer>

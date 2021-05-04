@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {memo} from 'react'
 import {Container, Left, Right} from './styles'
 import Hamburguer from '../Hamburguer/Hamburguer'
 import Sigae from '../../../../assets/sigae-alternativo.svg'
@@ -17,4 +17,4 @@ const Header: React.FC = () => {
   )
 }
 
-export default Header
+export default memo(Header)
