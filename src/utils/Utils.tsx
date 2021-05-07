@@ -1,4 +1,4 @@
-import {IOptions} from '../componentes/selects/BasicSelect/BasicSelect'
+import {IOptions} from '../componentes/Select/Select'
 
 export function isDev() {
   const development = !process.env.NODE_ENV || process.env.NODE_ENV === 'development'

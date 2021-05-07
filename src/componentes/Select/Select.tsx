@@ -1,9 +1,8 @@
 import React, {forwardRef, useRef} from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import InputText from '../../../componentes/inputs/InputText/InputText'
+import InputText from '../../componentes/inputs/InputText/InputText'
 import RootRef from '@material-ui/core/RootRef'
-import {converter, createPlaceholder} from '../SelectFunctions'
-import {Container} from './styles'
+import {converter, createPlaceholder} from './SelectFunctions'
 
 interface IBasicSelect {
   placeholder: string,
@@ -27,7 +26,7 @@ export interface IOptions {
   grupo?: string
 }
 
-const BasicSelect: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect> = ({
+const Select: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect> = ({
   input, options, onChange, ...props}, ref) => {
   const selecionados = useRef(0)
   return (
@@ -69,4 +68,4 @@ const BasicSelect: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect
   )
 }
 
-export default forwardRef(BasicSelect)
+export default forwardRef(Select)

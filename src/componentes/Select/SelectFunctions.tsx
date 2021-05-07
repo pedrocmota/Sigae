@@ -1,4 +1,4 @@
-import {IOptions} from './BasicSelect/BasicSelect'
+import {IOptions} from './Select'
 
 export const converter = (obj: any) => {
   const returnArray: IOptions[] = []
