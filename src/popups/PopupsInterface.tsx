@@ -1,5 +1,5 @@
 import {IAPIContext} from '../hooks/APIProvider'
-import {ITemaContext} from '../hooks/TemaProvider'
+import {IThemeContext} from '../hooks/ThemeProvider'
 import {IPopupContext} from '../hooks/PopupProvider'
 
 export interface IPopupProps {
@@ -30,7 +30,7 @@ export interface IPopupKey {
 
 export interface IPopupBody {
   APIContext: IAPIContext,
-  TemaContext: ITemaContext,
+  TemaContext: IThemeContext,
   PopupContext: IPopupContext 
 }
 

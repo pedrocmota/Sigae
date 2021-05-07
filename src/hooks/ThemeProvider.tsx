@@ -1,18 +1,21 @@
 import React, {createContext} from 'react'
 import {DefaultTheme} from 'styled-components'
-import usePeristedState from '../hooks/usestates/usePeristedState'
-import Global from '../temas/Global'
+import usePeristedState from './usestates/usePeristedState'
 import Light from '../temas/Light'
 import Dark from '../temas/Dark'
 
-export interface ITemaContext {
+import GlobalStyles from '../styles/GlobalStyles'
+import MUIStyles from '../styles/MUIStyles'
+import ToastStyles from '../styles/ToastStyles'
+
+export interface IThemeContext {
   toggleTheme: () => void,
   tema: DefaultTheme
 }
 
-export const TemaContext = createContext<ITemaContext>({} as ITemaContext)
+export const ThemeContext = createContext<IThemeContext>({} as IThemeContext)
 
-export const TemaProvider: React.FC = (props) => {
+export const ThemeProvider: React.FC = (props) => {
   const [nomeTema, setNomeTema] = usePeristedState<ListaTemas>('tema', () => {
     if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'Dark'
@@ -26,9 +29,11 @@ export const TemaProvider: React.FC = (props) => {
     if(tema.titulo == 'Dark') return setNomeTema('Light')
   }
   return (
-    <TemaContext.Provider value={{tema, toggleTheme}}>
-      <Global/>
+    <ThemeContext.Provider value={{tema, toggleTheme}}>
+      <GlobalStyles/>
+      <MUIStyles/>
+      <ToastStyles/>
       {props.children}
-    </TemaContext.Provider>
+    </ThemeContext.Provider>
   )
 }

@@ -6,7 +6,7 @@ import PopupBase from '../componentes/PopupBase/PopupBase'
 import PopupStyles from '../componentes/PopupBase/PopupStyles'
 import AlertaBase from '../componentes/PopupBase/AlertaBase'
 import {APIContext} from './APIProvider'
-import {TemaContext} from './TemaProvider'
+import {ThemeContext} from './ThemeProvider'
 import {compareVars} from '../utils/Utils'
 import {IPopupInstanceProps} from '../popups/PopupsInterface'
 import {Keys} from '../popups/Popups'
@@ -82,7 +82,7 @@ export const PopupProvider: React.FC = (props) => {
 
   const contexts = {
     APIContext: useContext(APIContext),
-    TemaContext: useContext(TemaContext),
+    TemaContext: useContext(ThemeContext),
     PopupContext: {showPopup, showAlerta, close}
   }
 
