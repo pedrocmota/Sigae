@@ -20,12 +20,8 @@ export const MainProvider: React.FC = (props) => {
   const lastWidth = useRef(-1)
   window.addEventListener('resize', (e) => {
     const {width} = useScreenSize()
-    if(lastWidth.current <= 0) {
-      return lastWidth.current = width
-    }
-    if(width != lastWidth.current) {
-      setOpen(width >= 944)
-    }
+    if(lastWidth.current <= 0) return lastWidth.current = width
+    if(width != lastWidth.current) setOpen(width >= 944)
   })
   return (
     <MainContext.Provider value={{open, setOpen}}>

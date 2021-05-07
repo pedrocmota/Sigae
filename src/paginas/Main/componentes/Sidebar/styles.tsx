@@ -6,6 +6,9 @@ interface IContainer {
 
 export const Container = styled.aside<IContainer>`
   position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 300px;
   top: 80px;
   left: 0;
@@ -28,4 +31,41 @@ export const Container = styled.aside<IContainer>`
       transition: width 200ms !important;
     }
   `}
+`
+
+export const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 180px;
+  background-color: #454555;
+`
+
+export const RowContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+`
+
+export const Avatar = styled.img`
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
+  min-height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50%;
+  cursor: zoom-in;
+`
+
+export const Nome = styled.span`
+  font-family: Comfortaa;
+  text-align: center;
+  font-size: 25px;
+  color: #f5f5f5;
+  margin-top: 18px;
 `
