@@ -1,6 +1,7 @@
 import React, {memo, useContext} from 'react'
 import {MainContext} from '../../Main'
-import {Container, InfoContainer, RowContainer, Avatar, Nome} from './styles'
+import LinhasContainer from './componentes/LinhasContainer/LinhasContainer'
+import {Container, InfoContainer, Avatar, Nome} from './styles'
 
 import Desconhecido from '../../../../assets/semFoto.png'
 
@@ -12,7 +13,7 @@ const Sidebar: React.FC = () => {
         <Avatar src={Desconhecido}/>
         <Nome>Pedro Mota</Nome>
       </InfoContainer>
-      <RowContainer/>
+      <LinhasContainer/>
     </Container>
   )
 }

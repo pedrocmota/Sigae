@@ -43,14 +43,6 @@ export const InfoContainer = styled.div`
   background-color: #454555;
 `
 
-export const RowContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  flex: 1;
-`
-
 export const Avatar = styled.img`
   width: 100px;
   height: 100px;
