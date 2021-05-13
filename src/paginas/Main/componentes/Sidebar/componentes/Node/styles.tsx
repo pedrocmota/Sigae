@@ -66,6 +66,9 @@ export const Bottom = styled.div<IOpen>`
     height: 0px !important;
   `}
   .row {
+    p {
+      font-size: 15px;
+    }
     &:hover {
       background-color: inherit !important;
     }

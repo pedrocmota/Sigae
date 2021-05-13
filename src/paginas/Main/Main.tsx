@@ -11,6 +11,7 @@ import {tokenErros} from '../../types/ErrosGenericos'
 import {MainContainer} from './styles'
 
 interface IMainContext {
+  dados: IDadosIniciais | undefined,
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -40,7 +41,7 @@ export const MainProvider: React.FC = (props) => {
   }, [])
 
   return (
-    <MainContext.Provider value={{open, setOpen}}>
+    <MainContext.Provider value={{dados, open, setOpen}}>
       <LoadingPersistent visible={loading}/>
       <MainContainer>
         <Header />

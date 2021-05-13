@@ -6,12 +6,19 @@ import {Container, InfoContainer, Avatar, Nome} from './styles'
 import Desconhecido from '../../../../assets/semFoto.png'
 
 const Sidebar: React.FC = () => {
-  const {open} = useContext(MainContext)
+  const {dados, open} = useContext(MainContext)
   return (
     <Container open={open}>
       <InfoContainer>
         <Avatar src={Desconhecido}/>
-        <Nome>Pedro Mota</Nome>
+        <Nome>
+          {dados?.nomePreferencial && (
+            <>{dados.nomePreferencial}</>
+          )}
+          {dados?.nomePreferencial == undefined && (
+            <>Visitante</>
+          )}
+        </Nome>
       </InfoContainer>
       <LinhasContainer/>
     </Container>

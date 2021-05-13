@@ -23,8 +23,21 @@ const LinhasContainer: React.FC = () => {
         <Row titulo="Calendário de atendimentos" condicao={{
           logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
         }} moduloAssociado="inicio" tabIndex={tabIndex++} selecionado={false} />
-        <Row titulo="Fazer login" condicao={{
-          logado: false, naoLogado: true, discentes: true, docentes: true, admins: true
+        {/* Apenas docentes */}
+        <Row titulo="Minhas salas de atendimento" condicao={{
+          logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
+        }} moduloAssociado="inicio" tabIndex={tabIndex++} selecionado={false} />
+        <Row titulo="Meus atendimentos agendados" condicao={{
+          logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
+        }} moduloAssociado="inicio" tabIndex={tabIndex++} selecionado={false} />
+
+        <Row titulo="Criar sala de atendimento" condicao={{
+          logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
+        }} moduloAssociado="inicio" tabIndex={tabIndex++} selecionado={false} />
+
+        {/* Apenas discentes */}
+        <Row titulo="Minhas salas inscritas" condicao={{
+          logado: true, naoLogado: false, discentes: true, docentes: false, admins: false
         }} moduloAssociado="inicio" tabIndex={tabIndex++} selecionado={false} />
       </Node>
     </Container>
