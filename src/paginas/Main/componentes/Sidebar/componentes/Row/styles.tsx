@@ -1,6 +1,10 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 
-export const Container = styled.div`
+interface IContainer {
+  selecionado: boolean
+}
+
+export const Container = styled.div<IContainer>`
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
@@ -10,7 +14,10 @@ export const Container = styled.div`
   cursor: pointer;
   user-select: none;
   &:hover {
-    background-color: #3f3f52;
+    background-color: #43435a;
+    > * {
+      color: #7f94c5;
+    }
   }
   svg {
     font-size: 24px;
@@ -21,4 +28,9 @@ export const Container = styled.div`
     color: #ffffff;
     padding-left: 10px;
   }
+  ${({selecionado}) => selecionado && css`
+    > * {
+      color: #8dd45d !important;
+    }
+  `}
 `

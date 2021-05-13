@@ -1,4 +1,5 @@
 import ISessionRequest from './session/SessionInterface'
+import IDadosInterface from './dados/DadosInterface'
 import IRegistroInterface from './registro/RegistroInterface'
 import IMailInterface from './mail/MailInterface'
 
@@ -13,6 +14,7 @@ export interface IMethods {
 
 export interface IRequests {
   session: ISessionRequest,
+  dados: IDadosInterface,
   registro: IRegistroInterface,
   mail: IMailInterface
 }

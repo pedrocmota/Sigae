@@ -4,7 +4,9 @@ import {Container} from './styles'
 
 interface IRow extends React.HTMLAttributes<HTMLDivElement>{
   titulo: string,
-  icone: any,
+  icone?: any,
+  tabIndex: number,
+  selecionado: boolean,
   condicao: {
     logado: boolean,
     naoLogado: boolean,
@@ -16,10 +18,12 @@ interface IRow extends React.HTMLAttributes<HTMLDivElement>{
 }
 
 const Row: React.FC<IRow> = (props) => {
-  const Componente = props.icone as React.FC<any>
+  const Icone = props.icone as React.FC<any> | undefined
   return (
-    <Container>
-      <Componente/>
+    <Container selecionado={props.selecionado} tabIndex={props.tabIndex} className="row">
+      {Icone && (
+        <Icone/>
+      )}
       <p>{props.titulo}</p>
     </Container>
   )
