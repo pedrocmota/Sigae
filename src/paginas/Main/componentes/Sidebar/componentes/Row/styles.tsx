@@ -13,11 +13,18 @@ export const Container = styled.div<IContainer>`
   padding-left: 10px;
   cursor: pointer;
   user-select: none;
+  margin-top: 1px;
+  margin-bottom: 1px;
   &:hover {
     background-color: #43435a;
     > * {
       color: #7f94c5;
     }
+  }
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 1px 1px #5c67bc;
+    /* outline: 2px solid black !important; */
   }
   svg {
     font-size: 24px;

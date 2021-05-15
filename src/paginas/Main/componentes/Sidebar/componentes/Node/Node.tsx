@@ -1,22 +1,8 @@
 import React, {useState, memo} from 'react'
-import {listaModulos} from '../../../../../../modulos/Modulos'
+import {INode} from '../../Types'
 import {Container, Top, Bottom, Arrow} from './styles'
 
-interface IRow extends React.HTMLAttributes<HTMLDivElement> {
-  titulo: string,
-  icone: any,
-  tabIndex: number,
-  condicao: {
-    logado: boolean,
-    naoLogado: boolean,
-    discentes: boolean,
-    docentes: boolean,
-    admins: boolean
-  },
-  moduloAssociado?: listaModulos
-}
-
-const Node: React.FC<IRow> = (props) => {
+const Node: React.FC<INode> = (props) => {
   const [open, setOpen] = useState(false)
   const Icone = props.icone as React.FC<any>
   return (

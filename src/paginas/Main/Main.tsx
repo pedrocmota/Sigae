@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef, useContext, createContext} from 'react'
+import {Redirect} from 'react-router-dom'
 import LoadingPersistent from '../../componentes/LoadingPersistent/LoadingPersistent'
 import Header from './componentes/Header/Header'
 import Container from './componentes/Container/Container'
@@ -6,11 +7,12 @@ import Sidebar from './componentes/Sidebar/Sidebar'
 import Footer from './componentes/Footer/Footer'
 import {APIContext} from '../../hooks/APIProvider'
 import useScreenSize from '../../hooks/misc/useScreenSize'
+import {listaModulos} from '../../modulos/Modulos'
 import {IDadosIniciais} from '../../types/DadosEstaticos'
-import {tokenErros} from '../../types/ErrosGenericos'
 import {MainContainer} from './styles'
 
 interface IMainContext {
+  modulo: listaModulos,
   dados: IDadosIniciais | undefined,
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,6 +21,7 @@ interface IMainContext {
 export const MainContext = createContext<IMainContext>({} as IMainContext)
 
 export const MainProvider: React.FC = (props) => {
+  const [modulo, setModulo] = useState<listaModulos>('inicio')
   const [dados, setDados] = useState<IDadosIniciais>()
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(window.matchMedia('(min-width:944px)').matches)
@@ -35,18 +38,22 @@ export const MainProvider: React.FC = (props) => {
     Requests.dados.iniciais((param) => {
       setDados(param)
       setLoading(false)
-    }, (param) => {
-      setLoading(false)
+      if(param.erro != undefined) {
+        console.log(param.erro)
+      }
     })
   }, [])
 
   return (
-    <MainContext.Provider value={{dados, open, setOpen}}>
+    <MainContext.Provider value={{
+      modulo, dados, open, setOpen
+    }}>
+      <Redirect to=""/>
       <LoadingPersistent visible={loading}/>
       <MainContainer>
         <Header />
         <Container />
-        <Sidebar/>
+        <Sidebar render={!loading}/>
         <Footer resizable/>
       </MainContainer>
     </MainContext.Provider>

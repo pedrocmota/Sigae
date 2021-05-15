@@ -1,4 +1,6 @@
-export type tiposUsuario = 'DISCENTE' | 'DOCENTE' | 'ADMIN'
+import {tokenErros} from './ErrosGenericos'
+
+export type tiposUsuario = 'DISCENTE' | 'DOCENTE' | 'ADMIN' | 'VISITANTE'
 export type tipoCodigos = 'RECUPERACAO_SENHA' | 'VALIDACAO_CONTA'
 
 export interface IListaCursoTurmas {
@@ -6,6 +8,7 @@ export interface IListaCursoTurmas {
 }
 
 export interface IDadosIniciais {
+  erro?: tokenErros,
   nome: string,
   nomePreferencial: string,
   matricula: string,

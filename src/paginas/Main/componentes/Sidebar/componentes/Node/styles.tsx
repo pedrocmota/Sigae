@@ -12,7 +12,6 @@ export const Container = styled.div<IOpen>`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-left: 10px;
   cursor: pointer;
   user-select: none;
   &:hover {
@@ -25,7 +24,6 @@ export const Container = styled.div<IOpen>`
   &:focus-visible {
     outline: none;
     box-shadow: 0 0 1px 1px #5c67bc;
-    color: #5c67bc;
   }
   svg {
     font-size: 24px;
@@ -43,6 +41,7 @@ export const Top = styled.div<IOpen>`
   align-items: center;
   width: 100%;
   height: 48px;
+  padding-left: 10px;
   &:hover {
     > * {
       color: #7f94c5;
@@ -63,10 +62,12 @@ export const Bottom = styled.div<IOpen>`
   width: 100%;
   overflow: hidden;
   ${({open}) => !open && css`
-    height: 0px !important;
+    display: none;
   `}
   .row {
+    padding-left: 0px;
     p {
+      padding-left: 35px;
       font-size: 15px;
     }
     &:hover {
