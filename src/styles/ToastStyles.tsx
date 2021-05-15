@@ -2,7 +2,7 @@ import {createGlobalStyle} from 'styled-components'
 
 const ToastStyles = createGlobalStyle`
   .react-toast-notifications__container {
-    z-index: 2000;
+    z-index: 10000 !important;
     & > div {
       height: 60px !important;
       margin-bottom: 10px;

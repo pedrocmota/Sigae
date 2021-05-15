@@ -11,15 +11,15 @@ import Routes from './Routes'
 
 ReactDOM.render(
   <ThemeProvider>
-    <ConsoleProvider>
-      <ToastProvider autoDismiss={true} autoDismissTimeout={4500}>
+    <ToastProvider autoDismiss={true} autoDismissTimeout={4500}>
+      <ConsoleProvider>
         <APIProvider>
           <PopupProvider>
             <Routes />
           </PopupProvider>
         </APIProvider>
-      </ToastProvider>
-    </ConsoleProvider>
+      </ConsoleProvider>
+    </ToastProvider>
   </ThemeProvider>,
   document.getElementById('root')
 )

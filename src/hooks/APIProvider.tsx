@@ -74,7 +74,7 @@ export const APIProvider: React.FC = (props) => {
           if (callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
-        adicionar('Erro de rede.', erro + '', 'ERROR')
+        adicionar('Erro de rede', erro + '', 'ERROR')
       })
     },
 
@@ -92,7 +92,7 @@ export const APIProvider: React.FC = (props) => {
           if (callbackError != undefined) callbackError(resposta.data, parseToNumber(code))
         }
       }).catch((erro) => {
-        adicionar('Erro de rede.', erro + '', 'ERROR')
+        adicionar('Erro de rede', erro + '', 'ERROR')
       })
     }
   }

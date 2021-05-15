@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useRef, createContext} from 'react'
 import Console from '../paginas/Console/Console'
-import {IConsoleEntry, tipo} from '../paginas/Console/Types'
+import {useToasts} from 'react-toast-notifications'
 import {Time} from '../utils/DateTime'
+import {IConsoleEntry, tipo} from '../paginas/Console/Types'
 
 interface IConsoleContext {
   open: boolean,
@@ -17,6 +18,7 @@ export const ConsoleContext = createContext<IConsoleContext>({} as IConsoleConte
 export const ConsoleProvider: React.FC = (props) => {
   const [open, setOpen] = useState(false)
   const dados = useRef<IConsoleEntry[]>([])
+  const {addToast} = useToasts()
 
   useEffect(() => {
     document.addEventListener('keydown', function onPress(event) {
@@ -45,6 +47,14 @@ export const ConsoleProvider: React.FC = (props) => {
       tipo: tipo,
       conteudo: conteudo,
       horario: Time.now()
+    })
+    if(titulo == 'Erro de rede') {
+      return addToast('Ocorreu um erro de rede. Reinicie a página', {
+        appearance: 'error', autoDismiss: false
+      })
+    }
+    return addToast('Ocorreu um erro', {
+      appearance: 'error', autoDismiss: false
     })
   }
 
