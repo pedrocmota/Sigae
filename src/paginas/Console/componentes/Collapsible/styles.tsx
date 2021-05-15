@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import {ArrowRight} from '@material-ui/icons'
-import {tipo} from '../../../../types/Console'
+import {tipo} from '../../Types'
 
 interface IContainer {
   open: boolean,

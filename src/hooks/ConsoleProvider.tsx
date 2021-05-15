@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef, createContext} from 'react'
-import Console from '../componentes/Console/Console'
-import {IConsoleEntry, tipo} from '../types/Console'
+import Console from '../paginas/Console/Console'
+import {IConsoleEntry, tipo} from '../paginas/Console/Types'
 import {Time} from '../utils/DateTime'
 
 interface IConsoleContext {

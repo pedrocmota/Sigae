@@ -1,4 +1,4 @@
-import {IListaCursoTurmas, tiposUsuario} from './DadosEstaticos'
+import {IListaCursoTurmas, tiposUsuario} from '../../types/DadosEstaticos'
 
 export interface IDadosRegistro {
   nome: string,

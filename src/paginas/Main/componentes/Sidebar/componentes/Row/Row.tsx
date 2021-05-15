@@ -6,9 +6,9 @@ import {IDadosIniciais} from '../../../../../../types/DadosEstaticos'
 import {Container} from './styles'
 
 const Row: React.FC<IRow> = (props) => {
-  const {token} = useContext(APIContext)
+  const {Token} = useContext(APIContext)
   const {modulo, dados} = useContext(MainContext)
-  if(!valido(token != '', props.condicao, dados!)) return <></>
+  if(!valido(Token.existe(), props.condicao, dados!)) return <></>
   const Icone = props.icone as React.FC<any> | undefined
   const selecionado = props.moduloAssociado === modulo
   return (

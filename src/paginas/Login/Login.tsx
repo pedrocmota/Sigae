@@ -17,7 +17,7 @@ import {InputErrorIcon} from '../../componentes/Icons/Icons'
 import {ReactComponent as Sigae} from '../../assets/sigae.svg'
 
 const Login: React.FC = () => {
-  const {Requests, setToken} = useContext(APIContext)
+  const {Requests, Token} = useContext(APIContext)
   const {showPopup} = useContext(PopupContext)
   const {addToast} = useToasts()
 
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
     if (matricula.length > 0 && senha.length > 0 && !enviando) {
       setEnviando(true)
       Requests.session.logar(matricula, senha, (param) => {
-        setToken(param.token)
+        Token.definir(param.token)
         setRedirect(true)
       }, (param) => {
         setEnviando(false)

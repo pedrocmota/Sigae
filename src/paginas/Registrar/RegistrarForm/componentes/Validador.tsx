@@ -1,4 +1,4 @@
-import {IDadosRegistro} from '../../../../types/Registrar'
+import {IDadosRegistro} from '../../Types'
 import {IOptions} from '../../../../componentes/Select/Select'
 import {validarEmail} from '../../../../utils/Validar'
 import {Senha} from '../../../../utils/Senha'

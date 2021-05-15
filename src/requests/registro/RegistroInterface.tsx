@@ -1,4 +1,4 @@
-import {IDadosRegistro} from '../../types/Registrar'
+import {IDadosRegistro} from '../../paginas/Registrar/Types'
 import {IEnvio as IEnvioRegistro} from '../../paginas/Registrar/RegistrarForm/componentes/Envio'
 
 interface IRegistroRequest {

@@ -19,7 +19,7 @@ import {IValidadorProps, validar} from './componentes/Validador'
 import {IEnvio, enviar} from './componentes/Envio'
 import {iOptionsToStringArray} from '../../../utils/Utils'
 import {ReactComponent as Sigae} from '../../../assets/sigae.svg'
-import {IDadosRegistro} from '../../../types/Registrar'
+import {IDadosRegistro} from '../Types'
 
 import {
   Person as PersonIcon,

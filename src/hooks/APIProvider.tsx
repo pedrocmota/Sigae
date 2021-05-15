@@ -1,24 +1,18 @@
-import React, {useEffect, useContext, createContext} from 'react'
+import React, {useState, useEffect, useContext, createContext} from 'react'
 import axios from 'axios'
 import usePeristedState from './usestates/usePeristedState'
 import Requests from '../requests/Requests'
 import {useToasts} from 'react-toast-notifications'
 import {ConsoleContext} from '../hooks/ConsoleProvider'
 import {isDev, fixRoute, parseToNumber} from '../utils/Utils'
+import Crash, {ICrash} from '../paginas/Crash/Crash'
 import {IMethods, IRequests} from '../requests/RequestsInterface'
+import {IEnv, ITokenObject} from '../types/APIProvider'
 
 export interface IAPIContext {
   env: IEnv,
-  token: string,
-  setToken: React.Dispatch<React.SetStateAction<string>>,
-  validar: () => void,
-  tokenExist: () => boolean,
-  resetAuth: () => void,
+  Token: ITokenObject,
   Requests: IRequests
-}
-
-interface IEnv {
-  apiAdress: string
 }
 
 export const APIContext = createContext<IAPIContext>({} as IAPIContext)
@@ -26,10 +20,11 @@ export const APIContext = createContext<IAPIContext>({} as IAPIContext)
 export let Methods: IMethods
 
 export const APIProvider: React.FC = (props) => {
-  const {adicionar} = useContext(ConsoleContext)
   const [env, setEnv] = usePeristedState<IEnv | null | undefined>('env', null)
   const [token, setToken] = usePeristedState('token', '')
-
+  const [crash, setCrash] = useState<ICrash>()
+  
+  const {adicionar} = useContext(ConsoleContext)
   const {addToast} = useToasts()
 
   useEffect(() => {
@@ -42,41 +37,34 @@ export const APIProvider: React.FC = (props) => {
         })
         .catch(() => {
           setEnv(undefined)
+          setCrash({
+            titulo: 'Erro de configuração',
+            texto: 'Não foi possível localizar a .env'
+          })
         })
       }
       loading()
     }
   }, [])
 
-  const validar = () => {
-    Requests.session.validar(token, ({status}) => {
-      if(status != 'VALIDO') {
-        if(status == 'EXPIRED') {
-          addToast('Sua sessão expirou!', {appearance: 'error'})
-        }
-        if(status == 'DESTROYED_TOKEN') {
-          addToast('Sua sessão foi invalidada', {appearance: 'error'})
-        }
-        if(status == 'INVALID_USER') {
-          addToast('Usuário inválido para esta sessão', {appearance: 'error'})
-        }
-      }
-    })
-  }
-
-  const tokenExist = () => {
-    return token.length > 0
-  }
-
-  const resetAuth = () => {
-    return setToken('')
+  const Token:ITokenObject = {
+    valor: token,
+    existe: () => {
+      return token.length > 0
+    },
+    definir: (valor: string) => {
+      setToken(valor)
+    },
+    remover: () => {
+      return setToken('')
+    }
   }
 
   Methods = {
     post: async (route, data, auth, callbackOk, callbackError) => {
       axios.post(`${(env as IEnv).apiAdress}${fixRoute(route)}`, data, {
         headers: {
-          'token': auth ? token : null
+          ...(auth && {token: token}),
         }
       }).then((resposta: any) => {
         const code = resposta.headers.statuscode
@@ -94,7 +82,7 @@ export const APIProvider: React.FC = (props) => {
       axios.get(`${(env as IEnv).apiAdress}${fixRoute(route)}`, {
         params: data,
         headers: {
-          'token': auth ? token : null
+          ...(auth && {token: token}),
         }
       }).then((resposta: any) => {
         const code = resposta.headers.statuscode
@@ -111,13 +99,13 @@ export const APIProvider: React.FC = (props) => {
 
   return (
     <APIContext.Provider value={{
-      env: env as IEnv, token, setToken, validar, tokenExist, resetAuth, Requests
+      env: env as IEnv, Token, Requests
     }}>
-      {env != null && env != undefined && (
+      {env != null && crash == undefined && (
         props.children
       )}
-      {env === undefined && (
-        <h1>Não foi possível carregar o arquivo .env</h1>
+      {env === undefined && crash != undefined && (
+        <Crash {...crash}/>
       )}
     </APIContext.Provider>
   )

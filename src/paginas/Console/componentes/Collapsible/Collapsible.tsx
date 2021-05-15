@@ -1,6 +1,6 @@
 import React, {useState, memo} from 'react'
 import {Container, Header, Arrow, Body} from './styles'
-import {IConsoleEntry} from '../../../../types/Console'
+import {IConsoleEntry} from '../../Types'
 
 const Collapsible: React.FC<IConsoleEntry> = (props) => {
   const [open, setOpen] = useState(false)
