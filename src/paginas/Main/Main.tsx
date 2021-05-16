@@ -39,7 +39,7 @@ export const MainProvider: React.FC = (props) => {
       setDados(param)
       setLoading(false)
       if(param.erro != undefined) {
-        console.log(param.erro)
+        
       }
     })
   }, [])

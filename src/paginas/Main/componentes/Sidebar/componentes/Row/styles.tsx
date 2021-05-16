@@ -15,6 +15,7 @@ export const Container = styled.div<IContainer>`
   user-select: none;
   margin-top: 1px;
   margin-bottom: 1px;
+  white-space: nowrap;
   &:hover {
     background-color: #43435a;
     > * {

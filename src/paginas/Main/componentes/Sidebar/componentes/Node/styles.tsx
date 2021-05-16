@@ -61,6 +61,7 @@ export const Bottom = styled.div<IOpen>`
   align-items: center;
   width: 100%;
   overflow: hidden;
+  white-space: nowrap;
   ${({open}) => !open && css`
     display: none;
   `}
