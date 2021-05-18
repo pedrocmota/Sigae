@@ -1,4 +1,6 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import {APIContext} from '../../../../../../hooks/APIProvider'
+import {MainContext} from '../../../../Main'
 import {Container} from './styles'
 import Row from '../Row/Row'
 import Node from '../Node/Node'
@@ -9,6 +11,8 @@ import CalendarIcon from '@material-ui/icons/PermContactCalendar'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const LinhasContainer: React.FC = () => {
+  const {Token} = useContext(APIContext)
+  const {setRedirect} = useContext(MainContext)
   let tabIndex = 5
   return (
     <Container>
@@ -17,33 +21,38 @@ const LinhasContainer: React.FC = () => {
       }} moduloAssociado="inicio" tabIndex={tabIndex++} />
       <Row titulo="Fazer login" icone={VpnKeyIcon} condicao={{
         logado: false, naoLogado: true, discentes: true, docentes: true, admins: true
-      }} tabIndex={tabIndex++} />
+      }} tabIndex={tabIndex++} onClick={() => {
+        setRedirect('/login')
+      }}/>
 
       <Node titulo="Atendimentos" icone={CalendarIcon} condicao={{
         logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
       }} tabIndex={tabIndex++}>
         <Row titulo="Calendário de atendimentos" condicao={{
           logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-        }} moduloAssociado="inicio" tabIndex={tabIndex++} />
+        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
 
         <Row titulo="Minhas salas de atendimento" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
-        }} moduloAssociado="inicio" tabIndex={tabIndex++} />
+        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
         <Row titulo="Meus atendimentos agendados" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
-        }} moduloAssociado="inicio" tabIndex={tabIndex++} />
+        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
 
         <Row titulo="Criar sala de atendimento" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
-        }} moduloAssociado="inicio" tabIndex={tabIndex++} />
+        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
 
         <Row titulo="Minhas salas inscritas" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: false, admins: false
-        }} moduloAssociado="inicio" tabIndex={tabIndex++} />
+        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
       </Node>
       <Row titulo="Finalizar sessão" icone={ExitToAppIcon} condicao={{
-        logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-      }} tabIndex={tabIndex++} />
+        logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
+      }} tabIndex={tabIndex++} onClick={() => {
+        Token.remover()
+        setRedirect('/login')
+      }}/>
     </Container>
   )
 }

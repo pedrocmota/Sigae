@@ -18,6 +18,9 @@ const Routes: React.FC = () => {
         <Route path="/" exact>
           <MainProvider/>
         </Route>
+        <Route path="/modulo">
+          <MainProvider/>
+        </Route>
         <Route path="/login" exact>
           <Login />
         </Route>

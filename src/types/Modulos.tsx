@@ -5,6 +5,7 @@ export interface IListaModulos {
 export interface IModulo {
   titulo: string,
   icone: any,
+  componente: React.FC<any>,
   condicao: {
     logado: boolean,
     naoLogado: boolean,
