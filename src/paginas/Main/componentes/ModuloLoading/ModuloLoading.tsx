@@ -1,4 +1,5 @@
 import React from 'react'
+import Fade from '../../../../componentes/Fade/Fade'
 import {Container} from './styles'
 import {ReactComponent as Spinner} from '../../../../assets/spinner.svg'
 
@@ -8,9 +9,11 @@ interface IModuloLoading {
 
 const ModuloLoading: React.FC<IModuloLoading> = (props) => {
   return (
-    <Container>
-      <Spinner/>
-    </Container>
+    <Fade visible={props.show}>
+      <Container>
+        <Spinner />
+      </Container>
+    </Fade>
   )
 }
 

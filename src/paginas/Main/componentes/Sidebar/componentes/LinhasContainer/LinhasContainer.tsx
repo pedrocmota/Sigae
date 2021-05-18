@@ -24,7 +24,9 @@ const LinhasContainer: React.FC = () => {
       }} tabIndex={tabIndex++} onClick={() => {
         setRedirect('/login')
       }}/>
-
+      <Row titulo="Atendimentos" condicao={{
+        logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
+      }} moduloAssociado="atendimentos" tabIndex={tabIndex++} />
       <Node titulo="Atendimentos" icone={CalendarIcon} condicao={{
         logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
       }} tabIndex={tabIndex++}>
@@ -34,18 +36,18 @@ const LinhasContainer: React.FC = () => {
 
         <Row titulo="Minhas salas de atendimento" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
-        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
+        }} moduloAssociado="salas/minhas" tabIndex={tabIndex++} />
         <Row titulo="Meus atendimentos agendados" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
-        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
+        }} moduloAssociado="salas/atendimentos/lista" tabIndex={tabIndex++} />
 
         <Row titulo="Criar sala de atendimento" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
-        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
+        }} moduloAssociado="salas/atendimentos/agendar" tabIndex={tabIndex++} />
 
         <Row titulo="Minhas salas inscritas" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: false, admins: false
-        }} moduloAssociado="calendario" tabIndex={tabIndex++} />
+        }} moduloAssociado="salas/inscritas" tabIndex={tabIndex++} />
       </Node>
       <Row titulo="Finalizar sessão" icone={ExitToAppIcon} condicao={{
         logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
