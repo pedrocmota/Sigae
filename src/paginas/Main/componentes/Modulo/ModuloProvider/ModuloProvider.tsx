@@ -1,16 +1,15 @@
 import React, {createContext, memo, useState, useRef} from 'react'
-import {Route, Redirect} from 'react-router-dom'
-import ModuloContainer from '../ModuloContainer/ModuloContainer'
+import Modulos from '../Modulos'
 import ModuloLoading from '../ModuloLoading/ModuloLoading'
-import Toolip from '../../../../componentes/Toolip/Toolip'
+import Toolip from '../../../../../componentes/Toolip/Toolip'
 import {Container, SubContainer, Header, Body, Title} from './styles'
 
 import HomeIcon from '@material-ui/icons/Home'
-import ModuloInicio from '../../../../modulos/inicio/Inicio'
-import ModuloCalendario from '../../../../modulos/calendario/Calendario'
+import ModuloInicio from '../../../../../modulos/inicio/Inicio'
+import ModuloCalendario from '../../../../../modulos/calendario/Calendario'
 
-import Atendimentos from '../../../../modulos/atendimentos/Atendimentos'
-import Atendimento from '../../../../modulos/atendimento/Atendimento'
+import Atendimentos from '../../../../../modulos/atendimentos/Atendimentos'
+import Atendimento from '../../../../../modulos/atendimento/Atendimento'
 
 interface IModuloContext {
   primeiroModulo: boolean,
@@ -53,7 +52,8 @@ export const ModuloProvider: React.FC = memo(() => {
             )}
           </Header>
           <Body>
-            <Route path="/modulo" exact>
+            <Modulos/>
+            {/* <Route path="/modulo" exact>
               <Redirect to="/" />
             </Route>
             <Route path="/" exact>
@@ -68,7 +68,7 @@ export const ModuloProvider: React.FC = memo(() => {
             </Route>
             <Route path="/modulo/atendimentos/:id" exact>
               <ModuloContainer nome="Atendimento específico" icone={HomeIcon} componente={Atendimento} />
-            </Route>
+            </Route> */}
           </Body>
         </SubContainer>
       </Container>

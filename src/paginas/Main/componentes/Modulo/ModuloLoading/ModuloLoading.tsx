@@ -1,7 +1,7 @@
 import React from 'react'
-import Fade from '../../../../componentes/Fade/Fade'
+import Fade from '../../../../../componentes/Fade/Fade'
 import {Container} from './styles'
-import {ReactComponent as Spinner} from '../../../../assets/spinner.svg'
+import {ReactComponent as Spinner} from '../../../../../assets/spinner.svg'
 
 interface IModuloLoading {
   show: boolean

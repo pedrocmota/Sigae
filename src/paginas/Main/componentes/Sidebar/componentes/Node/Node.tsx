@@ -1,8 +1,8 @@
 import React, {createContext, useState, useContext, memo} from 'react'
 import {APIContext} from '../../../../../../hooks/APIProvider'
 import {MainContext} from '../../../../Main'
-import {INode, ICondicao} from '../../Types'
-import {IDadosIniciais} from '../../../../../../types/DadosEstaticos'
+import {validarPermissao} from '../../../Permissao'
+import {INode} from '../../Types'
 import {Container, Top, Bottom, Arrow} from './styles'
 
 interface INodeContext {
@@ -16,7 +16,7 @@ const Node: React.FC<INode> = (props) => {
   const [open, setOpen] = useState(false)
   const {Token} = useContext(APIContext)
   const {dados} = useContext(MainContext)
-  if (!valido(Token.existe(), props.condicao, dados!)) return <></>
+  if (!validarPermissao(Token.existe(), props.condicao, dados!)) return <></>
   const Icone = props.icone as React.FC<any>
   return (
     <NodeContext.Provider value={{open, setOpen}}>
@@ -40,17 +40,6 @@ const Node: React.FC<INode> = (props) => {
       </Container>
     </NodeContext.Provider>
   )
-}
-
-const valido = (logado: boolean, condicao: ICondicao, dados: IDadosIniciais) => {
-  if(condicao.logado && !condicao.naoLogado && !logado) return false
-  if(condicao.naoLogado && !condicao.logado && logado) return false
-  if(condicao.logado && !condicao.naoLogado && logado) {
-    if(condicao.discentes && dados.tipo != 'DISCENTE') return false
-    if(condicao.docentes && dados.tipo != 'DOCENTE') return false
-    if(condicao.admins && dados.tipo != 'ADMIN') return false
-  }
-  return true
 }
 
 export default memo(Node)

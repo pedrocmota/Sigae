@@ -1,3 +1,5 @@
+import {ICondicao} from '../Permissao'
+
 export interface INode extends React.HTMLAttributes<HTMLDivElement> {
   titulo: string,
   icone: any,
@@ -12,12 +14,4 @@ export interface IRow extends React.HTMLAttributes<HTMLDivElement>{
   tabIndex: number,
   condicao: ICondicao,
   moduloAssociado?: string
-}
-
-export interface ICondicao {
-  logado: boolean,
-  naoLogado: boolean,
-  discentes: boolean,
-  docentes: boolean,
-  admins: boolean
 }

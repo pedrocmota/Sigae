@@ -1,6 +1,6 @@
 import React, {memo, useContext} from 'react'
 import {MainContext} from '../../Main'
-import LinhasContainer from './componentes/LinhasContainer/LinhasContainer'
+import LinhasContainer from '../Sidebar/componentes/LinhasContainer/LinhasContainer'
 import {Container, InfoContainer, Avatar, Nome} from './styles'
 import Desconhecido from '../../../../assets/semFoto.png'
 

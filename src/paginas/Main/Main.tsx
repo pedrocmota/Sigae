@@ -2,7 +2,7 @@ import React, {memo, useState, useEffect, useRef, useContext, createContext} fro
 import {Redirect} from 'react-router-dom'
 import LoadingPersistent from '../../componentes/LoadingPersistent/LoadingPersistent'
 import Header from './componentes/Header/Header'
-import {ModuloProvider} from './componentes/ModuloProvider/ModuloProvider'
+import {ModuloProvider} from './componentes/Modulo/ModuloProvider/ModuloProvider'
 import Sidebar from './componentes/Sidebar/Sidebar'
 import Footer from './componentes/Footer/Footer'
 import {APIContext} from '../../hooks/APIProvider'
