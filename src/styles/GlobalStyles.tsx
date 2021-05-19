@@ -8,10 +8,10 @@ const GlobalStyle = createGlobalStyle`
     transition: background-color 200ms, color 200ms;
   }
 
-  @font-face {
+  /* @font-face {
     font-family: 'Comfortaa';
     src: local('Comfortaa'), url('/fontes/Comfortaa-Regular.woff') format('woff');
-  }
+  } */
   
   body {
     margin: 0;

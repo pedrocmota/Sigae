@@ -8,6 +8,7 @@ export interface IListaCursoTurmas {
 }
 
 export interface IDadosIniciais {
+  logado: boolean,
   erro?: tokenErros,
   nome: string,
   nomePreferencial: string,

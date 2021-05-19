@@ -37,17 +37,17 @@ export const MainProvider: React.FC = memo((props) => {
     Requests.dados.iniciais((param) => {
       setDados(param)
       setLoadingPage(false)
-      if(param.erro != undefined) {
-        if(param.erro == 'EXPIRED') {
+      if (param.erro != undefined) {
+        if (param.erro == 'EXPIRED') {
           return addToast('Sua sessão expirou', {appearance: 'error'})
         }
-        if(param.erro == 'DESTROYED_TOKEN') {
+        if (param.erro == 'DESTROYED_TOKEN') {
           return addToast('Sua sessão foi destruída devido a outro usuário', {appearance: 'error'})
         }
-        if(param.erro == 'PERMISSAO_INSUFICIENTE') {
+        if (param.erro == 'PERMISSAO_INSUFICIENTE') {
           return addToast('Você não tem acesso para isso', {appearance: 'error'})
         }
-        if(param.erro == 'INVALID_TOKEN') return
+        if (param.erro == 'INVALID_TOKEN') return
         return addToast('Erro desconhecido', {appearance: 'error'})
       }
     })
@@ -61,15 +61,17 @@ export const MainProvider: React.FC = memo((props) => {
       dados, open, setOpen, setRedirect, setLoadingPage
     }}>
       {redirect != '' && (
-        <Redirect to={redirect}/>
+        <Redirect to={redirect} />
       )}
-      <LoadingPersistent visible={loadingPage}/>
-      <MainContainer>
-        <Header />
-        <ModuloProvider />
-        <Sidebar render={!loadingPage}/>
-        <Footer resizable/>
-      </MainContainer>
+      <LoadingPersistent visible={loadingPage} />
+      {dados != undefined && (
+        <MainContainer>
+          <Header />
+          <ModuloProvider />
+          <Sidebar render={!loadingPage} />
+          <Footer resizable />
+        </MainContainer>
+      )}
     </MainContext.Provider>
   )
 })

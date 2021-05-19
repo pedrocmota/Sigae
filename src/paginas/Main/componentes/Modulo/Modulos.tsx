@@ -1,6 +1,6 @@
 import React from 'react'
 import {Switch, Route, Redirect} from 'react-router-dom'
-import Rota from './Rota/Rota'
+import ModuloContainer from './ModuloContainer/ModuloContainer'
 
 import HomeIcon from '@material-ui/icons/Home'
 
@@ -17,26 +17,34 @@ const Modulos: React.FC = () => {
         <Redirect to="/" />
       </Route>
 
-      <Rota rota="/" nome="Início" icone={HomeIcon} componente={ModuloInicio}
-        condicao={{
-          logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-        }} />
-      <Route path="*" exact>
-        <h1>Nada</h1>
-      </Route>
-      {/* <Route path="/" exact>
-        <ModuloContainer nome="Início" icone={HomeIcon} componente={ModuloInicio} />
+      <Route path="/" exact>
+        <ModuloContainer nome="Início" icone={HomeIcon} componente={ModuloInicio}
+          condicao={{
+            logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
+          }} />
       </Route>
       <Route path="/modulo/calendario" exact>
-        <ModuloContainer nome="Calendário" icone={HomeIcon} componente={ModuloCalendario} />
+        <ModuloContainer nome="Calendário" icone={HomeIcon} componente={ModuloCalendario}
+          condicao={{
+            logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
+          }} />
       </Route>
 
       <Route path="/modulo/atendimentos" exact>
-        <ModuloContainer nome="Atendimentos" icone={HomeIcon} componente={Atendimentos} />
+        <ModuloContainer nome="Atendimentos" icone={HomeIcon} componente={Atendimentos}
+          condicao={{
+            logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
+          }} />
       </Route>
       <Route path="/modulo/atendimentos/:id" exact>
-        <ModuloContainer nome="Atendimento específico" icone={HomeIcon} componente={Atendimento} />
-      </Route> */}
+        <ModuloContainer nome="Atendimento específico" icone={HomeIcon} componente={Atendimento}
+          condicao={{
+            logado: false, naoLogado: false, discentes: false, docentes: false, admins: false
+          }} />
+      </Route>
+      <Route path="*" exact>
+        <h1>Nada</h1>
+      </Route>
     </Switch>
   )
 }
