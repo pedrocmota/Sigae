@@ -8,9 +8,9 @@ import {LinkContainer, DivContainer} from './styles'
 
 const Row: React.FC<IRow> = (props) => {
   const {Token} = useContext(APIContext)
-  const {dados} = useContext(MainContext)
+  const Main = useContext(MainContext)
   const {setOpen} = useContext(NodeContext)
-  if (!validarPermissao(Token.existe(), props.condicao, dados!)) return <></>
+  if (!validarPermissao(Token.existe(), props.condicao, Main.dados!)) return <></>
   const Icone = props.icone as React.FC<any> | undefined
   if (props.moduloAssociado) {
     useEffect(() => {
@@ -20,7 +20,7 @@ const Row: React.FC<IRow> = (props) => {
     return (
       <LinkContainer to={getLink(props.moduloAssociado)}
         tabIndex={props.tabIndex} className="row"
-        activeClassName="ativo" exact isActive={(match, path) => {
+        activeClassName="ativo" exact onClick={() => {closeOnClick(Main.setOpen)}} isActive={(match, path) => {
           const link = getLink(props.moduloAssociado as string)
           if(link != undefined) return isActive(link, path.pathname)
           return false
@@ -33,13 +33,20 @@ const Row: React.FC<IRow> = (props) => {
     )
   } else {
     return (
-      <DivContainer className="row" {...props} >
+      <DivContainer className="row" {...props}>
         {Icone && (
           <Icone />
         )}
         <p>{props.titulo}</p>
       </DivContainer>
     )
+  }
+}
+
+const closeOnClick = (setOpen: (x: boolean) => void) => {
+  const match = window.matchMedia('(min-width:944px)').matches
+  if(!match && typeof setOpen == 'function') {
+    setOpen(false)
   }
 }
 

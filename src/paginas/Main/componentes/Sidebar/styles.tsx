@@ -13,7 +13,7 @@ export const Container = styled.aside<IContainer>`
   top: 80px;
   left: 0;
   bottom: 100px;
-  height: 100vh;
+  height: calc(100% - 80px);
   background-color: #3b3b4b;
   overflow-y: hidden;
   z-index: 5000;
@@ -60,4 +60,5 @@ export const Nome = styled.span`
   font-size: 25px;
   color: #f5f5f5;
   margin-top: 18px;
+  white-space: nowrap;
 `

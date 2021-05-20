@@ -7,6 +7,7 @@ export const LinkContainer = styled(NavLink)`
   align-items: center;
   width: 100%;
   height: 48px;
+  min-height: 48px;
   padding-left: 10px;
   cursor: pointer;
   user-select: none;
@@ -47,6 +48,7 @@ export const DivContainer = styled.div`
   align-items: center;
   width: 100%;
   height: 48px;
+  min-height: 48px;
   padding-left: 10px;
   cursor: pointer;
   user-select: none;

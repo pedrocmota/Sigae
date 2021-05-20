@@ -61,7 +61,6 @@ export const Bottom = styled.div<IOpen>`
   align-items: center;
   width: 100%;
   overflow: hidden;
-  white-space: nowrap;
   ${({open}) => !open && css`
     display: none;
   `}
@@ -70,6 +69,7 @@ export const Bottom = styled.div<IOpen>`
     p {
       padding-left: 35px;
       font-size: 15px;
+      white-space: nowrap;
     }
     &:hover {
       background-color: inherit !important;
