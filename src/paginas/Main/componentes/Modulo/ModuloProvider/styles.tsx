@@ -46,6 +46,7 @@ export const Title = styled.div`
   color: #5c66bc;
   cursor: pointer;
   transition: color 50ms;
+  user-select: none;
   &:hover {
     color: #8d98f3 !important;
     border-bottom: 1px solid #8d98f3;

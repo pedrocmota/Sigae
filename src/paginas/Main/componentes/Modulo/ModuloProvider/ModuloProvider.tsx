@@ -4,13 +4,6 @@ import ModuloLoading from '../ModuloLoading/ModuloLoading'
 import Toolip from '../../../../../componentes/Toolip/Toolip'
 import {Container, SubContainer, Header, Body, Title} from './styles'
 
-import HomeIcon from '@material-ui/icons/Home'
-import ModuloInicio from '../../../../../modulos/inicio/Inicio'
-import ModuloCalendario from '../../../../../modulos/calendario/Calendario'
-
-import Atendimentos from '../../../../../modulos/atendimentos/Atendimentos'
-import Atendimento from '../../../../../modulos/atendimento/Atendimento'
-
 interface IModuloContext {
   primeiroModulo: boolean,
   setPrimeiroModulo: React.Dispatch<React.SetStateAction<boolean>>,
@@ -52,23 +45,7 @@ export const ModuloProvider: React.FC = memo(() => {
             )}
           </Header>
           <Body>
-            <Modulos/>
-            {/* <Route path="/modulo" exact>
-              <Redirect to="/" />
-            </Route>
-            <Route path="/" exact>
-              <ModuloContainer nome="Início" icone={HomeIcon} componente={ModuloInicio} />
-            </Route>
-            <Route path="/modulo/calendario" exact>
-              <ModuloContainer nome="Calendário" icone={HomeIcon} componente={ModuloCalendario} />
-            </Route>
-
-            <Route path="/modulo/atendimentos" exact>
-              <ModuloContainer nome="Atendimentos" icone={HomeIcon} componente={Atendimentos} />
-            </Route>
-            <Route path="/modulo/atendimentos/:id" exact>
-              <ModuloContainer nome="Atendimento específico" icone={HomeIcon} componente={Atendimento} />
-            </Route> */}
+            <Modulos />
           </Body>
         </SubContainer>
       </Container>

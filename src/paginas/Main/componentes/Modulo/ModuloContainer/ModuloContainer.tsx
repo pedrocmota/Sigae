@@ -17,7 +17,7 @@ const ModuloContainer: React.FC<IModuloContainer> = (props) => {
   const valido = validarPermissao(Token.existe(), props.condicao, dados!)
   const {setModuloInfo} = useContext(ModuloContext)
   useEffect(() => {
-    if(valido) {
+    if (valido) {
       setModuloInfo(props)
     } else {
       addToast('Você não tem permissão para acessar esse módulo', {appearance: 'error'})
@@ -27,15 +27,13 @@ const ModuloContainer: React.FC<IModuloContainer> = (props) => {
   return (
     <>
       {valido && (
-        <>
-          <Componente/>
-        </>
+        <Componente />
       )}
       {!valido && (
-        <Redirect to="/"/>
+        <Redirect to="/" />
       )}
     </>
   )
 }
 
-export default ModuloContainer 
+export default ModuloContainer
