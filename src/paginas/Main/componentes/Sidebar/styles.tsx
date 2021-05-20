@@ -10,10 +10,10 @@ export const Container = styled.aside<IContainer>`
   flex-direction: column;
   justify-content: space-between;
   width: 300px;
-  top: 80px;
+  top: 65px;
   left: 0;
   bottom: 100px;
-  height: calc(100% - 80px);
+  height: calc(100% - 65px);
   background-color: #3b3b4b;
   overflow-y: hidden;
   z-index: 5000;

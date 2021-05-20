@@ -14,6 +14,10 @@ export const Container = styled.div<IFooter>`
     @media (min-width: 944px) {
       padding-left: 300px;
     }
+    @media (max-height: 820px) {
+      height: 120px !important;
+      min-height: 120px !important;
+    }
   `}
 `
 
@@ -54,5 +58,8 @@ export const Copyright = styled.div`
     .ifba_big {
       display: none;
     }
+  }
+  @media (max-height: 820px) {
+    margin-top: 15px !important;
   }
 `

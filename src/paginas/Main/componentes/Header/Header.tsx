@@ -8,7 +8,7 @@ const Header: React.FC = () => {
     <Container>
       <Left>
         <Hamburguer/>
-        <img src={Sigae} width={228}/>
+        <img src={Sigae} width={200}/>
       </Left>
       <Right>
       </Right>
