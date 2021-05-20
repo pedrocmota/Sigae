@@ -11,6 +11,7 @@ import CalendarIcon from '@material-ui/icons/PermContactCalendar'
 import SchoolIcon from '@material-ui/icons/School'
 import GroupIcon from '@material-ui/icons/Group'
 import PersonIcon from '@material-ui/icons/Person'
+import SettingsIcon from '@material-ui/icons/Settings'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const LinhasContainer: React.FC = () => {
@@ -71,6 +72,17 @@ const LinhasContainer: React.FC = () => {
         }} moduloAssociado="dados/meu" tabIndex={tabIndex++} />
         <Row titulo="Alterar minha senha" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
+        }} tabIndex={tabIndex++} />
+      </Node>
+
+      <Node titulo="Configurações" icone={SettingsIcon} condicao={{
+        logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
+      }} tabIndex={tabIndex++}>
+        <Row titulo="Alterar tema" condicao={{
+          logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
+        }} tabIndex={tabIndex++} />
+        <Row titulo="Sobre o SiGAÊ" condicao={{
+          logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
         }} tabIndex={tabIndex++} />
       </Node>
       <Row titulo="Finalizar sessão" icone={ExitToAppIcon} condicao={{

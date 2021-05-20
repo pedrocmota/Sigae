@@ -11,7 +11,6 @@ const Header: React.FC = () => {
         <img src={Sigae} width={228}/>
       </Left>
       <Right>
-        <h1>Sistema de Gerenciamento de Atendimento ao Estudante</h1>
       </Right>
     </Container>
   )
