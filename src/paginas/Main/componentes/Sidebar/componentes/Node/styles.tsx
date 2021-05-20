@@ -33,6 +33,7 @@ export const Container = styled.div<IOpen>`
     font-size: 18px;
     color: #ffffff;
     padding-left: 10px;
+    white-space: nowrap;
   }
 `
 

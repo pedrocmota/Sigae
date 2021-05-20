@@ -21,11 +21,14 @@ export const SubContainer = styled.div`
 export const Header = styled.div`
   display: flex;
   width: 100%;
-  height: 56px;
+  min-height: 56px;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 24px;
   padding-bottom: 20px;
+  @media (max-height: 820px) {
+    padding-bottom: 10px;
+  }
 `
 
 export const Body = styled.div`
@@ -36,13 +39,16 @@ export const Body = styled.div`
   padding-right: 14px;
   padding-top: 18px;
   padding-bottom: 14px;
+  @media (max-height: 820px) {
+    padding-top: 5px;
+  }
 `
 
 export const Title = styled.div`
   display: inline-flex;
   align-items: center;
   border-bottom: 1px solid #5c66bc;
-  height: 33px;
+  min-height: 33px;
   color: #5c66bc;
   cursor: pointer;
   transition: color 50ms;

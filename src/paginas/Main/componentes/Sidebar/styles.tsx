@@ -8,7 +8,7 @@ export const Container = styled.aside<IContainer>`
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   width: 300px;
   top: 65px;
   left: 0;
