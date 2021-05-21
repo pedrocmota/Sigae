@@ -8,6 +8,8 @@ import Footer from './componentes/Footer/Footer'
 import {APIContext} from '../../hooks/APIProvider'
 import {useToasts} from 'react-toast-notifications'
 import {onResize} from '../../hooks/events/Resize'
+import {IModulo} from './Types'
+import ImageViewer, {IImageViewer} from './componentes/ImageViewer/ImageViewer'
 import {IDadosIniciais} from '../../types/DadosEstaticos'
 import {MainContainer} from './styles'
 
@@ -17,16 +19,9 @@ interface IMainContext {
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>,
   setRedirect: React.Dispatch<React.SetStateAction<string>>,
   moduloInfo: IModulo,
-  setModuloInfo: React.Dispatch<React.SetStateAction<IModulo>>
-}
-
-export interface IModulo {
-  loadingPagina: boolean,
-  loadingModulo: boolean,
-  render: boolean,
-  nome?: string,
-  icone?: any,
-  componente?: React.FC
+  setModuloInfo: React.Dispatch<React.SetStateAction<IModulo>>,
+  imageViewer: IImageViewer,
+  setImageViewer: React.Dispatch<React.SetStateAction<IImageViewer>>
 }
 
 export const MainContext = createContext<IMainContext>({} as IMainContext)
@@ -40,6 +35,9 @@ export const MainProvider: React.FC = memo((props) => {
     loadingModulo: false,
     render: false,
   })
+  const [imageViewer, setImageViewer] = useState<IImageViewer>({
+    open: false
+  })
 
   const {Requests, Token} = useContext(APIContext)
   const {addToast} = useToasts()
@@ -52,11 +50,12 @@ export const MainProvider: React.FC = memo((props) => {
       setDados(param)
       if (param.erro != undefined) {
         setRedirect('/')
-        Token.remover()
         if (param.erro == 'EXPIRED') {
+          Token.remover()
           return addToast('Sua sessão expirou', {appearance: 'error'})
         }
         if (param.erro == 'DESTROYED_TOKEN') {
+          Token.remover()
           return addToast('Sua sessão foi destruída devido a outro usuário', {appearance: 'error'})
         }
         if (param.erro == 'PERMISSAO_INSUFICIENTE') {
@@ -73,19 +72,24 @@ export const MainProvider: React.FC = memo((props) => {
 
   return (
     <MainContext.Provider value={{
-      dados, openSidebar, setOpenSidebar, setRedirect, moduloInfo, setModuloInfo
+      dados, openSidebar, setOpenSidebar, setRedirect,
+      moduloInfo, setModuloInfo, imageViewer, setImageViewer
     }}>
       {redirect != '' && (
         <Redirect to={redirect} />
       )}
       <LoadingPersistent visible={moduloInfo.loadingPagina} />
       {dados != undefined && (
-        <MainContainer>
-          <Header />
-          <ModuloProvider />
-          <Sidebar render={!moduloInfo.loadingPagina} />
-          <Footer resizable />
-        </MainContainer>
+        <>
+          <ImageViewer {...imageViewer} />
+          <MainContainer>
+            <Header />
+            <ModuloProvider />
+            <Sidebar render={!moduloInfo.loadingPagina} />
+            <Footer resizable />
+          </MainContainer>
+        </>
+
       )}
     </MainContext.Provider>
   )

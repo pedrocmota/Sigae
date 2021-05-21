@@ -6,5 +6,11 @@ export const Container = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #f1f2f3 !important;
+  background-color: #292929 !important;
+`
+
+export const Image = styled.img`
+  max-width: 85%;
+  max-height: 85%;
+  transition: opacity 200ms;
 `

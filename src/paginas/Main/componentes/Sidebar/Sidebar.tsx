@@ -9,12 +9,14 @@ interface ISidebar {
 }
 
 const Sidebar: React.FC<ISidebar> = (props) => {
-  const {dados, openSidebar} = useContext(MainContext)
+  const {dados, openSidebar, setImageViewer} = useContext(MainContext)
   const {env} = useContext(APIContext)
   return (
     <Container open={openSidebar}>
       <InfoContainer>
-        <Avatar src={`${env.apiAdress}/avatar/${dados?.id}`}/>
+        <Avatar src={`${env.apiAdress}/avatar/${dados?.id}`} onClick={() => {
+          setImageViewer({open: true, src: `${env.apiAdress}/avatar/${dados?.id}`})
+        }}/>
         <Nome>
           {dados?.nomePreferencial && (
             dados.nomePreferencial

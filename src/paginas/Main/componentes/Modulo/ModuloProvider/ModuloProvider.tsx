@@ -3,7 +3,7 @@ import Modulos from '../Modulos'
 import ModuloLoading from '../ModuloLoading/ModuloLoading'
 import Toolip from '../../../../../componentes/Toolip/Toolip'
 import {MainContext} from '../../../Main'
-import {IModulo} from '../../../Main'
+import {IModulo} from '../../../Types'
 import {Container, SubContainer, Header, Body, Title} from './styles'
 
 interface IModuloContext {
