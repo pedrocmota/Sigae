@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   width: 100%;
   height: calc(100% - (180px + 20px));
+  overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: none;
   ::-webkit-scrollbar {

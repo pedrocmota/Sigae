@@ -13,8 +13,8 @@ import {MainContainer} from './styles'
 
 interface IMainContext {
   dados: IDadosIniciais | undefined,
-  open: boolean,
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  openSidebar: boolean,
+  setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>,
   setRedirect: React.Dispatch<React.SetStateAction<string>>,
   moduloInfo: IModulo,
   setModuloInfo: React.Dispatch<React.SetStateAction<IModulo>>
@@ -34,23 +34,25 @@ export const MainContext = createContext<IMainContext>({} as IMainContext)
 export const MainProvider: React.FC = memo((props) => {
   const [dados, setDados] = useState<IDadosIniciais>()
   const [redirect, setRedirect] = useState('')
-  const [open, setOpen] = useState(window.matchMedia('(min-width:944px)').matches)
+  const [openSidebar, setOpenSidebar] = useState(window.matchMedia('(min-width:944px)').matches)
   const [moduloInfo, setModuloInfo] = useState<IModulo>({
     loadingPagina: true,
     loadingModulo: false,
     render: false,
   })
 
-  const {Requests} = useContext(APIContext)
+  const {Requests, Token} = useContext(APIContext)
   const {addToast} = useToasts()
 
   useEffect(() => {
     const resizeEvt = onResize((width) => {
-      setOpen(width >= 944)
+      setOpenSidebar(width >= 944)
     })
     Requests.dados.iniciais((param) => {
       setDados(param)
       if (param.erro != undefined) {
+        setRedirect('/')
+        Token.remover()
         if (param.erro == 'EXPIRED') {
           return addToast('Sua sessão expirou', {appearance: 'error'})
         }
@@ -71,7 +73,7 @@ export const MainProvider: React.FC = memo((props) => {
 
   return (
     <MainContext.Provider value={{
-      dados, open, setOpen, setRedirect, moduloInfo, setModuloInfo
+      dados, openSidebar, setOpenSidebar, setRedirect, moduloInfo, setModuloInfo
     }}>
       {redirect != '' && (
         <Redirect to={redirect} />

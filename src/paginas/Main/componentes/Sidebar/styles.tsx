@@ -8,7 +8,6 @@ export const Container = styled.aside<IContainer>`
   position: fixed;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   width: 300px;
   top: 65px;
   left: 0;
@@ -18,6 +17,7 @@ export const Container = styled.aside<IContainer>`
   overflow-y: hidden;
   z-index: 5000;
   transition: width 300ms !important;
+  overflow-x: hidden;
   box-shadow: 0 2px 2px 0
    rgba(0, 0, 0, 0.14), 0 1px 5px 0 
    rgba(0, 0, 0, 0.12), 0 3px 1px -2px 

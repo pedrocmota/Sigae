@@ -1,19 +1,20 @@
 import React, {memo, useContext} from 'react'
 import {MainContext} from '../../Main'
 import LinhasContainer from '../Sidebar/componentes/LinhasContainer/LinhasContainer'
+import {APIContext} from '../../../../hooks/APIProvider'
 import {Container, InfoContainer, Avatar, Nome} from './styles'
-import Desconhecido from '../../../../assets/semFoto.png'
 
 interface ISidebar {
   render: boolean
 }
 
 const Sidebar: React.FC<ISidebar> = (props) => {
-  const {dados, open} = useContext(MainContext)
+  const {dados, openSidebar} = useContext(MainContext)
+  const {env} = useContext(APIContext)
   return (
-    <Container open={open}>
+    <Container open={openSidebar}>
       <InfoContainer>
-        <Avatar src={Desconhecido}/>
+        <Avatar src={`${env.apiAdress}/avatar/${dados?.id}`}/>
         <Nome>
           {dados?.nomePreferencial && (
             dados.nomePreferencial

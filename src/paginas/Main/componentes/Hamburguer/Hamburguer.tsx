@@ -4,14 +4,14 @@ import {MainContext} from '../../Main'
 import '../Hamburguer/hamburger.css'
 
 const Hamburguer: React.FC = () => {
-  const {open, setOpen} = useContext(MainContext)
+  const {openSidebar, setOpenSidebar} = useContext(MainContext)
   return (
     <Container data-activates="slide-out" className="button-collapse">
       <div className={
         `hamburger hamburger--collapse js-hamburger
-        ${open ? 'is-active' : ''}
+        ${openSidebar ? 'is-active' : ''}
       `} onClick={() => {
-          setOpen(!open)
+          setOpenSidebar(!openSidebar)
         }}>
         <div className="hamburger-box">
           <div className="hamburger-inner"></div>

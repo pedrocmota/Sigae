@@ -20,7 +20,7 @@ const Row: React.FC<IRow> = (props) => {
     return (
       <LinkContainer to={getLink(props.moduloAssociado)}
         tabIndex={props.tabIndex} className="row"
-        activeClassName="ativo" exact onClick={() => {closeOnClick(Main.setOpen)}} isActive={(match, path) => {
+        activeClassName="ativo" exact onClick={() => {closeOnClick(Main.setOpenSidebar)}} isActive={(match, path) => {
           const link = getLink(props.moduloAssociado as string)
           if(link != undefined) return isActive(link, path.pathname)
           return false
