@@ -29,7 +29,7 @@ const Modulos: React.FC = () => {
       </Route>
 
       <Route path="/" exact>
-        <ModuloContainer nome="Início" icone={HomeIcon} componente={ModuloInicio}
+        <ModuloContainer nome="Início" icone={HomeIcon} componente={ModuloInicio} sincrono
           condicao={{
             logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
           }} />
@@ -93,7 +93,7 @@ const Modulos: React.FC = () => {
       </Route>
 
       <Route path="*" exact>
-        <ModuloContainer nome="Módulo desconhecido" icone={HelpIcon} componente={Desconhecido}
+        <ModuloContainer nome="Módulo desconhecido" icone={HelpIcon} componente={Desconhecido} sincrono
         condicao={{
           logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
         }} />

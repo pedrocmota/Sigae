@@ -2,17 +2,16 @@ import React, {useRef, useEffect} from 'react'
 import $ from 'jquery'
 import useDidMountEffect from '../../hooks/useeffects/useDidMountEffect'
 
-export interface IFade {
+export interface IFade extends React.HTMLAttributes<HTMLDivElement> {
   visible: boolean,
   timer?: number,
-  style?: React.CSSProperties | undefined,
-  className?: string
+  fadeIn?: boolean
 }
 
-const Fade: React.FC<IFade> = ({children, style, className, visible = false, timer = 400}) => {
+const Fade: React.FC<IFade> = ({visible = false, timer = 400, fadeIn, ...props}) => {
   const container = useRef<HTMLDivElement>()
   useEffect(() => {
-    if(visible == false) $(container.current as any).hide()
+    if (visible == false) $(container.current as any).hide()
   }, [])
   useDidMountEffect(() => {
     setTimeout(() => {
@@ -20,8 +19,8 @@ const Fade: React.FC<IFade> = ({children, style, className, visible = false, tim
     }, 100)
   }, [visible])
   return (
-    <div ref={container as any} style={style} className={className}>
-      {children}
+    <div ref={container as any} {...props}>
+      {props.children}
     </div>
   )
 }

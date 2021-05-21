@@ -1,14 +1,13 @@
-import React, {createContext, memo, useState, useRef} from 'react'
+import React, {createContext, useContext, useState, memo} from 'react'
 import Modulos from '../Modulos'
 import ModuloLoading from '../ModuloLoading/ModuloLoading'
 import Toolip from '../../../../../componentes/Toolip/Toolip'
+import {MainContext} from '../../../Main'
+import {IModulo} from '../../../Main'
 import {Container, SubContainer, Header, Body, Title} from './styles'
 
 interface IModuloContext {
-  primeiroModulo: boolean,
-  setPrimeiroModulo: React.Dispatch<React.SetStateAction<boolean>>,
-  moduloInfo: IModuloInfo | undefined,
-  setModuloInfo: React.Dispatch<React.SetStateAction<IModuloInfo | undefined>>
+  liberar: (param?: IModulo) => void
 }
 
 export interface IModuloInfo {
@@ -20,20 +19,26 @@ export interface IModuloInfo {
 export const ModuloContext = createContext<IModuloContext>({} as IModuloContext)
 
 export const ModuloProvider: React.FC = memo(() => {
-  const [primeiroModulo, setPrimeiroModulo] = useState(true)
-  const [loading, setLoading] = useState(false)
-  const [moduloInfo, setModuloInfo] = useState<IModuloInfo>()
+  const {moduloInfo, setModuloInfo} = useContext(MainContext)
   const Componente = moduloInfo?.icone as React.FC<any> | undefined
+  const liberar = (param?: IModulo) => {
+    const props = param == undefined ? moduloInfo : param
+    setModuloInfo({
+      ...props,
+      loadingPagina: false,
+      loadingModulo: false,
+      render: true
+    })
+  }
   return (
     <ModuloContext.Provider value={{
-      primeiroModulo, setPrimeiroModulo,
-      moduloInfo, setModuloInfo
+      liberar
     }}>
       <Container>
         <SubContainer>
-          <ModuloLoading show={loading} />
+          <ModuloLoading show={moduloInfo.loadingModulo} />
           <Header className="moduloHeader">
-            {moduloInfo != undefined && (
+            {moduloInfo != undefined && moduloInfo.render && (
               <Toolip title={moduloInfo?.nome || ''}>
                 <Title>
                   {Componente && (

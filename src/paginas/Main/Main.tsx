@@ -15,8 +15,18 @@ interface IMainContext {
   dados: IDadosIniciais | undefined,
   open: boolean,
   setOpen: React.Dispatch<React.SetStateAction<boolean>>,
-  setLoadingPage: React.Dispatch<React.SetStateAction<boolean>>,
-  setRedirect: React.Dispatch<React.SetStateAction<string>>
+  setRedirect: React.Dispatch<React.SetStateAction<string>>,
+  moduloInfo: IModulo,
+  setModuloInfo: React.Dispatch<React.SetStateAction<IModulo>>
+}
+
+export interface IModulo {
+  loadingPagina: boolean,
+  loadingModulo: boolean,
+  render: boolean,
+  nome?: string,
+  icone?: any,
+  componente?: React.FC
 }
 
 export const MainContext = createContext<IMainContext>({} as IMainContext)
@@ -24,8 +34,12 @@ export const MainContext = createContext<IMainContext>({} as IMainContext)
 export const MainProvider: React.FC = memo((props) => {
   const [dados, setDados] = useState<IDadosIniciais>()
   const [redirect, setRedirect] = useState('')
-  const [loadingPage, setLoadingPage] = useState(true)
   const [open, setOpen] = useState(window.matchMedia('(min-width:944px)').matches)
+  const [moduloInfo, setModuloInfo] = useState<IModulo>({
+    loadingPagina: true,
+    loadingModulo: false,
+    render: false,
+  })
 
   const {Requests} = useContext(APIContext)
   const {addToast} = useToasts()
@@ -36,7 +50,6 @@ export const MainProvider: React.FC = memo((props) => {
     })
     Requests.dados.iniciais((param) => {
       setDados(param)
-      setLoadingPage(false)
       if (param.erro != undefined) {
         if (param.erro == 'EXPIRED') {
           return addToast('Sua sessão expirou', {appearance: 'error'})
@@ -58,17 +71,17 @@ export const MainProvider: React.FC = memo((props) => {
 
   return (
     <MainContext.Provider value={{
-      dados, open, setOpen, setRedirect, setLoadingPage
+      dados, open, setOpen, setRedirect, moduloInfo, setModuloInfo
     }}>
       {redirect != '' && (
         <Redirect to={redirect} />
       )}
-      <LoadingPersistent visible={loadingPage} />
+      <LoadingPersistent visible={moduloInfo.loadingPagina} />
       {dados != undefined && (
         <MainContainer>
           <Header />
           <ModuloProvider />
-          <Sidebar render={!loadingPage} />
+          <Sidebar render={!moduloInfo.loadingPagina} />
           <Footer resizable />
         </MainContainer>
       )}

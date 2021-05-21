@@ -8,7 +8,7 @@ export interface INode extends React.HTMLAttributes<HTMLDivElement> {
   moduloAssociado?: string
 }
 
-export interface IRow extends React.HTMLAttributes<HTMLDivElement>{
+export interface IRow extends React.HTMLAttributes<HTMLDivElement> {
   titulo: string,
   icone?: any,
   tabIndex: number,

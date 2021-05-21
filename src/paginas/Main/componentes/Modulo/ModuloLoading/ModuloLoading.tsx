@@ -9,9 +9,9 @@ interface IModuloLoading {
 
 const ModuloLoading: React.FC<IModuloLoading> = (props) => {
   return (
-    <Fade visible={props.show}>
+    <Fade visible={props.show} timer={200} fadeIn>
       <Container>
-        <Spinner />
+        <Spinner color={'#5c66bc'}/>
       </Container>
     </Fade>
   )

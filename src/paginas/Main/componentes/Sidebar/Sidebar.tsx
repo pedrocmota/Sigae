@@ -16,7 +16,7 @@ const Sidebar: React.FC<ISidebar> = (props) => {
         <Avatar src={Desconhecido}/>
         <Nome>
           {dados?.nomePreferencial && (
-            <>{dados.nomePreferencial}</>
+            dados.nomePreferencial
           )}
           {dados?.nomePreferencial == undefined && (
             <>Visitante</>
