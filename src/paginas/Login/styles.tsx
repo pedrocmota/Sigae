@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Button from '../../componentes/Button/Button'
 
 export const Container = styled.div`
   width: 100vw;
@@ -147,5 +148,13 @@ export const Footer = styled.footer`
         text-decoration: underline;
       }
     }
+  }
+`
+
+export const StyledButton = styled(Button)`
+  margin-top: 10px !important;
+  @media (max-height: 800px) {
+    height: 42px !important;
+    margin-top: 15px !important;
   }
 `

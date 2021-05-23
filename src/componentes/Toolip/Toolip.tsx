@@ -14,7 +14,7 @@ const Toolip: React.FC<TooltipProps> = (props) => {
     },
   }))(Tooltip)
   return (
-    <LightTooltip {...props} enterTouchDelay={1}>
+    <LightTooltip {...props} enterTouchDelay={0}>
       {props.children as any}
     </LightTooltip>
   )

@@ -3,7 +3,6 @@ import {Link, Redirect} from 'react-router-dom'
 import Loading from '../../componentes/Loading/Loading'
 import Form from '../../componentes/Form/Form'
 import InputLogin from '../../componentes/inputs/InputLogin/InputLogin'
-import Button from '../../componentes/Button/Button'
 import Spinner from '../../componentes/Spinner/Spinner'
 import ShowPassword from '../../componentes/ShowPassword/ShowPassword'
 import {APIContext} from '../../hooks/APIProvider'
@@ -11,35 +10,35 @@ import {PopupContext} from '../../hooks/PopupProvider'
 import {useToasts} from 'react-toast-notifications'
 import {
   Container, Center, Header, Main, LinksContainer,
-  LinksColuna, LinksRow, Footer
+  LinksColuna, LinksRow, Footer, StyledButton
 } from './styles'
 import {InputErrorIcon} from '../../componentes/Icons/Icons'
 import {ReactComponent as Sigae} from '../../assets/sigae.svg'
 
 const Login: React.FC = () => {
+  const [enviando, setEnviando] = useState(false)
+  const [erro1, setErro1] = useState(false)
+  const [erro2, setErro2] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [redirectMain, setRedirectMain] = useState(false)
+  const [redirectRegistrar, setRedirectRegistrar] = useState(false)
   const {Requests, Token} = useContext(APIContext)
   const {showPopup} = useContext(PopupContext)
   const {addToast} = useToasts()
-
   const inputMatricula = useRef<HTMLInputElement | null>(null)
   const inputSenha = useRef<HTMLInputElement | null>(null)
   const botao = useRef<HTMLButtonElement | null>(null)
-
-  const [enviando, setEnviando] = useState(false)
-  const [redirect, setRedirect] = useState(false)
-  const [erro1, setErro1] = useState(false)
-  const [erro2, setErro2] = useState(false)
-
-  const [showPassword, setShowPassword] = useState(false)
 
   const onMatriculaTyped = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const tamanho = e.currentTarget?.value?.length
     if (e.key === 'Enter') inputSenha.current?.focus()
     if (tamanho == 11) inputSenha.current?.focus()
   }
+
   const onSenhaTyped = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') botao.current?.click()
   }
+
   const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     const id = e.currentTarget.id
     if (id == 'matricula') setErro1(false)
@@ -55,7 +54,7 @@ const Login: React.FC = () => {
       setEnviando(true)
       Requests.session.logar(matricula, senha, (param) => {
         Token.definir(param.token)
-        setRedirect(true)
+        setRedirectMain(true)
       }, (param) => {
         setEnviando(false)
         if (param?.erro == 'USUARIO_DESCONHECIDO') {
@@ -68,7 +67,7 @@ const Login: React.FC = () => {
           return addToast('Esta matrícula ainda não foi registrada', {appearance: 'error'})
         }
         if (param?.erro == 'CONTA_ESPERANDO_VALIDACAO') {
-          return
+          return setRedirectRegistrar(true)
         }
         if (param?.erro == 'ESTADO_DA_CONTA_DESCONHECIDO') {
           return addToast('Esta matrícula está com estado desconhecido. Isso é um erro!', {appearance: 'error'})
@@ -79,8 +78,11 @@ const Login: React.FC = () => {
   }
   return (
     <>
-      {redirect && (
+      {redirectMain && (
         <Redirect to="/" />
+      )}
+      {redirectRegistrar && (
+        <Redirect to="/registrar" />
       )}
       <Loading timer={500} />
       <Container>
@@ -95,7 +97,7 @@ const Login: React.FC = () => {
           </Header>
           <Main>
             <Form method="POST" name="Login">
-              <InputLogin id="matricula" placeholder="Sua Matrícula" type="text" error={erro1}
+              <InputLogin id="matricula" placeholder="Sua Matrícula" type="number" error={erro1}
                 ref={inputMatricula} onKeyUp={onMatriculaTyped} onFocus={onFocus}>
                 <InputErrorIcon visible={erro1 ? 100 : 0} />
               </InputLogin>
@@ -108,14 +110,14 @@ const Login: React.FC = () => {
                   setShowPassword(!showPassword)
                 }}/>
               </InputLogin>
-              <Button type="submit" variant="contained" tipo="generic" margintop={10} ref={botao} onClick={logar}>
+              <StyledButton type="submit" variant="contained" tipo="generic" ref={botao} onClick={logar}>
                 {!enviando && (
                   <div>Realizar login</div>
                 )}
                 {enviando && (
                   <Spinner />
                 )}
-              </Button>
+              </StyledButton>
             </Form>
             <LinksContainer>
               <LinksColuna>
