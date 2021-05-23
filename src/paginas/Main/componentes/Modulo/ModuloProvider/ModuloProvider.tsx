@@ -3,31 +3,28 @@ import Modulos from '../Modulos'
 import ModuloLoading from '../ModuloLoading/ModuloLoading'
 import Toolip from '../../../../../componentes/Toolip/Toolip'
 import {MainContext} from '../../../Main'
-import {IModulo} from '../../../Types'
+import {MaterialUIIcon} from '../../../../../types/Misc'
 import {Container, SubContainer, Header, Body, Title} from './styles'
 
 interface IModuloContext {
-  liberar: (param?: IModulo) => void
+  liberar: () => void
 }
 
 export interface IModuloInfo {
   nome: string,
-  icone: any,
-  componente: any
+  icone: MaterialUIIcon,
+  componente: React.FC
 }
 
 export const ModuloContext = createContext<IModuloContext>({} as IModuloContext)
 
 export const ModuloProvider: React.FC = memo(() => {
-  const {moduloInfo, setModuloInfo} = useContext(MainContext)
-  const Componente = moduloInfo?.icone as React.FC<any> | undefined
-  const liberar = (param?: IModulo) => {
-    const props = param == undefined ? moduloInfo : param
-    setModuloInfo({
-      ...props,
+  const {loadings, setLoadings, moduloHeader} = useContext(MainContext)
+  const Icone = moduloHeader?.icone as React.FC<any> | undefined
+  const liberar = () => {
+    setLoadings({
       loadingPagina: false,
       loadingModulo: false,
-      render: true
     })
   }
   return (
@@ -36,19 +33,19 @@ export const ModuloProvider: React.FC = memo(() => {
     }}>
       <Container>
         <SubContainer>
-          <ModuloLoading show={moduloInfo.loadingModulo} />
-          <Header className="moduloHeader">
-            {moduloInfo != undefined && moduloInfo.render && (
-              <Toolip title={moduloInfo?.nome || ''}>
+          <ModuloLoading show={loadings.loadingModulo} />
+          {moduloHeader != undefined && loadings.loadingModulo == false && (
+            <Header className="moduloHeader">
+              <Toolip title={moduloHeader?.nome || ''}>
                 <Title>
-                  {Componente && (
-                    <Componente className="icon" />
+                  {Icone && (
+                    <Icone className="icon" />
                   )}
-                  <div className="titulo">{moduloInfo?.nome}</div>
+                  <div className="titulo">{moduloHeader?.nome}</div>
                 </Title>
               </Toolip>
-            )}
-          </Header>
+            </Header>
+          )}
           <Body>
             <Modulos />
           </Body>

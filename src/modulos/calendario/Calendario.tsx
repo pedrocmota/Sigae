@@ -1,17 +1,24 @@
 import React, {useContext, useEffect} from 'react'
+import useIsMounted from '../../hooks/useeffects/useIsMounted'
 import {ModuloContext} from '../../paginas/Main/componentes/Modulo/ModuloProvider/ModuloProvider'
 
-const Calendario: React.FC = () => {
+const Calendario: React.FC = (props) => {
   const {liberar} = useContext(ModuloContext)
+  const isMounted = useIsMounted()
   useEffect(() => {
     setTimeout(() => {
-      liberar()
+      console.log(isMounted())
+      if (isMounted()) {
+        liberar()
+      }
     }, 1500)
   }, [])
   return (
-    <h1>
-      Módulo Calendario
-    </h1>
+    <div {...props}>
+      <h1>
+        Módulo Calendario
+      </h1>
+    </div>
   )
 }
 

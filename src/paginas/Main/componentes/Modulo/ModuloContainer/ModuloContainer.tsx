@@ -13,38 +13,40 @@ interface IModuloContainer extends IModuloInfo {
 
 const ModuloContainer: React.FC<IModuloContainer> = (props) => {
   const {Token} = useContext(APIContext)
-  const {dados, moduloInfo, setModuloInfo} = useContext(MainContext)
+  const {dados, loadings, setLoadings, setModuloHeader} = useContext(MainContext)
   const {liberar} = useContext(ModuloContext)
   const {addToast} = useToasts()
   const valido = validarPermissao(Token.existe(), props.condicao, dados!)
   useEffect(() => {
-    let timeout:NodeJS.Timeout | undefined = undefined
+    let timeout: NodeJS.Timeout | undefined = undefined
     if (valido) {
-      const moInfo = {
-        ...props,
-        loadingPagina: moduloInfo.loadingPagina,
-        loadingModulo: !moduloInfo.loadingPagina ? true : false,
-        render: false
-      }
-      setModuloInfo(moInfo)
-      if(props.sincrono) {
+      setLoadings({
+        loadingPagina: false,
+        loadingModulo: !loadings.loadingPagina ? true : false,
+      })
+      if (props.sincrono) {
         timeout = setTimeout(() => {
-          liberar(moInfo)
+          liberar()
         }, 300)
       }
+      setModuloHeader({
+        ...props
+      })
     } else {
       addToast('Você não tem permissão para acessar esse módulo', {appearance: 'error'})
     }
     return () => {
-      if(timeout != undefined) clearTimeout(timeout)
+      if (timeout != undefined) clearTimeout(timeout)
     }
   }, [document.location.href])
 
-  const Componente = props.componente as React.FC<any>
+  const Componente = props.componente as React.FC<React.HTMLAttributes<HTMLDivElement>>
   return (
     <>
-      {valido && moduloInfo.render && (
-        <Componente />
+      {valido && (
+        <Componente style={{
+          ...(loadings.loadingModulo ? {display: 'none'} : {})}
+        } />
       )}
       {!valido && (
         <Redirect to="/" />

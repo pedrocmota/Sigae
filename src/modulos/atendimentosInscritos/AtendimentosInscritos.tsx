@@ -1,10 +1,24 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
+import useIsMounted from '../../hooks/useeffects/useIsMounted'
+import {ModuloContext} from '../../paginas/Main/componentes/Modulo/ModuloProvider/ModuloProvider'
 
-const AtendimentosInscritos: React.FC = () => {
+const AtendimentosInscritos: React.FC = (props) => {
+  const {liberar} = useContext(ModuloContext)
+  const isMounted = useIsMounted()
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(isMounted())
+      if (isMounted()) {
+        liberar()
+      }
+    }, 1500)
+  }, [])
   return (
-    <h1>
-      Atendimentos Inscritos
-    </h1>
+    <div {...props}>
+      <h1>
+        Módulo Atendimentos Inscritos
+      </h1>
+    </div>
   )
 }
 

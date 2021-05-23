@@ -1,10 +1,12 @@
 import React from 'react'
 
-const Desconhecido: React.FC = () => {
+const Desconhecido: React.FC = (props) => {
   return (
-    <h1>
-      Módulo desconhecido
-    </h1>
+    <div {...props}>
+      <h1>
+        Módulo desconhecido
+      </h1>
+    </div>
   )
 }
 

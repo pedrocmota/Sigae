@@ -8,7 +8,7 @@ import Footer from './componentes/Footer/Footer'
 import {APIContext} from '../../hooks/APIProvider'
 import {useToasts} from 'react-toast-notifications'
 import {onResize} from '../../hooks/events/Resize'
-import {IModulo} from './Types'
+import {ILoadings, IModuloHeader} from './Types'
 import ImageViewer, {IImageViewer} from './componentes/ImageViewer/ImageViewer'
 import {IDadosIniciais} from '../../types/DadosEstaticos'
 import {MainContainer} from './styles'
@@ -18,8 +18,10 @@ interface IMainContext {
   openSidebar: boolean,
   setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>,
   setRedirect: React.Dispatch<React.SetStateAction<string>>,
-  moduloInfo: IModulo,
-  setModuloInfo: React.Dispatch<React.SetStateAction<IModulo>>,
+  loadings: ILoadings,
+  setLoadings: React.Dispatch<React.SetStateAction<ILoadings>>,
+  moduloHeader: IModuloHeader | undefined,
+  setModuloHeader: React.Dispatch<React.SetStateAction<IModuloHeader | undefined>>,
   imageViewer: IImageViewer,
   setImageViewer: React.Dispatch<React.SetStateAction<IImageViewer>>
 }
@@ -30,15 +32,14 @@ export const MainProvider: React.FC = memo((props) => {
   const [dados, setDados] = useState<IDadosIniciais>()
   const [redirect, setRedirect] = useState('')
   const [openSidebar, setOpenSidebar] = useState(window.matchMedia('(min-width:944px)').matches)
-  const [moduloInfo, setModuloInfo] = useState<IModulo>({
+  const [loadings, setLoadings] = useState<ILoadings>({
     loadingPagina: true,
     loadingModulo: false,
-    render: false,
   })
+  const [moduloHeader, setModuloHeader] = useState<IModuloHeader>()
   const [imageViewer, setImageViewer] = useState<IImageViewer>({
     open: false
   })
-
   const {Requests, Token} = useContext(APIContext)
   const {addToast} = useToasts()
 
@@ -73,23 +74,23 @@ export const MainProvider: React.FC = memo((props) => {
   return (
     <MainContext.Provider value={{
       dados, openSidebar, setOpenSidebar, setRedirect,
-      moduloInfo, setModuloInfo, imageViewer, setImageViewer
+      loadings, setLoadings, moduloHeader, setModuloHeader,
+      imageViewer, setImageViewer
     }}>
       {redirect != '' && (
         <Redirect to={redirect} />
       )}
-      <LoadingPersistent visible={moduloInfo.loadingPagina} />
+      <LoadingPersistent visible={loadings.loadingPagina} />
       {dados != undefined && (
         <>
           <ImageViewer {...imageViewer} />
           <MainContainer>
             <Header />
             <ModuloProvider />
-            <Sidebar render={!moduloInfo.loadingPagina} />
+            <Sidebar render={dados != undefined} />
             <Footer resizable />
           </MainContainer>
         </>
-
       )}
     </MainContext.Provider>
   )
