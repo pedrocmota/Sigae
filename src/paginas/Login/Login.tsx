@@ -22,6 +22,7 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [redirectMain, setRedirectMain] = useState(false)
   const [redirectRegistrar, setRedirectRegistrar] = useState(false)
+  const [redirectRegistrarCodigo, setRedirectRegistrarCodigo] = useState('')
   const {Requests, Token} = useContext(APIContext)
   const {showPopup} = useContext(PopupContext)
   const {addToast} = useToasts()
@@ -67,6 +68,7 @@ const Login: React.FC = () => {
           return addToast('Esta matrícula ainda não foi registrada', {appearance: 'error'})
         }
         if (param?.erro == 'CONTA_ESPERANDO_VALIDACAO') {
+          setRedirectRegistrarCodigo(param.codigoAcesso as string)
           return setRedirectRegistrar(true)
         }
         if (param?.erro == 'ESTADO_DA_CONTA_DESCONHECIDO') {
@@ -82,7 +84,7 @@ const Login: React.FC = () => {
         <Redirect to="/" />
       )}
       {redirectRegistrar && (
-        <Redirect to="/registrar" />
+        <Redirect to={`/registrar/${redirectRegistrarCodigo}/validar`} push/>
       )}
       <Loading timer={500} />
       <Container>

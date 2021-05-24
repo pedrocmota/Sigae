@@ -14,7 +14,8 @@ interface ISessionRequest {
       'CONTA_INATIVA' |
       'ESTADO_DA_CONTA_DESCONHECIDO' |
       'SENHA_INCORRETA' |
-      'USUARIO_DESCONHECIDO'
+      'USUARIO_DESCONHECIDO',
+      codigoAcesso?: string
     }
   ) => void) => void,
 
