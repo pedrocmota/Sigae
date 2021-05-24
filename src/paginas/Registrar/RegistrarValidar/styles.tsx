@@ -1,5 +1,6 @@
 import styled, {css} from 'styled-components'
 import FormStyled from '../../../componentes/Form/Form'
+import InputNumber from '../../../componentes/inputs/InputNumber/InputNumber'
 
 export const FormContainer = styled.div`
   display: flex;
@@ -79,5 +80,14 @@ export const Links = styled.a<ILinks>`
   `}
   &:hover {
     text-decoration: underline;
+  }
+`
+
+export const StyledInputNumber = styled(InputNumber)`
+  @media (max-width: 360px) {
+    input {
+      width: 33px !important;
+      height: 33px !important;
+    }
   }
 `

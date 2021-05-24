@@ -11,11 +11,9 @@ import {useToasts} from 'react-toast-notifications'
 import useIsMounted from '../../../hooks/useeffects/useIsMounted'
 import {HTMLInputMaskElement} from '../../../componentes/inputs/GenericInput/GenericInput'
 import {Container, Top, Main, Bottom} from '../styles'
+import {StyledInputNumber} from './styles'
 import {FormContainer, Text, Lista, Form, BottomRow, Links} from './styles'
 import {ReactComponent as Sigae} from '../../../assets/sigae.svg'
-import {
-
-} from '@material-ui/icons'
 
 interface IDados {
   nome: string,
@@ -29,20 +27,16 @@ const RegistrarForm: React.FC = () => {
   const {addToast} = useToasts()
   const isMounted = useIsMounted()
 
-  const botao = useRef<HTMLButtonElement>(null)
-
   const [show, setShow] = useState(false)
   const [dados, setDados] = useState<IDados>()
-  const [erro, setErro] = useState(false)
-
+  const [codigoValidacao, setCodigoValidacao] = useState('')
+  const [botaoValido, setBotaoValido] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [enviandoEmail, setEnviandoEmail] = useState(false)
   const [enviandoCancelar, setEnviandoCancelar] = useState(false)
-
   const [redirectCodigo, setRedirectCodigo] = useState(false)
   const [redirectLogin, setRedirectLogin] = useState(false)
-
-  const inputCodigo = useRef<HTMLInputMaskElement | null>(null)
+  const botao = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     Requests.registro.getDadosValidar(codigo, (param) => {
@@ -55,36 +49,33 @@ const RegistrarForm: React.FC = () => {
   }, [])
 
   const enviar = () => {
-    if(!enviando && !enviandoCancelar && !enviandoEmail) {
-      const codigo = inputCodigo.current!.inputElement!.value
-      if (codigo.length > 0) {
+    if (!enviando && !enviandoCancelar && !enviandoEmail) {
+      if (codigoValidacao.length > 0) {
         setEnviando(true)
-        Requests.registro.validar(codigo, () => {
+        Requests.registro.validar(codigoValidacao.toUpperCase(), () => {
           setEnviando(false)
           setRedirectLogin(true)
           addToast('Você foi registrado com sucesso!', {appearance: 'success'})
         }, (param) => {
           setEnviando(false)
-          if(param.erro == 'CODIGO_INVALIDO') {
+          if (param.erro == 'CODIGO_INVALIDO') {
             addToast('Esse código é inválido', {appearance: 'error'})
           }
-          if(param.erro == 'ERRO_DESCONHECIDO') {
+          if (param.erro == 'ERRO_DESCONHECIDO') {
             addToast('Erro desconhecido', {appearance: 'error'})
           }
         })
-      } else {
-        setErro(true)
       }
     }
   }
 
   const reenviarEmail = () => {
-    if(!enviando && !enviandoCancelar && !enviandoEmail) {
+    if (!enviando && !enviandoCancelar && !enviandoEmail) {
       setEnviandoEmail(true)
       Requests.registro.reenviarEmail(codigo, () => {
         addToast('Email reenviado com sucesso!', {appearance: 'success'})
         setTimeout(() => {
-          if(isMounted()) {
+          if (isMounted()) {
             setEnviandoEmail(false)
           }
         }, 3000)
@@ -95,7 +86,7 @@ const RegistrarForm: React.FC = () => {
   }
 
   const cancelar = () => {
-    if(!enviando && !enviandoCancelar && !enviandoEmail) {
+    if (!enviando && !enviandoCancelar && !enviandoEmail) {
       Popups.showPopup('confirmar', {
         titulo: 'Tem certeza?',
         altura: '255px',
@@ -107,7 +98,7 @@ const RegistrarForm: React.FC = () => {
           Deseja continuar?
         `,
         onClose: (botao) => {
-          if(botao == 'ok') {
+          if (botao == 'ok') {
             setEnviandoCancelar(true)
             Requests.registro.cancelar(codigo, () => {
               addToast('Sua inscrição foi cancelada com sucesso!', {appearance: 'success'})
@@ -157,20 +148,18 @@ const RegistrarForm: React.FC = () => {
               </div>
             </Lista>
             <Form method="POST" name="FormCodigoValidacao">
-              <InputCode id="CodigoValidacao" mask="octaCode" autoCapitalize="characters" 
-                spellCheck={false} error={erro}
-                placeholder="Digite o código de validação"
-                onFocus={() => setErro(false)} ref={inputCodigo} onKeyUp={(e) => {
-                  if(e.key == 'Enter') {
-                    botao.current?.click()
-                  }
-                }}/>
-              <Button type="submit" tipo="generic" margintop={15} onClick={enviar} ref={botao}>
+              <StyledInputNumber type='text' fields={8} inputMode="latin" name="CodigoValidar"
+                onChange={(v) => {
+                  setCodigoValidacao(v)
+                  setBotaoValido(v.length == 8)
+                }} />
+              <Button type="submit" tipo="generic" margintop={15} onClick={enviar} disabled={!botaoValido}
+                ref={botao}>
                 {!enviando && (
                   <div>Enviar código</div>
                 )}
                 {enviando && (
-                  <Spinner/>
+                  <Spinner />
                 )}
               </Button>
               <BottomRow>

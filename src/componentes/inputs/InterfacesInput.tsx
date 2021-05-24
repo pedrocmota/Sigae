@@ -11,7 +11,7 @@ export interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
   borderSize?: number
 }
 
-export type maskTypes = 'CPF' | 'data' | 'octaCode'
+export type maskTypes = 'CPF' | 'data' | 'octaCode' | 'octaCodeUpper'
 
 export type IMask = {
   [key in maskTypes]: (string | RegExp)[];

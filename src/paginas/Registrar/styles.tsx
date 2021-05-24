@@ -30,6 +30,14 @@ export const Main = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
+  @media (max-height: 800px) {
+    input {
+      height: 45px !important;
+    }
+    .passwordIcon {
+      top: 22px;
+    }
+  }
 `
 
 export const Bottom = styled.div`

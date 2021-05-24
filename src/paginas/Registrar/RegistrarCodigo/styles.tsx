@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import InputText from '../../../componentes/inputs/InputText/InputText'
+import InputNumber from '../../../componentes/inputs/InputNumber/InputNumber'
 
 export const Container = styled.div`
   display: flex;
@@ -47,5 +47,14 @@ export const InputContainer = styled.div`
   width: 350px;
   @media (max-width: 360px) {
     width: 300px;
+  }
+`
+
+export const StyledInputNumber = styled(InputNumber)`
+  @media (max-width: 360px) {
+    input {
+      width: 33px !important;
+      height: 33px !important;
+    }
   }
 `

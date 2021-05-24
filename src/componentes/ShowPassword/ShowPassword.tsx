@@ -11,7 +11,7 @@ interface IShowPassword {
 
 const ShowPassword: React.FC<IShowPassword> = ({right, selecionado, onClick, top, ...rest}) => {
   return (
-    <Container right={right} top={top}>
+    <Container right={right} top={top} className="passwordIcon">
       <ShowPasswordIcon selecionado={selecionado ? 1 : 0} {...rest} onClick={() => {
         if(typeof onClick == 'function') onClick()
       }}/>
