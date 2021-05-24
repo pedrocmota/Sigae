@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import FormStyled from '../../../componentes/Form/Form'
-import InputNumber from '../../../componentes/inputs/InputNumber/InputNumber'
+import InputNumber from '../../../componentes/InputPin/InputPin'
 
 export const FormContainer = styled.div`
   display: flex;

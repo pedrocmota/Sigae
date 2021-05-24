@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import InputNumber from '../../../componentes/inputs/InputNumber/InputNumber'
+import InputNumber from '../../../componentes/InputPin/InputPin'
 
 export const Container = styled.div`
   display: flex;
@@ -56,5 +56,16 @@ export const StyledInputNumber = styled(InputNumber)`
       width: 33px !important;
       height: 33px !important;
     }
+  }
+`
+
+export const Ajuda = styled.div`
+  text-align: center;
+  margin-top: 25px;
+  color: #3e88dd;
+  font-size: 18px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
   }
 `

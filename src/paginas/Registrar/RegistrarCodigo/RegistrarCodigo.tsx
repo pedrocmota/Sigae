@@ -1,17 +1,18 @@
-import React, {useState, useRef, memo} from 'react'
+import React, {useState, useContext, memo} from 'react'
 import {Redirect} from 'react-router-dom'
 import Loading from '../../../componentes/Loading/Loading'
 import Footer from '../../Main/componentes/Footer/Footer'
 import Form from '../../../componentes/Form/Form'
 import Button from '../../../componentes/Button/Button'
-// import {getInputNumberValue} from '../../../componentes/inputs/InputNumber/InputNumber'
-import {Container, Top, Main, Bottom, InputContainer, StyledInputNumber} from './styles'
+import {PopupContext} from '../../../hooks/PopupProvider'
+import {Container, Top, Main, Bottom, InputContainer, StyledInputNumber, Ajuda} from './styles'
 import {ReactComponent as Sigae} from '../../../assets/sigae.svg'
 
 const RegistrarCodigo: React.FC = () => {
   const [redirecionarForm, setRedirecionarForm] = useState(false)
   const [botaoValido, setBotaoValido] = useState(false)
   const [codigo, setCodigo] = useState('')
+  const {showPopup} = useContext(PopupContext)
   return (
     <>
       {redirecionarForm && (
@@ -30,13 +31,16 @@ const RegistrarCodigo: React.FC = () => {
                 onChange={(v) => {
                   setCodigo(v)
                   setBotaoValido(v.length == 8)
-                }} />
+                }} onAction={() => setRedirecionarForm(true)}/>
               <Button type="button" tipo="generic" margintop={15} disabled={!botaoValido}
                 onClick={() => {
                   setRedirecionarForm(true)
                 }}>
                 Enviar código
               </Button>
+              <Ajuda onClick={() => showPopup('ajudaCodigo')}>
+                Como consigo um código?
+              </Ajuda>
             </Form>
           </InputContainer>
         </Main>

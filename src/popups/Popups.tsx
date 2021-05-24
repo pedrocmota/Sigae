@@ -2,6 +2,7 @@ import {IPopupKey} from './PopupsInterface'
 import Confirmar from './componentes/Confirmar/Confirmar'
 import RecuperarSenha from './componentes/RecuperarSenha/RecuperarSenha'
 import Carregando from './componentes/Carregando/Carregando'
+import AjudaCodigo from './componentes/AjudaCodigo/AjudaCodigo'
 import AlterarTema from './componentes/AlterarTema/AlterarTema'
 
 export type Keys = keyof typeof Popups;
@@ -36,6 +37,15 @@ const Popups = {
     mostrarFechar: false,
     mostrarOk: false,
     closeOnClick: false
+  },
+  ajudaCodigo: {
+    titulo: 'Como conseguir um código?',
+    componente: AjudaCodigo,
+    largura: '400px',
+    altura: '320px',
+    mostrarFechar: true,
+    mostrarOk: false,
+    closeOnClick: true
   },
   alterarTema: {
     titulo: 'Alterar tema',

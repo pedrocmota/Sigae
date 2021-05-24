@@ -9,7 +9,6 @@ import {APIContext} from '../../../hooks/APIProvider'
 import {PopupContext} from '../../../hooks/PopupProvider'
 import {useToasts} from 'react-toast-notifications'
 import useIsMounted from '../../../hooks/useeffects/useIsMounted'
-import {HTMLInputMaskElement} from '../../../componentes/inputs/GenericInput/GenericInput'
 import {Container, Top, Main, Bottom} from '../styles'
 import {StyledInputNumber} from './styles'
 import {FormContainer, Text, Lista, Form, BottomRow, Links} from './styles'
@@ -48,11 +47,12 @@ const RegistrarForm: React.FC = () => {
     })
   }, [])
 
-  const enviar = () => {
+  const enviar = (v?: string) => {
+    const codigoEnvio = v || codigoValidacao
     if (!enviando && !enviandoCancelar && !enviandoEmail) {
-      if (codigoValidacao.length > 0) {
+      if (codigoEnvio.length > 0) {
         setEnviando(true)
-        Requests.registro.validar(codigoValidacao.toUpperCase(), () => {
+        Requests.registro.validar(codigoEnvio.toUpperCase(), () => {
           setEnviando(false)
           setRedirectLogin(true)
           addToast('Você foi registrado com sucesso!', {appearance: 'success'})
@@ -152,8 +152,11 @@ const RegistrarForm: React.FC = () => {
                 onChange={(v) => {
                   setCodigoValidacao(v)
                   setBotaoValido(v.length == 8)
+                }} onAction={(v) => {
+                  enviar(v)
                 }} />
-              <Button type="submit" tipo="generic" margintop={15} onClick={enviar} disabled={!botaoValido}
+              <Button type="submit" tipo="generic" margintop={15}
+                onClick={() => enviar()} disabled={!botaoValido}
                 ref={botao}>
                 {!enviando && (
                   <div>Enviar código</div>

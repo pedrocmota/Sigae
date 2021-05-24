@@ -1,21 +1,7 @@
-import React, {useEffect, useRef} from 'react'
 import styled from 'styled-components'
-import Input, {ReactCodeInputProps} from 'react-code-input'
+import Input from 'react-code-input'
 
-const InputPin: React.FC<ReactCodeInputProps> = (props) => {
-  const input = useRef<any>(null)
-  useEffect(() => {
-    const inputs = input.current.textInput as HTMLInputElement[]
-    inputs.forEach(el => {
-      el.placeholder = '●'
-    })
-  }, [])
-  return (
-    <InputStyled {...props} ref={input}/>
-  )
-}
-
-const InputStyled = styled(Input)`
+export const InputStyled = styled(Input)`
   display: inline-flex !important;
   justify-content: center;
   width: 100%;
@@ -39,5 +25,3 @@ const InputStyled = styled(Input)`
     }
   }
 `
-
-export default InputPin
