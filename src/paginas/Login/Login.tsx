@@ -97,7 +97,7 @@ const Login: React.FC = () => {
           </Header>
           <Main>
             <Form method="POST" name="Login">
-              <InputLogin id="matricula" placeholder="Sua Matrícula" type="number" error={erro1}
+              <InputLogin id="matricula" placeholder="Sua Matrícula" inputMode="numeric" error={erro1}
                 ref={inputMatricula} onKeyUp={onMatriculaTyped} onFocus={onFocus}>
                 <InputErrorIcon visible={erro1 ? 100 : 0} />
               </InputLogin>
@@ -108,7 +108,7 @@ const Login: React.FC = () => {
                 <InputErrorIcon visible={erro2 ? 100 : 0} />
                 <ShowPassword top={12} selecionado={showPassword} onClick={() => {
                   setShowPassword(!showPassword)
-                }}/>
+                }} />
               </InputLogin>
               <StyledButton type="submit" variant="contained" tipo="generic" ref={botao} onClick={logar}>
                 {!enviando && (
@@ -135,7 +135,8 @@ const Login: React.FC = () => {
             </LinksContainer>
           </Main>
           <Footer>
-            <div>© 2020 | Desenvolvimento: <a href="https://portal.ifba.edu.br/" target="_blank" rel="noreferrer">IFBA</a></div>
+            <div>© 2020 | Desenvolvimento: <a href="https://portal.ifba.edu.br/"
+              target="_blank" rel="noreferrer">IFBA</a></div>
           </Footer>
         </Center>
       </Container>

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Container = styled.a`
-  margin-top: 8px;
+  margin-top: 5px;
   position: absolute;
   left: 5px;
   .hamburger-inner,
