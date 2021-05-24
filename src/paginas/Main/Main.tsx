@@ -78,7 +78,7 @@ export const MainProvider: React.FC = memo((props) => {
       imageViewer, setImageViewer
     }}>
       {redirect != '' && (
-        <Redirect to={redirect} />
+        <Redirect to={redirect} push />
       )}
       <LoadingPersistent visible={loadings.loadingPagina} />
       {dados != undefined && (

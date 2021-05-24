@@ -13,5 +13,6 @@ export interface IRow extends React.HTMLAttributes<HTMLDivElement> {
   icone?: any,
   tabIndex: number,
   condicao: ICondicao,
-  moduloAssociado?: string
+  moduloAssociado?: string,
+  onAction?: () => void
 }

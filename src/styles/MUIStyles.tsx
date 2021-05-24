@@ -20,10 +20,9 @@ const MUIStyles = createGlobalStyle`
     z-index: 10500 !important;
   }
 
-  /* .MuiTooltip-popper > div {
-    background-color: #4e5f78;
-    color: #ffffff
-  } */
+  .swal2-container {
+    z-index: 3060 !important;
+  }
 `
 
 export default MUIStyles

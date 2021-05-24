@@ -15,7 +15,7 @@ export const Container = styled.aside<IContainer>`
   height: calc(100% - 65px);
   background-color: #3b3b4b;
   overflow-y: hidden;
-  z-index: 5000;
+  z-index: 2000;
   transition: width 300ms !important;
   overflow-x: hidden;
   box-shadow: 0 2px 2px 0

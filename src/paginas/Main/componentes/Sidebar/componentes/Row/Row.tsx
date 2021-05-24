@@ -6,7 +6,7 @@ import {validarPermissao} from '../../../Permissao'
 import {IRow} from '../../Types'
 import {LinkContainer, DivContainer} from './styles'
 
-const Row: React.FC<IRow> = (props) => {
+const Row: React.FC<IRow> = ({onAction, ...props}) => {
   const {Token} = useContext(APIContext)
   const Main = useContext(MainContext)
   const {setOpen} = useContext(NodeContext)
@@ -15,14 +15,14 @@ const Row: React.FC<IRow> = (props) => {
   if (props.moduloAssociado) {
     useEffect(() => {
       const ativo = isActive(getLink(props.moduloAssociado as string), location.pathname)
-      if(ativo && typeof setOpen == 'function') setOpen(true)
+      if (ativo && typeof setOpen == 'function') setOpen(true)
     }, [])
     return (
       <LinkContainer to={getLink(props.moduloAssociado)}
         tabIndex={props.tabIndex} className="row"
         activeClassName="ativo" exact onClick={() => {closeOnClick(Main.setOpenSidebar)}} isActive={(match, path) => {
           const link = getLink(props.moduloAssociado as string)
-          if(link != undefined) return isActive(link, path.pathname)
+          if (link != undefined) return isActive(link, path.pathname)
           return false
         }}>
         {Icone && (
@@ -33,7 +33,15 @@ const Row: React.FC<IRow> = (props) => {
     )
   } else {
     return (
-      <DivContainer className="row" {...props}>
+      <DivContainer className="row" {...props} onClick={() => {
+        if (typeof onAction == 'function') {
+          onAction()
+        }
+      }} onKeyDown={(e) => {
+        if (e.key == 'Enter' && typeof onAction == 'function') {
+          onAction()
+        }
+      }}>
         {Icone && (
           <Icone />
         )}
@@ -45,7 +53,7 @@ const Row: React.FC<IRow> = (props) => {
 
 const closeOnClick = (setOpen: (x: boolean) => void) => {
   const match = window.matchMedia('(min-width:944px)').matches
-  if(!match && typeof setOpen == 'function') {
+  if (!match && typeof setOpen == 'function') {
     setOpen(false)
   }
 }
@@ -56,7 +64,7 @@ const getLink = (modulo: string) => {
 }
 
 const isActive = (link: string, url: string) => {
-  if(link == '/' && url == '/') return true
+  if (link == '/' && url == '/') return true
   return link != '/' ? url.includes(link) : false
 }
 

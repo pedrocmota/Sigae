@@ -2,6 +2,7 @@ import {IPopupKey} from './PopupsInterface'
 import Confirmar from './componentes/Confirmar/Confirmar'
 import RecuperarSenha from './componentes/RecuperarSenha/RecuperarSenha'
 import Carregando from './componentes/Carregando/Carregando'
+import AlterarTema from './componentes/AlterarTema/AlterarTema'
 
 export type Keys = keyof typeof Popups;
 
@@ -35,6 +36,16 @@ const Popups = {
     mostrarFechar: false,
     mostrarOk: false,
     closeOnClick: false
+  },
+  alterarTema: {
+    titulo: 'Alterar tema',
+    componente: AlterarTema,
+    largura: '400px',
+    altura: '320px',
+    mostrarFechar: true,
+    mostrarOk: true,
+    textoOk: 'Salvar',
+    closeOnClick: true
   }
 }
 

@@ -1,5 +1,6 @@
 import React, {useContext} from 'react'
 import {APIContext} from '../../../../../../hooks/APIProvider'
+import {PopupContext} from '../../../../../../hooks/PopupProvider'
 import {MainContext} from '../../../../Main'
 import {Container} from './styles'
 import Row from '../Row/Row'
@@ -7,6 +8,7 @@ import Node from '../Node/Node'
 
 import HomeIcon from '@material-ui/icons/Home'
 import VpnKeyIcon from '@material-ui/icons/VpnKey'
+import AddCircleIcon from '@material-ui/icons/AddCircle'
 import CalendarIcon from '@material-ui/icons/PermContactCalendar'
 import SchoolIcon from '@material-ui/icons/School'
 import GroupIcon from '@material-ui/icons/Group'
@@ -16,6 +18,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const LinhasContainer: React.FC = () => {
   const {Token} = useContext(APIContext)
+  const {showPopup} = useContext(PopupContext)
   const {setRedirect} = useContext(MainContext)
   let tabIndex = 1
   return (
@@ -24,10 +27,15 @@ const LinhasContainer: React.FC = () => {
         logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
       }} moduloAssociado="inicio" tabIndex={tabIndex++} />
       <Row titulo="Fazer login" icone={VpnKeyIcon} condicao={{
-        logado: false, naoLogado: true, discentes: true, docentes: true, admins: true
-      }} tabIndex={tabIndex++} onClick={() => {
+        logado: false, naoLogado: true, discentes: false, docentes: false, admins: false
+      }} tabIndex={tabIndex++} onAction={() => {
         setRedirect('/login')
-      }}/>
+      }} />
+      <Row titulo="Criar uma conta" icone={AddCircleIcon} condicao={{
+        logado: false, naoLogado: true, discentes: false, docentes: false, admins: false
+      }} tabIndex={tabIndex++} onAction={() => {
+        setRedirect('/registrar')
+      }} />
       <Row titulo="Calendário" icone={CalendarIcon} condicao={{
         logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
       }} moduloAssociado="calendario" tabIndex={tabIndex++} />
@@ -80,17 +88,19 @@ const LinhasContainer: React.FC = () => {
       }} tabIndex={tabIndex++}>
         <Row titulo="Alterar tema" condicao={{
           logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-        }} tabIndex={tabIndex++} />
+        }} tabIndex={tabIndex++} onAction={() => {
+          showPopup('alterarTema')
+        }}/>
         <Row titulo="Sobre o SiGAÊ" condicao={{
           logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
         }} tabIndex={tabIndex++} />
       </Node>
       <Row titulo="Finalizar sessão" icone={ExitToAppIcon} condicao={{
         logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
-      }} tabIndex={tabIndex++} onClick={() => {
+      }} tabIndex={tabIndex++} onAction={() => {
         Token.remover()
         setRedirect('/login')
-      }}/>
+      }} />
     </Container>
   )
 }
