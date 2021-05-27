@@ -1,4 +1,6 @@
+import {useToasts} from 'react-toast-notifications'
 import {IAPIContext} from '../hooks/APIProvider'
+import {IConsoleContext} from '../hooks/ConsoleProvider'
 import {IThemeContext} from '../hooks/ThemeProvider'
 import {IPopupContext} from '../hooks/PopupProvider'
 
@@ -29,9 +31,11 @@ export interface IPopupKey {
 }
 
 export interface IPopupBody {
+  useToasts: any,
+  IConsoleContext: IConsoleContext,
   APIContext: IAPIContext,
   TemaContext: IThemeContext,
-  PopupContext: IPopupContext 
+  PopupContext: IPopupContext
 }
 
 export type popupBotoes = 'ok' | 'fechar'

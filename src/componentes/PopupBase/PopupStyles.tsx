@@ -5,7 +5,7 @@ const PopupStyles = createGlobalStyle`
     padding-left: 0px !important;
     padding-right: 0px !important;
     background-color: #fafafa !important;
-    padding-top: 10px;
+    padding-top: 0px;
     padding-bottom: 5px;
   }
 

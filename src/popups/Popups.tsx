@@ -48,13 +48,11 @@ const Popups = {
     closeOnClick: true
   },
   alterarTema: {
-    titulo: 'Alterar tema',
     componente: AlterarTema,
-    largura: '400px',
-    altura: '320px',
-    mostrarFechar: true,
-    mostrarOk: true,
-    textoOk: 'Salvar',
+    largura: '450px',
+    altura: '400px',
+    mostrarFechar: false,
+    mostrarOk: false,
     closeOnClick: true
   }
 }

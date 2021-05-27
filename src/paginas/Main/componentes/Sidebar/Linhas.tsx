@@ -1,10 +1,10 @@
-import React, {useContext} from 'react'
-import {APIContext} from '../../../../../../hooks/APIProvider'
-import {PopupContext} from '../../../../../../hooks/PopupProvider'
-import {MainContext} from '../../../../Main'
-import {Container} from './styles'
-import Row from '../Row/Row'
-import Node from '../Node/Node'
+import React, {useContext, memo} from 'react'
+import {APIContext} from '../../../../hooks/APIProvider'
+import {PopupContext} from '../../../../hooks/PopupProvider'
+import {ConsoleContext} from '../../../../hooks/ConsoleProvider'
+import {MainContext} from '../../Main'
+import Row from './componentes/Row/Row'
+import Node from './componentes/Node/Node'
 
 import HomeIcon from '@material-ui/icons/Home'
 import VpnKeyIcon from '@material-ui/icons/VpnKey'
@@ -20,89 +20,87 @@ const LinhasContainer: React.FC = () => {
   const {Token} = useContext(APIContext)
   const {showPopup} = useContext(PopupContext)
   const {setRedirect} = useContext(MainContext)
-  let tabIndex = 1
+  const {openConsole} = useContext(ConsoleContext)
   return (
-    <Container>
+    <>
       <Row titulo="Início" icone={HomeIcon} condicao={{
         logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-      }} moduloAssociado="inicio" tabIndex={tabIndex++} />
+      }} moduloAssociado="inicio" tabIndex={0} />
       <Row titulo="Fazer login" icone={VpnKeyIcon} condicao={{
         logado: false, naoLogado: true, discentes: false, docentes: false, admins: false
-      }} tabIndex={tabIndex++} onAction={() => {
-        setRedirect('/login')
-      }} />
+      }} tabIndex={0} onAction={() => setRedirect('/login')} />
       <Row titulo="Criar uma conta" icone={AddCircleIcon} condicao={{
         logado: false, naoLogado: true, discentes: false, docentes: false, admins: false
-      }} tabIndex={tabIndex++} onAction={() => {
-        setRedirect('/registrar')
-      }} />
+      }} tabIndex={0} onAction={() => setRedirect('/registrar')
+      } />
       <Row titulo="Calendário" icone={CalendarIcon} condicao={{
         logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-      }} moduloAssociado="calendario" tabIndex={tabIndex++} />
+      }} moduloAssociado="calendario" tabIndex={0} />
       <Node titulo="Atendimentos" icone={SchoolIcon} condicao={{
         logado: true, naoLogado: false, discentes: true, docentes: true, admins: false
-      }} tabIndex={tabIndex++}>
+      }} tabIndex={0}>
         <Row titulo="Minhas turmas de atendimento" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
-        }} moduloAssociado="turmas/minhas" tabIndex={tabIndex++} />
+        }} moduloAssociado="turmas/minhas" tabIndex={0} />
         <Row titulo="Meus atendimentos agendados" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: false
-        }} moduloAssociado="turmas/atendimentos/lista" tabIndex={tabIndex++} />
+        }} moduloAssociado="turmas/atendimentos/lista" tabIndex={0} />
 
         <Row titulo="Turmas inscritas" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: false, admins: false
-        }} moduloAssociado="turmas/inscritas" tabIndex={tabIndex++} />
+        }} moduloAssociado="turmas/inscritas" tabIndex={0} />
         <Row titulo="Atendimentos inscritos" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: false, admins: false
-        }} moduloAssociado="atendimentos/inscritos" tabIndex={tabIndex++} />
+        }} moduloAssociado="atendimentos/inscritos" tabIndex={0} />
         <Row titulo="Usar código de turma" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: false, admins: false
-        }} tabIndex={tabIndex++} />
+        }} tabIndex={0} />
       </Node>
       <Node titulo="Discentes e docentes" icone={GroupIcon} condicao={{
         logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
-      }} tabIndex={tabIndex++}>
+      }} tabIndex={0}>
         <Row titulo="Minha turma" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: false, admins: false
-        }} moduloAssociado="turmas/minha" tabIndex={tabIndex++} />
+        }} moduloAssociado="turmas/minha" tabIndex={0} />
         <Row titulo="Lista de discentes" condicao={{
           logado: true, naoLogado: false, discentes: false, docentes: true, admins: true
-        }} moduloAssociado="usuarios/discentes" tabIndex={tabIndex++} />
+        }} moduloAssociado="usuarios/discentes" tabIndex={0} />
         <Row titulo="Lista de docentes" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
-        }} moduloAssociado="usuarios/docentes" tabIndex={tabIndex++} />
+        }} moduloAssociado="usuarios/docentes" tabIndex={0} />
       </Node>
       <Node titulo="Meu usuário" icone={PersonIcon} condicao={{
         logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
-      }} tabIndex={tabIndex++}>
+      }} tabIndex={0}>
         <Row titulo="Alterar meus dados" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
-        }} moduloAssociado="dados/meu" tabIndex={tabIndex++} />
+        }} moduloAssociado="dados/meu" tabIndex={0} />
         <Row titulo="Alterar minha senha" condicao={{
           logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
-        }} tabIndex={tabIndex++} />
+        }} tabIndex={0} />
       </Node>
 
       <Node titulo="Configurações" icone={SettingsIcon} condicao={{
         logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-      }} tabIndex={tabIndex++}>
+      }} tabIndex={0}>
         <Row titulo="Alterar tema" condicao={{
           logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-        }} tabIndex={tabIndex++} onAction={() => {
-          showPopup('alterarTema')
-        }}/>
+        }} tabIndex={0} onAction={() => showPopup('alterarTema')} />
+        <Row titulo="Abrir o console" condicao={{
+          logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
+        }} tabIndex={0} onAction={() => openConsole()} />
         <Row titulo="Sobre o SiGAÊ" condicao={{
           logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-        }} tabIndex={tabIndex++} />
+        }} tabIndex={0} />
       </Node>
       <Row titulo="Finalizar sessão" icone={ExitToAppIcon} condicao={{
         logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
-      }} tabIndex={tabIndex++} onAction={() => {
+      }} tabIndex={0} onAction={() => {
         Token.remover()
         setRedirect('/login')
       }} />
-    </Container>
+    </>
   )
 }
 
-export default LinhasContainer
+export default memo(LinhasContainer)

@@ -4,7 +4,7 @@ import {useToasts} from 'react-toast-notifications'
 import {Time} from '../utils/DateTime'
 import {IConsoleEntry, tipo} from '../paginas/Console/Types'
 
-interface IConsoleContext {
+export interface IConsoleContext {
   open: boolean,
   openConsole: () => void,
   closeConsole: () => void,

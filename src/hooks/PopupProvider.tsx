@@ -5,10 +5,13 @@ import Popups from '../popups/Popups'
 import PopupBase from '../componentes/PopupBase/PopupBase'
 import PopupStyles from '../componentes/PopupBase/PopupStyles'
 import AlertaBase from '../componentes/PopupBase/AlertaBase'
+import {useToasts} from 'react-toast-notifications'
+import {ConsoleContext} from './ConsoleProvider'
 import {APIContext} from './APIProvider'
 import {ThemeContext} from './ThemeProvider'
 import {compareVars} from '../utils/Utils'
 import {IPopupInstanceProps} from '../popups/PopupsInterface'
+import {IPopupBody} from '../popups/PopupsInterface'
 import {Keys} from '../popups/Popups'
 
 export interface IPopupContext {
@@ -80,7 +83,9 @@ export const PopupProvider: React.FC = (props) => {
     Swal.close()
   }
 
-  const contexts = {
+  const contexts:IPopupBody = {
+    useToasts: useToasts(),
+    IConsoleContext: useContext(ConsoleContext),
     APIContext: useContext(APIContext),
     TemaContext: useContext(ThemeContext),
     PopupContext: {showPopup, showAlerta, close}

@@ -9,8 +9,9 @@ import MUIStyles from '../styles/MUIStyles'
 import ToastStyles from '../styles/ToastStyles'
 
 export interface IThemeContext {
-  toggleTheme: () => void,
-  tema: DefaultTheme
+  definirTema: (tema: ListaTemas) => void,
+  tema: DefaultTheme,
+  nomeTema: ListaTemas
 }
 
 export const ThemeContext = createContext<IThemeContext>({} as IThemeContext)
@@ -24,12 +25,11 @@ export const ThemeProvider: React.FC = (props) => {
     }
   })
   const tema = nomeTema == 'Light' ? Light : Dark
-  const toggleTheme = () => {
-    if(tema.titulo == 'Light') return setNomeTema('Dark')
-    if(tema.titulo == 'Dark') return setNomeTema('Light')
+  const definirTema = (tema: ListaTemas) => {
+    setNomeTema(tema)
   }
   return (
-    <ThemeContext.Provider value={{tema, toggleTheme}}>
+    <ThemeContext.Provider value={{tema, definirTema, nomeTema}}>
       <GlobalStyles/>
       <MUIStyles/>
       <ToastStyles/>

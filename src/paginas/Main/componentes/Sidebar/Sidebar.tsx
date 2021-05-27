@@ -1,8 +1,8 @@
 import React, {memo, useContext} from 'react'
 import {MainContext} from '../../Main'
-import LinhasContainer from '../Sidebar/componentes/LinhasContainer/LinhasContainer'
+import Linhas from './Linhas'
 import {APIContext} from '../../../../hooks/APIProvider'
-import {Container, InfoContainer, Avatar, Nome} from './styles'
+import {Container, InfoContainer, Avatar, Nome, LinhasContainer} from './styles'
 
 interface ISidebar {
   render: boolean
@@ -27,7 +27,9 @@ const Sidebar: React.FC<ISidebar> = (props) => {
         </Nome>
       </InfoContainer>
       {props.render && (
-        <LinhasContainer/>
+        <LinhasContainer>
+          <Linhas/>
+        </LinhasContainer>
       )}
     </Container>
   )

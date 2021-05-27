@@ -14,9 +14,11 @@ const PopupBase: React.FC<IPopupBase> = (props) => {
       {props.hideHeader != true && (
         <Header>
           <img src={Sigae} width={200} height={69} />
-          <div className="titulo-container">
-            <div className="titulo">{props.titulo}</div>
-          </div>
+          {props.titulo != '' && (
+            <div className="titulo-container">
+              <div className="titulo">{props.titulo}</div>
+            </div>
+          )}
         </Header>
       )}
       <div className="componentContainer">
