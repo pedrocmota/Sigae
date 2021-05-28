@@ -17,6 +17,14 @@
       src: local('Comfortaa'), url('/fontes/Comfortaa-Regular.woff') format('woff');
     }
   </style>
+  <script>
+    const Env = {
+      deletar: () => {
+        localStorage.removeItem('env')
+        document.location.reload(true)
+      }
+    }
+  </script>
   <div id="root"></div>
 </body>
 
