@@ -91,7 +91,7 @@ const LinhasContainer: React.FC = () => {
         }} tabIndex={0} onAction={() => openConsole()} />
         <Row titulo="Sobre o SiGAÊ" condicao={{
           logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-        }} tabIndex={0} />
+        }} tabIndex={0} onAction={() => showPopup('sobreSigae')}/>
       </Node>
       <Row titulo="Finalizar sessão" icone={ExitToAppIcon} condicao={{
         logado: true, naoLogado: false, discentes: true, docentes: true, admins: true

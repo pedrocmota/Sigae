@@ -4,6 +4,7 @@ import RecuperarSenha from './componentes/RecuperarSenha/RecuperarSenha'
 import Carregando from './componentes/Carregando/Carregando'
 import AjudaCodigo from './componentes/AjudaCodigo/AjudaCodigo'
 import AlterarTema from './componentes/AlterarTema/AlterarTema'
+import SobreSigae from './componentes/SobreSigae/SobreSigae'
 
 export type Keys = keyof typeof Popups;
 
@@ -52,6 +53,15 @@ const Popups = {
     largura: '450px',
     altura: '400px',
     mostrarFechar: false,
+    mostrarOk: false,
+    closeOnClick: true
+  },
+  sobreSigae: {
+    titulo: 'Sobre o SiGAÊ',
+    componente: SobreSigae,
+    largura: '560px',
+    altura: '460px',
+    mostrarFechar: true,
     mostrarOk: false,
     closeOnClick: true
   }

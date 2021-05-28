@@ -55,7 +55,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-app-rewired build"
+    "build": "react-app-rewired build & node afterbuild.js"
   },
   "eslintConfig": {
     "extends": [
