@@ -14,8 +14,8 @@ const Sidebar: React.FC<ISidebar> = (props) => {
   return (
     <Container open={openSidebar}>
       <InfoContainer>
-        <Avatar src={`${env.apiAdress}/avatar/${dados?.id}`} onClick={() => {
-          setImageViewer({open: true, src: `${env.apiAdress}/avatar/${dados?.id}`})
+        <Avatar src={`${env.apiAdress}/dados/avatar/${dados?.id}`} onClick={() => {
+          setImageViewer({open: true, src: `${env.apiAdress}/dados/avatar/${dados?.id}`})
         }}/>
         <Nome>
           {dados?.nomePreferencial && (
