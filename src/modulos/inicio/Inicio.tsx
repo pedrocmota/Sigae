@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Inicio: React.FC = (props) => {
+const Inicio: React.FC = () => {
   return (
-    <div {...props}>
+    <div>
       <h1>
         Módulo de inicio
       </h1>

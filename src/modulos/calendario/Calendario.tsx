@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react'
 import useIsMounted from '../../hooks/useeffects/useIsMounted'
 import {ModuloContext} from '../../paginas/Main/componentes/Modulo/ModuloProvider/ModuloProvider'
 
-const Calendario: React.FC = (props) => {
+const Calendario: React.FC = () => {
   const {liberar} = useContext(ModuloContext)
   const isMounted = useIsMounted()
   useEffect(() => {
@@ -14,7 +14,7 @@ const Calendario: React.FC = (props) => {
     }, 1500)
   }, [])
   return (
-    <div {...props}>
+    <div>
       <h1>
         Módulo Calendario
       </h1>

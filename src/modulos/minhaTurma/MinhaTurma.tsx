@@ -14,7 +14,7 @@ const MinhaTurma: React.FC = (props) => {
     }, 1500)
   }, [])
   return (
-    <div {...props}>
+    <div>
       <h1>
         Minha Turma
       </h1>

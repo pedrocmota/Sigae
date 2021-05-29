@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react'
 import useIsMounted from '../../hooks/useeffects/useIsMounted'
 import {ModuloContext} from '../../paginas/Main/componentes/Modulo/ModuloProvider/ModuloProvider'
 
-const AtendimentosInscritos: React.FC = (props) => {
+const AtendimentosInscritos: React.FC = () => {
   const {liberar} = useContext(ModuloContext)
   const isMounted = useIsMounted()
   useEffect(() => {
@@ -14,7 +14,7 @@ const AtendimentosInscritos: React.FC = (props) => {
     }, 1500)
   }, [])
   return (
-    <div {...props}>
+    <div>
       <h1>
         Módulo Atendimentos Inscritos
       </h1>

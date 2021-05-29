@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Desconhecido: React.FC = (props) => {
+const Desconhecido: React.FC = () => {
   return (
-    <div {...props}>
+    <div>
       <h1>
         Módulo desconhecido
       </h1>

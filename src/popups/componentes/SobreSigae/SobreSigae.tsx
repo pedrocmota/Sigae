@@ -4,12 +4,6 @@ import axios from 'axios'
 import {isDev} from '../../../utils/Utils'
 import {Container, Versao, Desenvolvido} from './styles'
 
-interface ICommits {
-  atual: string,
-  repoCliente: string,
-  repoAPI: string
-}
-
 const SobreSigae: React.FC = () => {
   const [versao, setVersao] = useState('Carregando...')
   const isMounted = useIsMounted()

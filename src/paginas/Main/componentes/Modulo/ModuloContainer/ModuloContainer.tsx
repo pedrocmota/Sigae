@@ -44,9 +44,13 @@ const ModuloContainer: React.FC<IModuloContainer> = (props) => {
   return (
     <>
       {valido && (
-        <Componente style={{
+        <div style={{
+          width: '100%',
+          height: '100%',
           ...(loadings.loadingModulo ? {display: 'none'} : {})}
-        } />
+        }>
+          <Componente />
+        </div>
       )}
       {!valido && (
         <Redirect to="/" />
