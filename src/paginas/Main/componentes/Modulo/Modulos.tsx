@@ -87,7 +87,7 @@ const Modulos: React.FC = () => {
 
       <Route path="/modulo/dados/meu" exact>
         <ModuloContainer nome="Alterar meus dados" icone={SettingsIcon} componente={ModuloAlterarDados}
-          condicao={{
+          sincrono condicao={{
             logado: true, naoLogado: false, discentes: true, docentes: true, admins: true
           }} />
       </Route>

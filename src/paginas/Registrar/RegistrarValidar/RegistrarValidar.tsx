@@ -155,7 +155,7 @@ const RegistrarForm: React.FC = () => {
                 }} onAction={(v) => {
                   enviar(v)
                 }} />
-              <Button type="submit" tipo="generic" margintop={15}
+              <Button type="submit" cor="generic" margin={{top: 15}}
                 onClick={() => enviar()} disabled={!botaoValido}
                 ref={botao}>
                 {!enviando && (

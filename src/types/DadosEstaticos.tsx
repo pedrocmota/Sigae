@@ -13,12 +13,13 @@ export interface IDadosIniciais {
   erro?: tokenErros,
   nome: string,
   nomePreferencial: string,
+  email: string,
   matricula: string,
   campus: string,
   tipo: tiposUsuario,
   curso: string,
   turma: string,
-  dadosEstaticos: {
+  estaticos: {
     campus: String[],
     cursos: String[],
     turmas: {

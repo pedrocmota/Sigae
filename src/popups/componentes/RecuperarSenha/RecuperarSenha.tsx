@@ -43,7 +43,7 @@ const RecuperarSenha: React.FC<IPopupBody> = ({APIContext, PopupContext}) => {
           onFocus={onFocus} onKeyDown={onKeyDown}>
           <InputErrorIcon visible={erro ? 1 : 0} />
         </CustumInputLogin>
-        <Button type="button" variant="contained" tipo="generic" margintop={10} onClick={enviar} ref={button}>
+        <Button type="button" variant="contained" cor="generic" margin={{top: 10}} onClick={enviar} ref={button}>
           Enviar código
         </Button>
       </Form>

@@ -37,7 +37,6 @@ export const Body = styled.div`
   flex: 1;
   padding-left: 14px;
   padding-right: 14px;
-  padding-top: 18px;
   padding-bottom: 14px;
   @media (max-height: 820px) {
     padding-top: 5px;

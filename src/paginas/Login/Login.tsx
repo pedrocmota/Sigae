@@ -112,7 +112,7 @@ const Login: React.FC = () => {
                   setShowPassword(!showPassword)
                 }} />
               </InputLogin>
-              <StyledButton type="submit" variant="contained" tipo="generic" ref={botao} onClick={logar}>
+              <StyledButton type="submit" variant="contained" cor="generic" ref={botao} onClick={logar}>
                 {!enviando && (
                   <div>Realizar login</div>
                 )}

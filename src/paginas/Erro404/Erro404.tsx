@@ -13,7 +13,7 @@ const Erro404: React.FC = () => {
       <Container>
         <h1>404</h1>
         <span>Você deve estar perdido no espaço tempo</span>
-        <Button tipo="generic" onClick={() => {
+        <Button cor="generic" onClick={() => {
           setRedirect(true)
         }}>
           Voltar para o início

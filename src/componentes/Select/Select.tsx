@@ -7,6 +7,7 @@ import {converter, createPlaceholder} from './SelectFunctions'
 interface IBasicSelect {
   placeholder: string,
   options: any,
+  defaultValue?: any,
   multiple?: boolean,
   disabled?: boolean,
   onChange?: (obj: any, event?: React.ChangeEvent<{}>) => void,
@@ -27,11 +28,14 @@ export interface IOptions {
 }
 
 const Select: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect> = ({
-  input, options, onChange, ...props}, ref) => {
-  const selecionados = useRef(0)
+  input, options, defaultValue, onChange, ...props}, ref) => {
+  const selecionados = useRef<number>(
+    defaultValue == undefined ? 0 : defaultValue.length
+  )
   return (
     <Autocomplete
       options={converter(options) as IOptions[]}
+      {...(defaultValue ? {defaultValue: converter([defaultValue])![0]} : {})}
       noOptionsText="Nada encontrado"
       getOptionLabel={(option: any) => option.valor}
       groupBy={(option: any) => option.grupo}

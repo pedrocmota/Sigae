@@ -144,7 +144,7 @@ const RecuperarSenha: React.FC = () => {
                 <Alerta visible={erro2}>
                   ● As senhas digitadas não correspondem
                 </Alerta>
-                <Button tipo="generic" disabled={!botaoValido} margintop={15} onClick={enviar}>
+                <Button cor="generic" disabled={!botaoValido} margin={{top: 15}} onClick={enviar}>
                   {enviando && (
                     <Spinner />
                   )}

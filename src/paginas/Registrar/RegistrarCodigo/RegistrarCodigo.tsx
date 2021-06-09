@@ -32,7 +32,7 @@ const RegistrarCodigo: React.FC = () => {
                   setCodigo(v)
                   setBotaoValido(v.length == 8)
                 }} onAction={() => setRedirecionarForm(true)}/>
-              <Button type="button" tipo="generic" margintop={15} disabled={!botaoValido}
+              <Button type="button" cor="generic" margin={{top: 15}} disabled={!botaoValido}
                 onClick={() => {
                   setRedirecionarForm(true)
                 }}>

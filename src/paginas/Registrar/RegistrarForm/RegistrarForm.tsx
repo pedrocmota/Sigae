@@ -293,8 +293,8 @@ const RegistrarForm: React.FC = () => {
                     ● As senhas digitadas não correspondem
                   </Alerta>
                 </Row>
-                <Button type="submit" variant="contained" tipo="generic"
-                  disabled={!valido} margintop={10} marginbottom={20} ref={button}
+                <Button type="submit" cor="generic"
+                  disabled={!valido} margin={{top: 10, bottom: 20}} ref={button}
                   onClick={() => {
                     if (!enviando) {
                       const dadosEnvio = () => {

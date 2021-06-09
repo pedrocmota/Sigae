@@ -63,7 +63,7 @@ export const MainProvider: React.FC = memo((props) => {
           return addToast('Você não tem acesso para isso', {appearance: 'error'})
         }
         if (param.erro == 'INVALID_TOKEN') {
-          Token.remover()
+          // Token.remover()
           return addToast('Sua sessão é inválida', {appearance: 'error'})
         }
         return addToast('Erro desconhecido', {appearance: 'error'})
