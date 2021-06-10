@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Button from '../../componentes/Button/Button'
+import BasicSelect from '../../componentes/Select/Select'
 
 export const MainContainer = styled.div`
   display: flex;
@@ -30,5 +31,21 @@ export const TopButton = styled(Button)`
     display: flex;
     padding-top: 2px;
     margin-left: 5px;
+  }
+`
+
+export const Select = styled(BasicSelect)`
+  input {
+    border: 1px solid #ececec;
+  }
+`
+
+export const EmailContainer = styled.div`
+  display: inline-flex;
+  margin-top: 10px;
+  .email-link {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #039be5;
   }
 `

@@ -28,5 +28,8 @@ export interface IDadosIniciais {
       }
     },
     disciplinas: String[]
+  },
+  misc: {
+    emailTemporario?: string
   }
 }

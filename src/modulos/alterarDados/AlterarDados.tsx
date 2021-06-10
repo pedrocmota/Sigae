@@ -1,12 +1,13 @@
 import React, {useState, useContext, useEffect} from 'react'
 import useIsMounted from '../../hooks/useeffects/useIsMounted'
 import Label from './componentes/Label/Label'
-import Select from '../../componentes/Select/Select'
-import InputText from '../../componentes/inputs/InputText/InputText'
+import {Select} from './styles'
+import SecondaryInputText from '../../componentes/SecondaryInputText/SecondaryInputText'
+import Link from '../../componentes/Link/Link'
 import {ModuloContext} from '../../paginas/Main/componentes/Modulo/ModuloProvider/ModuloProvider'
 import {MainContext} from '../../paginas/Main/Main'
 import Parse from '../../utils/Parse'
-import {TopButton} from './styles'
+import {TopButton, EmailContainer} from './styles'
 import {MainContainer, Header, Container} from './styles'
 
 import SaveIcon from '@material-ui/icons/Save'
@@ -25,6 +26,7 @@ const ALterarDados: React.FC = () => {
   const [turmasArray, setTurmasArray] = useState<String[]>(
     dados!.estaticos.turmas[dados!.curso][dados!.campus]
   )
+  const [erroEmail, setErroEmail] = useState(false)
   return (
     <>
       {dados && (
@@ -96,9 +98,21 @@ const ALterarDados: React.FC = () => {
             <Label icone={AlternateEmailIcon} selecionado={false} marginTop={15}>
               Alterar e-mail
             </Label>
-            <InputText placeholder="Digite seu e-mail" defaultValue={dados.email} height={'40px'}
-              margintop={12} />
-            
+            <SecondaryInputText placeholder="Digite seu e-mail" defaultValue={dados.email} height={'40px'}
+              margintop={12} disabled={salvando || dados.misc.emailTemporario != undefined}/>
+            {dados.misc.emailTemporario && (
+              <EmailContainer>
+                <Link style={{marginLeft: '3px'}}>
+                  Digitar código
+                </Link>
+                <Link style={{marginLeft: '15px'}}>
+                  Reenviar email
+                </Link>
+                <Link style={{marginLeft: '15px'}}>
+                  Cancelar troca e-mail
+                </Link>
+              </EmailContainer>
+            )}
           </Container>
         </MainContainer>
       )}
