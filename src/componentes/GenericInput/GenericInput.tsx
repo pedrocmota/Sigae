@@ -1,8 +1,8 @@
 import React, {forwardRef, InputHTMLAttributes} from 'react'
 import styled, {css} from 'styled-components'
 import MaskedInput from 'react-text-mask'
-import {Masks} from '../Mask'
-import {IInput} from '../InterfacesInput'
+import {Masks} from '../Mask/Mask'
+import {IInput} from '../interfaces/InputsInterface'
 
 export interface HTMLInputMaskElement extends HTMLInputElement {
   inputElement: HTMLInputElement

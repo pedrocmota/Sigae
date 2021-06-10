@@ -1,5 +1,5 @@
 import React from 'react'
-import InputText from '../inputs/InputText/InputText'
+import InputText from '../InputText/InputText'
 import {IOptions} from './Types'
 
 export const converter = (obj: any) => {

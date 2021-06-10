@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import InputText from '../inputs/InputText/InputText'
+import InputText from '../InputText/InputText'
 
 const SecondaryInputText = styled(InputText)`
   border: 1px solid #ececec;

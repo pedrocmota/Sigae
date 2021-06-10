@@ -1,6 +1,6 @@
 import React, {useState, forwardRef} from 'react'
 import {Container, InputLoginStyled, Placeholder} from './styles'
-import {IInputLogin} from '../InterfacesInput'
+import {IInputLogin} from '../interfaces/InputsInterface'
 
 const InputLogin: React.ForwardRefRenderFunction<any, IInputLogin> = ({
   children, error, margintop, marginbottom, marginleft, marginright, paddingRight, ...props

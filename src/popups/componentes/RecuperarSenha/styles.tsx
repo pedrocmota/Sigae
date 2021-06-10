@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import InputLogin from '../../../componentes/inputs/InputLogin/InputLogin'
+import InputLogin from '../../../componentes/InputLogin/InputLogin'
 
 export const Container = styled.div`
   padding-top: 15px;

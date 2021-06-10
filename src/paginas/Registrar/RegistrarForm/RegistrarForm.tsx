@@ -3,8 +3,8 @@ import {Redirect, useParams} from 'react-router-dom'
 import LoadingPersistent from '../../../componentes/LoadingPersistent/LoadingPersistent'
 import Footer from '../../Main/componentes/Footer/Footer'
 import Banner from './componentes/Banner'
-import InputText from '../../../componentes/inputs/InputText/InputText'
-import BasicSelect from '../../../componentes/Select/Select'
+import InputText from '../../../componentes/InputText/InputText'
+import Select from '../../../componentes/Select/Select'
 import Button from '../../../componentes/Button/Button'
 import Spinner from '../../../componentes/Spinner/Spinner'
 import ShowPassword from '../../../componentes/ShowPassword/ShowPassword'
@@ -142,7 +142,7 @@ const RegistrarForm: React.FC = () => {
                        Seu nome aparecerá com essa abreviação na maioria das vezes.`
                     }>
                   </Banner>
-                  <BasicSelect placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)}
+                  <Select placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)}
                     disabled={enviando} inputStyles={{height: '40px', margintop: 12}} ref={inputNome} onChange={() => {
                       validar(dadosValidar)
                     }} onKeyDown={(e) => {
@@ -163,7 +163,7 @@ const RegistrarForm: React.FC = () => {
                            Esta opção pode ser alterada posteriormente.`
                         }>
                       </Banner>
-                      <BasicSelect placeholder="Escolha seu curso" options={Parse.cursos(dados.turmas as any)}
+                      <Select placeholder="Escolha seu curso" options={Parse.cursos(dados.turmas as any)}
                         disabled={enviando} ref={inputCurso} inputStyles={{height: '40px', margintop: 12}} onChange={(obj) => {
                           if (obj != null && obj != undefined) {
                             const valor = obj.valor
@@ -187,7 +187,7 @@ const RegistrarForm: React.FC = () => {
                            Esta opção pode ser alterada posteriormente.`
                         }>
                       </Banner>
-                      <BasicSelect placeholder="Escolha sua turma" options={turmas} ref={inputTurma}
+                      <Select placeholder="Escolha sua turma" options={turmas} ref={inputTurma}
                         disabled={turmas.length == 0 || enviando} inputStyles={{height: '40px', margintop: 12}}
                         onChange={() => {
                           validar(dadosValidar)
@@ -208,7 +208,7 @@ const RegistrarForm: React.FC = () => {
                          Esta opção pode ser alterada posteriormente.`
                       }>
                     </Banner>
-                    <BasicSelect placeholder="Escolha sua disciplina" options={dados.disciplinas as String[]}
+                    <Select placeholder="Escolha sua disciplina" options={dados.disciplinas as String[]}
                       ref={inputDisciplina} multiple disabled={enviando}
                       inputStyles={{height: '40px', margintop: 12}} onChange={(obj) => {
                         disciplinas.current = obj

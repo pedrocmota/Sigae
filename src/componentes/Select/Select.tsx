@@ -1,6 +1,6 @@
 import React, {memo, forwardRef, useRef} from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import InputText from '../../componentes/inputs/InputText/InputText'
+import InputText from '../InputText/InputText'
 import RootRef from '@material-ui/core/RootRef'
 import {converter, createInput, createPlaceholder} from './SelectFunctions'
 import {IOptions, values} from './Types'

@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import GenericInput from '../GenericInput/GenericInput'
-import {IInput} from '../InterfacesInput'
+import {IInput} from '../interfaces/InputsInterface'
 
 interface IInputText extends IInput {
   paddingRight?: boolean

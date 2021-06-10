@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import GenericInput from '../GenericInput/GenericInput'
-import {IInput, IInputLoginStyled} from '../InterfacesInput'
+import {IInput, IInputLoginStyled} from '../interfaces/InputsInterface'
 
 export const Container = styled.div<IInputLoginStyled & IInput>`
   position: relative;
