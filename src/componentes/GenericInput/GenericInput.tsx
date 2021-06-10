@@ -13,15 +13,15 @@ const GenericInput: React.ForwardRefRenderFunction<any, IInput> = (props, ref) =
     const m = Masks[props.mask]
     return (
       <MaskedInput
-      ref={ref}
-      mask={m}
-      render={(ref, p) => (
-        <CustumInput {...props} ref={(input) => ref(input as HTMLElement)} {...p} />
-      )}
+        ref={ref}
+        mask={m}
+        render={(ref, p) => (
+          <CustumInput {...props} ref={(input) => ref(input as HTMLElement)} {...p} />
+        )}
       />
     )
   } else {
-    return <CustumInput spellCheck={false} ref={ref} {...props}/>
+    return <CustumInput spellCheck={false} ref={ref} {...props} />
   }
 }
 

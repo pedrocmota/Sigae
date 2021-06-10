@@ -47,7 +47,8 @@ const ModuloContainer: React.FC<IModuloContainer> = (props) => {
         <div style={{
           width: '100%',
           height: '100%',
-          ...(loadings.loadingModulo ? {display: 'none'} : {})}
+          ...(loadings.loadingModulo ? {display: 'none'} : {})
+        }
         }>
           <Componente />
         </div>

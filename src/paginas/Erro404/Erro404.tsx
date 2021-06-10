@@ -8,7 +8,7 @@ const Erro404: React.FC = () => {
   return (
     <>
       {redirect && (
-        <Redirect to="/"/>
+        <Redirect to="/" />
       )}
       <Container>
         <h1>404</h1>

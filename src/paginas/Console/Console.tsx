@@ -39,7 +39,7 @@ const Console: React.FC = () => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Fechar console">
-            <IconButton className="fechar" edge="start" color="inherit" 
+            <IconButton className="fechar" edge="start" color="inherit"
               onClick={closeConsole} aria-label="close">
               <Close />
             </IconButton>

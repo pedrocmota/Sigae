@@ -5,11 +5,11 @@ interface ISessionRequest {
   }) => void) => void,
 
   logar: (matricula: string, senha: string, callback: (
-    param: { token: string }
+    param: {token: string}
   ) => void, callbackError: (
     param: {
-      erro: 
-      'CONTA_NAO_REGISTRADA' | 
+      erro:
+      'CONTA_NAO_REGISTRADA' |
       'CONTA_ESPERANDO_VALIDACAO' |
       'CONTA_INATIVA' |
       'ESTADO_DA_CONTA_DESCONHECIDO' |

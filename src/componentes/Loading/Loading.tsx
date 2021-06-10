@@ -22,7 +22,7 @@ const Loading: React.FC<ILoading> = (props) => {
       position: 'fixed', zIndex: 6000
     }}>
       <Container>
-        <Sigae/>
+        <Sigae />
       </Container>
     </Fade>
   )

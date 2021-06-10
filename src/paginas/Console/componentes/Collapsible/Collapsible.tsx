@@ -9,7 +9,7 @@ const Collapsible: React.FC<IConsoleEntry> = (props) => {
       setOpen(!open)
     }}>
       <Header>
-        <Arrow open={open}/>
+        <Arrow open={open} />
         <b className="horario">{props.horario}</b>
         <div className="titulo">{props.titulo}</div>
       </Header>

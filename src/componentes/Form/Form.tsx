@@ -13,8 +13,10 @@ const Form: React.ForwardRefRenderFunction<HTMLFormElement, IFormProps> = (props
     <Container className={props.className}>
       <iframe name={props.name} src="about:blank"></iframe>
       <form target={props.name} method={props.method} action="about:blank" ref={ref}
-        onKeyPress={(e) => {if(e.key == 'Enter') e.preventDefault()}}>
-          {props.children}
+        onKeyPress={(e) => {
+          if (e.key == 'Enter') e.preventDefault()
+        }}>
+        {props.children}
       </form>
     </Container>
   )

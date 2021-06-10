@@ -71,7 +71,7 @@ const Modulos: React.FC = () => {
           condicao={{
             logado: true, naoLogado: false, discentes: true, docentes: false, admins: false
           }} />
-      </Route>    
+      </Route>
       <Route path="/modulo/usuarios/discentes" exact>
         <ModuloContainer nome="Lista de discentes" icone={GroupIcon} componente={ModuloListaDiscentes}
           condicao={{
@@ -94,9 +94,9 @@ const Modulos: React.FC = () => {
 
       <Route path="*" exact>
         <ModuloContainer nome="Módulo desconhecido" icone={HelpIcon} componente={Desconhecido} sincrono
-        condicao={{
-          logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
-        }} />
+          condicao={{
+            logado: true, naoLogado: true, discentes: true, docentes: true, admins: true
+          }} />
       </Route>
     </Switch>
   )

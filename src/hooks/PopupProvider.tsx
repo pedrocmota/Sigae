@@ -83,7 +83,7 @@ export const PopupProvider: React.FC = (props) => {
     Swal.close()
   }
 
-  const contexts:IPopupBody = {
+  const contexts: IPopupBody = {
     useToasts: useToasts(),
     IConsoleContext: useContext(ConsoleContext),
     APIContext: useContext(APIContext),

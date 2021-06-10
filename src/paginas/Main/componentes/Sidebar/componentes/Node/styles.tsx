@@ -78,7 +78,7 @@ export const Bottom = styled.div<IOpen>`
   }
 `
 
-export const Arrow = styled(ArrowRightIcon)<IOpen>`
+export const Arrow = styled(ArrowRightIcon) <IOpen>`
   position: absolute;
   right: 10px;
   width: 38px !important;

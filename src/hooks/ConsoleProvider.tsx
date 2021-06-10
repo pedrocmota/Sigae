@@ -25,8 +25,8 @@ export const ConsoleProvider: React.FC = (props) => {
       if (event.key === 'c' && event.altKey) openConsole()
     })
     window.onerror = (erro, url, line) => {
-      adicionar('Erro', 
-      `${erro}
+      adicionar('Erro',
+        `${erro}
       url: ${url}
       linha: ${line}
       `, 'ERROR')
@@ -48,7 +48,7 @@ export const ConsoleProvider: React.FC = (props) => {
       conteudo: conteudo,
       horario: Time.now()
     })
-    if(titulo == 'Erro de rede') {
+    if (titulo == 'Erro de rede') {
       return addToast('Ocorreu um erro de rede. Reinicie a página', {
         appearance: 'error', autoDismiss: false
       })
@@ -66,7 +66,7 @@ export const ConsoleProvider: React.FC = (props) => {
     <ConsoleContext.Provider value={{
       open, openConsole, closeConsole, dados, adicionar, clear
     }}>
-      <Console/>
+      <Console />
       {props.children}
     </ConsoleContext.Provider>
   )

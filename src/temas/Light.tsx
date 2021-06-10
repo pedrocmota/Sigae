@@ -1,6 +1,6 @@
 import {DefaultTheme} from 'styled-components'
 
-const Light:DefaultTheme = {
+const Light: DefaultTheme = {
   titulo: 'Light'
 }
 

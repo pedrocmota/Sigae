@@ -24,32 +24,32 @@ export const Senha = {
     let forcaTexto = 'undefined'
     let forca = 0
     let color = ''
-    if(numero == 0) {
+    if (numero == 0) {
       forcaTexto = 'Inválida'
       forca = 0
       color = '#d13f3f'
     }
-    if(numero == 1) {
+    if (numero == 1) {
       forcaTexto = 'Ridícula'
       forca = 20
       color = '#d13f3f'
     }
-    if(numero == 2) {
+    if (numero == 2) {
       forcaTexto = 'Fraca'
       forca = 50
       color = '#d13f3f'
     }
-    if(numero == 3) {
+    if (numero == 3) {
       forcaTexto = 'Razoável'
       forca = 60
       color = '#e0d03c'
     }
-    if(numero == 4) {
+    if (numero == 4) {
       forcaTexto = 'Forte'
       forca = 100
       color = '#28ad45'
     }
-    const retorno:IForcaSenha = {
+    const retorno: IForcaSenha = {
       valido: valido,
       validoTamanho: validoTamanho,
       validoMaiusculas: validoMaiusculas,

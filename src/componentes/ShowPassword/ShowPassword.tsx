@@ -13,8 +13,8 @@ const ShowPassword: React.FC<IShowPassword> = ({right, selecionado, onClick, top
   return (
     <Container right={right} top={top} className="passwordIcon">
       <ShowPasswordIcon selecionado={selecionado ? 1 : 0} {...rest} onClick={() => {
-        if(typeof onClick == 'function') onClick()
-      }}/>
+        if (typeof onClick == 'function') onClick()
+      }} />
     </Container>
   )
 }
@@ -31,7 +31,7 @@ interface IShowPasswordIcon {
   selecionado: number
 }
 
-export const ShowPasswordIcon = styled(VisibilityIcon)<IShowPasswordIcon>`
+export const ShowPasswordIcon = styled(VisibilityIcon) <IShowPasswordIcon>`
   color: ${props => props.selecionado == 1 ? '#817ffe' : '#909294'};
   cursor: pointer;
 `

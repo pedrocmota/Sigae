@@ -23,7 +23,7 @@ export const APIProvider: React.FC = (props) => {
   const [env, setEnv] = usePeristedState<IEnv | null | undefined>('env', null)
   const [token, setToken] = usePeristedState('token', '')
   const [crash, setCrash] = useState<ICrash>()
-  
+
   const {adicionar} = useContext(ConsoleContext)
   const {addToast} = useToasts()
 
@@ -32,22 +32,22 @@ export const APIProvider: React.FC = (props) => {
       const loading = async () => {
         const adress = isDev() ? '/env.json' : '/public/env.json'
         axios.get(adress)
-        .then((data) => {
-          setEnv(data.data)
-        })
-        .catch(() => {
-          setEnv(undefined)
-          setCrash({
-            titulo: 'Erro de configuração',
-            texto: 'Não foi possível localizar a .env'
+          .then((data) => {
+            setEnv(data.data)
           })
-        })
+          .catch(() => {
+            setEnv(undefined)
+            setCrash({
+              titulo: 'Erro de configuração',
+              texto: 'Não foi possível localizar a .env'
+            })
+          })
       }
       loading()
     }
   }, [])
 
-  const Token:ITokenObject = {
+  const Token: ITokenObject = {
     valor: token,
     existe: () => {
       return token.length > 0
@@ -105,7 +105,7 @@ export const APIProvider: React.FC = (props) => {
         props.children
       )}
       {env === undefined && crash != undefined && (
-        <Crash {...crash}/>
+        <Crash {...crash} />
       )}
     </APIContext.Provider>
   )

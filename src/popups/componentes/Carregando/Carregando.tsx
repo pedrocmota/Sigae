@@ -7,10 +7,10 @@ interface ICarregando {
   texto: string
 }
 
-const Carregando: React.FC<IPopupBody & ICarregando > = ({texto}) => {
+const Carregando: React.FC<IPopupBody & ICarregando> = ({texto}) => {
   return (
     <Container>
-      <Spinner size={'60px'} color={'#5C67BC'}/>
+      <Spinner size={'60px'} color={'#5C67BC'} />
       <div>{texto}</div>
     </Container>
   )

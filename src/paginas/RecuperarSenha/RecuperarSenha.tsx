@@ -44,7 +44,7 @@ const RecuperarSenha: React.FC = () => {
   }, [])
 
   const enviar = () => {
-    if(!enviando) {
+    if (!enviando) {
       setEnviando(true)
       Requests.mail.enviarSenha(codigo as string, inputSenha1.current!.value, (param) => {
         setEnviando(false)
@@ -52,19 +52,19 @@ const RecuperarSenha: React.FC = () => {
         addToast('Sua senha foi alterada com sucesso!', {appearance: 'success'})
       }, (param) => {
         setEnviando(false)
-        if(param.erro == 'CODIGO_INVALIDO') {
+        if (param.erro == 'CODIGO_INVALIDO') {
           return addToast('Código inválido', {appearance: 'error'})
         }
-        if(param.erro == 'SENHA_INVALIDA') {
+        if (param.erro == 'SENHA_INVALIDA') {
           return addToast('Senha inválida', {appearance: 'error'})
         }
-        if(param.erro == 'SENHA_IGUAL') {
+        if (param.erro == 'SENHA_IGUAL') {
           return addToast('A senha digitada é igual a anterior', {appearance: 'error'})
         }
-        if(param.erro == 'INTERNAL_SERVER_ERROR') {
+        if (param.erro == 'INTERNAL_SERVER_ERROR') {
           return addToast('Erro interno', {appearance: 'error'})
         }
-        if(param.erro == 'UNKNOWN_ERROR') {
+        if (param.erro == 'UNKNOWN_ERROR') {
           return addToast('Erro desconhecido', {appearance: 'error'})
         }
       })
@@ -74,7 +74,7 @@ const RecuperarSenha: React.FC = () => {
   return (
     <>
       {redirect && (
-        <Redirect to="/login"/>
+        <Redirect to="/login" />
       )}
       <LoadingPersistent visible={!show} />
       <Container>

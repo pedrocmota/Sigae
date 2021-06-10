@@ -30,7 +30,7 @@ export const Container = styled.div<IInputLoginStyled & IInput>`
   }
 `
 
-export const InputLoginStyled = styled(GenericInput)<IInputLoginStyled>`
+export const InputLoginStyled = styled(GenericInput) <IInputLoginStyled>`
   font-family: "Helvetica Neue", "Helvetica", "Arial";
   font-size: 18px;
   color: #17161a;

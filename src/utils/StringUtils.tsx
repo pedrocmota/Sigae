@@ -3,7 +3,7 @@ const StringUtils = {
     const split = test.split('')
     let encontrado = false
     split.forEach((el) => {
-      if(str.includes(el)) encontrado = true
+      if (str.includes(el)) encontrado = true
     })
     return encontrado
   }

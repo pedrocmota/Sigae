@@ -27,7 +27,7 @@ const AlterarTema: React.FC<IPopupBody> = (props) => {
       </MainContainer>
       <ButtonContainer>
         <Ok onClick={() => {
-          if(tema != nomeTema) {
+          if (tema != nomeTema) {
             addToast('Tema alterado com sucesso!', {appearance: 'success'})
             definirTema(tema)
           }

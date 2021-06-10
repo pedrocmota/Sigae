@@ -6,7 +6,7 @@ interface IInputText extends IInput {
   paddingRight?: boolean
 }
 
-const InputText = styled(GenericInput)<IInputText>`
+const InputText = styled(GenericInput) <IInputText>`
   height: ${props => props.height || '35px'};
   border: ${props => props.borderSize || '2px'} solid black;
   border-color: #6985af;

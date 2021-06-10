@@ -16,33 +16,33 @@ const Routes: React.FC = () => {
     <Router>
       <Switch>
         <Route path="/" exact>
-          <MainProvider/>
+          <MainProvider />
         </Route>
         <Route path="/modulo">
-          <MainProvider/>
+          <MainProvider />
         </Route>
         <Route path="/login" exact>
           <Login />
         </Route>
         <Route path="/registrar" exact>
-          <RegistrarCodigo/>
+          <RegistrarCodigo />
         </Route>
         <Route path="/registrar/:codigo" exact>
-          <RegistrarForm/>
+          <RegistrarForm />
         </Route>
         <Route path="/registrar/:codigo/validar" exact>
-          <RegistrarValidar/>
+          <RegistrarValidar />
         </Route>
         <Route path="/codigo/recuperarSenha" exact>
-          <Codigo/>
+          <Codigo />
         </Route>
 
         {/* <Route path="/testar" exact>
           <Teste/>
         </Route> */}
-        
+
         <Route path="*" exact>
-          <Erro404/>
+          <Erro404 />
         </Route>
 
       </Switch>

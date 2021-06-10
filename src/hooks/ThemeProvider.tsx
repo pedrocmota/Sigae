@@ -18,7 +18,7 @@ export const ThemeContext = createContext<IThemeContext>({} as IThemeContext)
 
 export const ThemeProvider: React.FC = (props) => {
   const [nomeTema, setNomeTema] = usePeristedState<ListaTemas>('tema', () => {
-    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'Dark'
     } else {
       return 'Light'
@@ -30,9 +30,9 @@ export const ThemeProvider: React.FC = (props) => {
   }
   return (
     <ThemeContext.Provider value={{tema, definirTema, nomeTema}}>
-      <GlobalStyles/>
-      <MUIStyles/>
-      <ToastStyles/>
+      <GlobalStyles />
+      <MUIStyles />
+      <ToastStyles />
       {props.children}
     </ThemeContext.Provider>
   )

@@ -16,7 +16,7 @@ interface IButton extends ButtonProps {
 }
 
 const Button: React.ForwardRefRenderFunction<HTMLButtonElement, IButton> = (props, ref) => {
-  const colors:ITipos = {
+  const colors: ITipos = {
     generic: {
       background: '#5b7192',
       foreground: '#ffffff',
@@ -50,7 +50,7 @@ type IStyled = Omit<IButton, 'cor'> & {
   cor: ITipo
 }
 
-const Styled = styled(MaterialUIButton)<IStyled>`
+const Styled = styled(MaterialUIButton) <IStyled>`
   width: ${props => props.width || '100%'};
   height: ${props => props.height || '36px'};
   background-color: ${props => props.cor.background} !important;

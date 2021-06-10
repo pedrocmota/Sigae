@@ -20,10 +20,10 @@ const Banner: React.FC<IContainer> = ({children, visible = true, setVisible, ...
     <Fade visible={visible} timer={200}>
       <Container {...props}>
         <Close {...props} onClick={() => {
-          if(typeof setVisible == 'function') {
+          if (typeof setVisible == 'function') {
             setVisible(false)
           }
-        }}/>
+        }} />
         {children}
       </Container>
     </Fade>

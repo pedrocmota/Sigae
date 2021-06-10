@@ -39,12 +39,12 @@ export const validar = (props: IValidadorProps) => {
   const senha2Valido = senha2.length > 0 && !senha2Erro
 
   const tipoValido = () => {
-    if(props.dados.tipo == 'DISCENTE') {
+    if (props.dados.tipo == 'DISCENTE') {
       const cursoValido = getRefValue(props.inputCurso).length > 0
       const turmaValido = getRefValue(props.inputTurma).length > 0
       return cursoValido && turmaValido
     }
-    if(props.dados.tipo == 'DOCENTE') {
+    if (props.dados.tipo == 'DOCENTE') {
       const disciValido = getArrayValue<IOptions[]>(props.disciplinas).length > 0
       return disciValido
     }
@@ -54,4 +54,4 @@ export const validar = (props: IValidadorProps) => {
   props.setValido(
     emailValido && senha1Valido && senha2Valido && nomeValido && tipoValido
   )
-} 
+}

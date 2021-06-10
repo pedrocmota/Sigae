@@ -16,7 +16,7 @@ const Sidebar: React.FC<ISidebar> = (props) => {
       <InfoContainer>
         <Avatar src={`${env.apiAdress}/dados/avatar/${dados?.id}`} onClick={() => {
           setImageViewer({open: true, src: `${env.apiAdress}/dados/avatar/${dados?.id}`})
-        }}/>
+        }} />
         <Nome>
           {dados?.nomePreferencial && (
             dados.nomePreferencial
@@ -28,7 +28,7 @@ const Sidebar: React.FC<ISidebar> = (props) => {
       </InfoContainer>
       {props.render && (
         <LinhasContainer>
-          <Linhas/>
+          <Linhas />
         </LinhasContainer>
       )}
     </Container>

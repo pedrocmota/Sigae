@@ -9,9 +9,9 @@ const SobreSigae: React.FC = () => {
   const isMounted = useIsMounted()
   useEffect(() => {
     axios.get('/version.info').then((response) => {
-      if(isMounted()) setVersao(response.data)
+      if (isMounted()) setVersao(response.data)
     }).catch(() => {
-      if(isMounted()) setVersao('Não foi possível carregar')
+      if (isMounted()) setVersao('Não foi possível carregar')
     })
   }, [])
   return (
@@ -19,7 +19,7 @@ const SobreSigae: React.FC = () => {
       <div>Repositório do cliente:
         <a href="https://github.com/pedrocmota/Sigae" className="git" target="_blank" rel="noreferrer">[Link GitHub]</a>
       </div>
-      <div>Repositório da API: 
+      <div>Repositório da API:
         <a href="https://github.com/pedrocmota/Sigae-API" className="git" target="_blank" rel="noreferrer">[Link GitHub]</a>
       </div>
       <Versao>

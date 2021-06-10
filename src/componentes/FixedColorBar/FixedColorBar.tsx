@@ -13,7 +13,7 @@ export interface IFixedColorBar {
 const FixedColorBar: React.FC<IFixedColorBar> = (props) => {
   return (
     <Container {...props}>
-      <Barra width={props.porcentagem.toString()} foreground={props.foreground as string}/>
+      <Barra width={props.porcentagem.toString()} foreground={props.foreground as string} />
     </Container>
   )
 }

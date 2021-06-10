@@ -52,7 +52,7 @@ export const Container = styled.div<IContainer>`
   color: ${props => cores[props.tipo].foreground};
 `
 
-export const Close = styled(CloseIcon)<IContainer>`
+export const Close = styled(CloseIcon) <IContainer>`
   position: absolute;
   width: 20px !important;
   height: 20px !important;

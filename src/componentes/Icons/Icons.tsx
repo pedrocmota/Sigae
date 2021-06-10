@@ -5,7 +5,7 @@ interface IInputErrorIcon {
   visible: number
 }
 
-export const InputErrorIcon = styled(ErrorIcon)<IInputErrorIcon>`
+export const InputErrorIcon = styled(ErrorIcon) <IInputErrorIcon>`
   position: absolute;
   width: 30px !important;
   height: 100% !important;

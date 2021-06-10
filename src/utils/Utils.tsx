@@ -5,7 +5,7 @@ export function isDev() {
   return development
 }
 
-export const fixRoute = (route:string) => {
+export const fixRoute = (route: string) => {
   if (!route.startsWith('/')) route = `/${route}`
   return route
 }
@@ -18,28 +18,28 @@ export const parseToNumber = (str: any) => {
 export const numbersOfTrues = (...args: boolean[]) => {
   let n = 0
   args.forEach((el) => {
-    if(el) n++
+    if (el) n++
   })
   return n
 }
 
 export const compareVars = (var1: any, var2: any, defaultVar: any) => {
-  if(var1 != undefined) return var1
-  if(var2 != undefined) return var2
+  if (var1 != undefined) return var1
+  if (var2 != undefined) return var2
   return defaultVar
 }
 
 export const getRefValue = <T extends unknown>(ref: React.RefObject<T>) => {
   const current = ref.current
-  if(current == null || current == undefined) return ''
+  if (current == null || current == undefined) return ''
   const value = (current as any).value
-  if(value == null || value == undefined) return ''
+  if (value == null || value == undefined) return ''
   return value as string
 }
 
 export const getArrayValue = <T extends unknown>(ref: React.RefObject<T>) => {
   const current = ref.current
-  if(current == null || current == undefined) return [] as T
+  if (current == null || current == undefined) return [] as T
   return current as T
 }
 

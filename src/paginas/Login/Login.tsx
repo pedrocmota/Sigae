@@ -84,7 +84,7 @@ const Login: React.FC = () => {
         <Redirect to="/" />
       )}
       {redirectRegistrar && (
-        <Redirect to={`/registrar/${redirectRegistrarCodigo}/validar`} push/>
+        <Redirect to={`/registrar/${redirectRegistrarCodigo}/validar`} push />
       )}
       <Loading timer={500} />
       <Container>

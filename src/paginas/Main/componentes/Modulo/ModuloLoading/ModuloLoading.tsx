@@ -11,7 +11,7 @@ const ModuloLoading: React.FC<IModuloLoading> = (props) => {
   return (
     <Fade visible={props.show} timer={200} fadeIn>
       <Container>
-        <Spinner color={'#434c9c'}/>
+        <Spinner color={'#434c9c'} />
       </Container>
     </Fade>
   )

@@ -12,7 +12,7 @@ const Label: React.FC<ILabel> = (props) => {
   const Icone = props.icone
   return (
     <Container selecionado={props.selecionado} marginTop={props.marginTop}>
-      <Icone/>
+      <Icone />
       <Texto>
         {props.selecionado ? props.children + ' (Alterado)' : props.children}
       </Texto>
