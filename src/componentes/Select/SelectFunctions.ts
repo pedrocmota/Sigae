@@ -1,4 +1,4 @@
-import {IOptions} from './Select'
+import {IOptions} from './Types'
 
 export const converter = (obj: any) => {
   const returnArray: IOptions[] = []
@@ -23,6 +23,7 @@ export const converter = (obj: any) => {
     })
     return returnArray
   }
+  return [{valor: ''}]
 }
 
 export const createPlaceholder = (placeholder: string, numero: number, isMultiple: boolean | undefined) => {

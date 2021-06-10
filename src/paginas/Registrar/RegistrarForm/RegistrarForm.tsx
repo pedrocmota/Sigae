@@ -4,7 +4,7 @@ import LoadingPersistent from '../../../componentes/LoadingPersistent/LoadingPer
 import Footer from '../../Main/componentes/Footer/Footer'
 import Banner from './componentes/Banner'
 import InputText from '../../../componentes/inputs/InputText/InputText'
-import BasicSelect, {IOptions} from '../../../componentes/Select/Select'
+import BasicSelect from '../../../componentes/Select/Select'
 import Button from '../../../componentes/Button/Button'
 import Spinner from '../../../componentes/Spinner/Spinner'
 import ShowPassword from '../../../componentes/ShowPassword/ShowPassword'
@@ -20,6 +20,7 @@ import {IEnvio, enviar} from './componentes/Envio'
 import {iOptionsToStringArray} from '../../../utils/Utils'
 import {ReactComponent as Sigae} from '../../../assets/sigae.svg'
 import {IDadosRegistro} from '../Types'
+import {IOptions} from '../../../componentes/Select/Types'
 
 import {
   Person as PersonIcon,
@@ -207,8 +208,9 @@ const RegistrarForm: React.FC = () => {
                          Esta opção pode ser alterada posteriormente.`
                       }>
                     </Banner>
-                    <BasicSelect placeholder="Escolha sua disciplina" options={dados.disciplinas} ref={inputDisciplina}
-                      multiple disabled={enviando} input={{height: '40px', margintop: 12}} onChange={(obj) => {
+                    <BasicSelect placeholder="Escolha sua disciplina" options={dados.disciplinas as String[]} 
+                      ref={inputDisciplina} multiple disabled={enviando} 
+                      input={{height: '40px', margintop: 12}} onChange={(obj) => {
                         disciplinas.current = obj
                         validar(dadosValidar)
                       }} onKeyDown={(e) => {

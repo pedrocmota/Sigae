@@ -3,11 +3,12 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import InputText from '../../componentes/inputs/InputText/InputText'
 import RootRef from '@material-ui/core/RootRef'
 import {converter, createPlaceholder} from './SelectFunctions'
+import {IOptions, values} from './Types'
 
 interface IBasicSelect {
   placeholder: string,
-  options: any,
-  defaultValue?: any,
+  options: values,
+  defaultValue?: string,
   multiple?: boolean,
   disabled?: boolean,
   onChange?: (obj: any, event?: React.ChangeEvent<{}>) => void,
@@ -20,11 +21,6 @@ interface IBasicSelect {
     marginleft?: number,
     marginright?: number
   }
-}
-
-export interface IOptions {
-  valor: string,
-  grupo?: string
 }
 
 const Select: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect> = ({

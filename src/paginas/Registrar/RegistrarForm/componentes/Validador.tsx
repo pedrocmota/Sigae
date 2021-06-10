@@ -1,5 +1,5 @@
 import {IDadosRegistro} from '../../Types'
-import {IOptions} from '../../../../componentes/Select/Select'
+import {IOptions} from '../../../../componentes/Select/Types'
 import {validarEmail} from '../../../../utils/Validar'
 import {Senha} from '../../../../utils/Senha'
 import {getRefValue, getArrayValue} from '../../../../utils/Utils'
