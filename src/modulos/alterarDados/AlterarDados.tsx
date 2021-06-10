@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react'
 import useIsMounted from '../../hooks/useeffects/useIsMounted'
 import Label from './componentes/Label/Label'
-import {Select} from './styles'
+import Select from '../../componentes/Select/Select'
 import SecondaryInputText from '../../componentes/SecondaryInputText/SecondaryInputText'
 import Link from '../../componentes/Link/Link'
 import {ModuloContext} from '../../paginas/Main/componentes/Modulo/ModuloProvider/ModuloProvider'
@@ -47,8 +47,9 @@ const ALterarDados: React.FC = () => {
             <Label icone={AccountCircleIcon} selecionado={false}>
               Alterar nome de exibição
             </Label>
-            <Select placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)} defaultValue={dados.nomePreferencial}
-              disabled={salvando} input={{height: '40px', margintop: 12}} onChange={() => {
+            <Select placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)} 
+              defaultValue={dados.nomePreferencial} disabled={salvando} input={SecondaryInputText}
+              inputStyles={{height: '40px', margintop: 12}} onChange={() => {
 
               }} onKeyDown={(e) => {
 
@@ -58,8 +59,9 @@ const ALterarDados: React.FC = () => {
                 <Label icone={SchoolIcon} selecionado={false} marginTop={15}>
                   Alterar curso
                 </Label>
-                <Select placeholder="Escolha seu curso" options={dados.estaticos.cursos} defaultValue={dados.curso}
-                  disabled={salvando} input={{height: '40px', margintop: 12}} onChange={(e) => {
+                <Select placeholder="Escolha seu curso" options={dados.estaticos.cursos} 
+                  defaultValue={dados.curso} input={SecondaryInputText} disabled={salvando} 
+                  inputStyles={{height: '40px', margintop: 12}} onChange={(e) => {
                     if (e != null) {
                       const curso = e.valor
                       const turmas = dados.estaticos.turmas[curso][dados.campus]
@@ -74,7 +76,8 @@ const ALterarDados: React.FC = () => {
                   Alterar turma
                 </Label>
                 <Select placeholder="Escolha sua turma" options={turmasArray} defaultValue={dados.turma}
-                  disabled={salvando} input={{height: '40px', margintop: 12}} onChange={() => {
+                  input={SecondaryInputText} disabled={salvando} 
+                  inputStyles={{height: '40px', margintop: 12}} onChange={() => {
 
                   }} onKeyDown={(e) => {
 
@@ -87,8 +90,8 @@ const ALterarDados: React.FC = () => {
                   Alterar disciplinas ministradas
                 </Label>
                 <Select placeholder="Escolha suas disciplinas"
-                  options={dados.estaticos.cursos} defaultValue={dados.curso}
-                  disabled={salvando} input={{height: '40px', margintop: 12}} onChange={() => {
+                  options={dados.estaticos.cursos} defaultValue={dados.curso} disabled={salvando} 
+                  input={SecondaryInputText} inputStyles={{height: '40px', margintop: 12}} onChange={() => {
 
                   }} onKeyDown={(e) => {
 

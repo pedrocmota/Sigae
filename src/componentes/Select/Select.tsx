@@ -1,11 +1,11 @@
-import React, {forwardRef, useRef} from 'react'
+import React, {memo, forwardRef, useRef} from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import InputText from '../../componentes/inputs/InputText/InputText'
 import RootRef from '@material-ui/core/RootRef'
-import {converter, createPlaceholder} from './SelectFunctions'
+import {converter, createInput, createPlaceholder} from './SelectFunctions'
 import {IOptions, values} from './Types'
 
-interface IBasicSelect {
+interface ISelect {
   placeholder: string,
   options: values,
   defaultValue?: string,
@@ -13,21 +13,23 @@ interface IBasicSelect {
   disabled?: boolean,
   onChange?: (obj: any, event?: React.ChangeEvent<{}>) => void,
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>,
-  input?: {
+  inputStyles?: {
     width?: string,
     height?: string,
     margintop?: number,
     marginbottom?: number,
     marginleft?: number,
     marginright?: number
-  }
+  },
+  input?: React.FC
 }
 
-const Select: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect> = ({
-  input, options, defaultValue, onChange, ...props}, ref) => {
+const Select: React.ForwardRefRenderFunction<HTMLInputElement, ISelect> = ({
+  inputStyles, input, options, defaultValue, onChange, ...props}, ref) => {
   const selecionados = useRef<number>(
     defaultValue == undefined ? 0 : defaultValue.length
   )
+  const Input = createInput(input)
   return (
     <Autocomplete
       options={converter(options) as IOptions[]}
@@ -54,11 +56,11 @@ const Select: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect> = (
       renderInput={params => (
         <div ref={params.InputProps.ref}>
           <RootRef rootRef={ref != null ? ref : React.useRef()}>
-            <InputText {...params.inputProps} placeholder={createPlaceholder(
+            <Input {...params.inputProps} placeholder={createPlaceholder(
               props.placeholder,
               selecionados.current,
               props.multiple
-            )} {...input}
+            )} {...inputStyles}
               {...(props.disabled ? {value: ''} : {})} />
           </RootRef>
         </div>
@@ -68,4 +70,4 @@ const Select: React.ForwardRefRenderFunction<HTMLInputElement, IBasicSelect> = (
   )
 }
 
-export default forwardRef(Select)
+export default memo(forwardRef(Select))

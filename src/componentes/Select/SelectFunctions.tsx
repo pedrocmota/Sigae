@@ -1,3 +1,5 @@
+import React from 'react'
+import InputText from '../inputs/InputText/InputText'
 import {IOptions} from './Types'
 
 export const converter = (obj: any) => {
@@ -31,4 +33,13 @@ export const createPlaceholder = (placeholder: string, numero: number, isMultipl
   if(numero == 0) return placeholder
   if(numero == 1) return `${numero} opção foi selecionada`
   if(numero > 1)  return `${numero} opções foram selecionadas`
+}
+
+export const createInput = (paramInput: React.FC | undefined) => {
+  if(paramInput == undefined) {
+    return InputText
+  } else {
+    const Input = paramInput
+    return Input
+  }
 }
