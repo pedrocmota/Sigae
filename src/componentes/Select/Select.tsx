@@ -1,11 +1,12 @@
 import React, {memo, forwardRef, useRef} from 'react'
 import Autocomplete from '@material-ui/lab/Autocomplete'
-import InputText from '../InputText/InputText'
 import RootRef from '@material-ui/core/RootRef'
 import {converter, createInput, createPlaceholder} from './SelectFunctions'
+import {Container, Arrow} from './styles'
 import {IOptions, values} from './Types'
+import {IMargin} from '../../types/Misc'
 
-interface ISelect {
+interface ISelect extends IMargin {
   placeholder: string,
   options: values,
   defaultValue?: string,
@@ -25,15 +26,14 @@ interface ISelect {
 }
 
 const Select: React.ForwardRefRenderFunction<HTMLInputElement, ISelect> = ({
-  inputStyles, input, options, defaultValue, onChange, ...props}, ref) => {
+  inputStyles, input, options, defaultValue, margin, onChange, ...props}, ref) => {
   const selecionados = useRef<number>(
     defaultValue == undefined ? 0 : defaultValue.length
   )
   const Input = createInput(input)
-  const valorConvertido = converter(options)
   return (
     <Autocomplete
-      options={valorConvertido}
+      options={converter(options) as IOptions[]}
       {...(defaultValue ? {defaultValue: converter([defaultValue])![0]} : {})}
       noOptionsText="Nada encontrado"
       getOptionLabel={(option: any) => option.valor}
@@ -56,14 +56,20 @@ const Select: React.ForwardRefRenderFunction<HTMLInputElement, ISelect> = ({
       }}
       renderInput={params => (
         <div ref={params.InputProps.ref}>
-          <RootRef rootRef={ref != null ? ref : React.useRef()}>
-            <Input {...params.inputProps} placeholder={createPlaceholder(
-              props.placeholder,
-              selecionados.current,
-              props.multiple
-            )} {...inputStyles}
-              {...(props.disabled ? {value: ''} : {})} />
-          </RootRef>
+          <Container margin={margin}>
+            <RootRef rootRef={ref != null ? ref : React.useRef()}>
+              <>
+                <Input {...params.inputProps} placeholder={createPlaceholder(
+                  props.placeholder,
+                  selecionados.current,
+                  props.multiple
+                )} {...inputStyles}
+                  {...(props.disabled ? {value: ''} : {})} />
+                <Arrow width={28} height={28} />
+              </>
+
+            </RootRef>
+          </Container>
         </div>
       )}
       {...props}

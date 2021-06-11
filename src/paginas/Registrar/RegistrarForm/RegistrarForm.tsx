@@ -143,7 +143,8 @@ const RegistrarForm: React.FC = () => {
                     }>
                   </Banner>
                   <Select placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)}
-                    disabled={enviando} inputStyles={{height: '40px', margintop: 12}} ref={inputNome} onChange={() => {
+                    disabled={enviando} inputStyles={{height: '40px'}} margin={{top: 12}}
+                    ref={inputNome} onChange={() => {
                       validar(dadosValidar)
                     }} onKeyDown={(e) => {
                       if (e.key == 'Enter') {
@@ -164,7 +165,8 @@ const RegistrarForm: React.FC = () => {
                         }>
                       </Banner>
                       <Select placeholder="Escolha seu curso" options={Parse.cursos(dados.turmas as any)}
-                        disabled={enviando} ref={inputCurso} inputStyles={{height: '40px', margintop: 12}} onChange={(obj) => {
+                        disabled={enviando} inputStyles={{height: '40px'}} margin={{top: 12}}
+                        ref={inputCurso} onChange={(obj) => {
                           if (obj != null && obj != undefined) {
                             const valor = obj.valor
                             const turmas = dados.turmas![valor]
@@ -187,9 +189,9 @@ const RegistrarForm: React.FC = () => {
                            Esta opção pode ser alterada posteriormente.`
                         }>
                       </Banner>
-                      <Select placeholder="Escolha sua turma" options={turmas} ref={inputTurma}
-                        disabled={turmas.length == 0 || enviando} inputStyles={{height: '40px', margintop: 12}}
-                        onChange={() => {
+                      <Select placeholder="Escolha sua turma" options={turmas}
+                        disabled={turmas.length == 0 || enviando} inputStyles={{height: '40px'}}
+                        margin={{top: 12}} ref={inputTurma} onChange={() => {
                           validar(dadosValidar)
                         }} onKeyDown={(e) => {
                           if (e.key == 'Enter') {
@@ -209,8 +211,8 @@ const RegistrarForm: React.FC = () => {
                       }>
                     </Banner>
                     <Select placeholder="Escolha sua disciplina" options={dados.disciplinas as String[]}
-                      ref={inputDisciplina} multiple disabled={enviando}
-                      inputStyles={{height: '40px', margintop: 12}} onChange={(obj) => {
+                      multiple disabled={enviando} inputStyles={{height: '40px', }}
+                      margin={{top: 12}} ref={inputDisciplina} onChange={(obj) => {
                         disciplinas.current = obj
                         validar(dadosValidar)
                       }} onKeyDown={(e) => {

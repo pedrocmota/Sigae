@@ -73,7 +73,7 @@ const ALterarDados: React.FC = () => {
             </Label>
             <Select placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)}
               defaultValue={dados.nomePreferencial} disabled={salvando} input={SecondaryInputText}
-              inputStyles={{height: '40px', margintop: 12}} onChange={() => {
+              inputStyles={{height: '40px'}} margin={{top: 12}} onChange={() => {
 
               }} onKeyDown={(e) => {
 
@@ -85,7 +85,7 @@ const ALterarDados: React.FC = () => {
                 </Label>
                 <Select placeholder="Escolha seu curso" options={dados.estaticos.cursos}
                   defaultValue={dados.curso} input={SecondaryInputText} disabled={salvando}
-                  inputStyles={{height: '40px', margintop: 12}} onChange={(e) => {
+                  inputStyles={{height: '40px'}} onChange={(e) => {
                     if (e != null) {
                       const curso = e.valor
                       const turmas = dados.estaticos.turmas[curso][dados.campus]
@@ -101,7 +101,7 @@ const ALterarDados: React.FC = () => {
                 </Label>
                 <Select placeholder="Escolha sua turma" options={turmasArray} defaultValue={dados.turma}
                   input={SecondaryInputText} disabled={salvando}
-                  inputStyles={{height: '40px', margintop: 12}} onChange={() => {
+                  inputStyles={{height: '40px'}} onChange={() => {
 
                   }} onKeyDown={(e) => {
 
@@ -115,7 +115,7 @@ const ALterarDados: React.FC = () => {
                 </Label>
                 <Select placeholder="Escolha suas disciplinas"
                   options={dados.estaticos.cursos} defaultValue={dados.curso} disabled={salvando}
-                  input={SecondaryInputText} inputStyles={{height: '40px', margintop: 12}} onChange={() => {
+                  input={SecondaryInputText} inputStyles={{height: '40px'}} onChange={() => {
 
                   }} onKeyDown={(e) => {
 
@@ -125,7 +125,7 @@ const ALterarDados: React.FC = () => {
             <Label icone={AlternateEmailIcon} selecionado={false} marginTop={15}>
               Alterar e-mail
             </Label>
-            <SecondaryInputText placeholder="Digite seu e-mail" type="email" defaultValue={dados.email} 
+            <SecondaryInputText placeholder="Digite seu e-mail" type="email" defaultValue={dados.email}
               height={'40px'} margintop={12} disabled={salvando || dados.misc.emailTemporario != undefined}
               onInput={(e) => {
                 const valor = e.currentTarget.value
