@@ -42,3 +42,15 @@ export const EmailContainer = styled.div`
     color: #039be5;
   }
 `
+
+export const EmailErroContainer = styled.div`
+  display: inline-flex;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 17px;
+  color: crimson;
+  text-decoration: underline;
+  svg {
+    margin-right: 8px;
+  }
+`
