@@ -7,6 +7,14 @@ const Requests: IDadosRequest = {
       callback(resposta)
     })
   },
+  
+  checarEmail: (email, callback) => {
+    Methods.get('/dados/verificar/email', {
+      email: email
+    }, false, (resposta) => {
+      callback(resposta)
+    })
+  },
 }
 
 export default Requests

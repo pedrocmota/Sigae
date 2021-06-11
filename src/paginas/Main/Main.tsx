@@ -11,7 +11,7 @@ import {onResize} from '../../hooks/events/Resize'
 import {ILoadings, IModuloHeader} from './Types'
 import ImageViewer, {IImageViewer} from './componentes/ImageViewer/ImageViewer'
 import {IDadosIniciais} from '../../types/DadosEstaticos'
-import {MainContainer} from './styles'
+import {MainContainer, RenderContainer} from './styles'
 
 interface IMainContext {
   dados: IDadosIniciais | undefined,
@@ -89,9 +89,12 @@ export const MainProvider: React.FC = memo((props) => {
           <ImageViewer {...imageViewer} />
           <MainContainer>
             <Header />
-            <ModuloProvider />
             <Sidebar render={dados != undefined} />
-            <Footer resizable />
+            <RenderContainer>
+              <ModuloProvider />
+              <Footer resizable />
+            </RenderContainer>
+
           </MainContainer>
         </>
       )}

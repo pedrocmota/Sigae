@@ -6,6 +6,7 @@ import SecondaryInputText from '../../componentes/SecondaryInputText/SecondaryIn
 import Link from '../../componentes/Link/Link'
 import {ModuloContext} from '../../paginas/Main/componentes/Modulo/ModuloProvider/ModuloProvider'
 import {MainContext} from '../../paginas/Main/Main'
+import {APIContext} from '../../hooks/APIProvider'
 import Parse from '../../utils/Parse'
 import {validarEmail} from '../../utils/Validar'
 import {TopButton, EmailContainer, EmailErroContainer} from './styles'
@@ -21,6 +22,9 @@ import CreateIcon from '@material-ui/icons/Create'
 import WarningIcon from '@material-ui/icons/Warning'
 
 const ALterarDados: React.FC = () => {
+  const {Requests} = useContext(APIContext)
+  const isMounted = useIsMounted()
+
   const {dados} = useContext(MainContext)
   const [botaoSalvar, setBotaoSalvar] = useState(false)
   const [botaoDesfazer, setBotaoDesfazer] = useState(false)
@@ -28,24 +32,24 @@ const ALterarDados: React.FC = () => {
   const [turmasArray, setTurmasArray] = useState<String[]>(
     dados!.estaticos.turmas[dados!.curso][dados!.campus]
   )
-  const [erroEmail, setErroEmail] = useState(false)
+  const [erros, setErros] = useState({
+    emailValido: false,
+    emailUsado: false
+  })
   const timeoutCheckEmail = useRef<NodeJS.Timeout | undefined>()
   const checkEmail = (email: string) => {
-    if(timeoutCheckEmail.current != undefined) {
-      clearTimeout(timeoutCheckEmail.current)
+    if (timeoutCheckEmail.current != undefined) clearTimeout(timeoutCheckEmail.current)
+    if (email != dados!.email) {
+      timeoutCheckEmail.current = setTimeout(() => {
+        Requests.dados.checarEmail(email, (resposta) => {
+          if (isMounted() && resposta.retorno == 'true') {
+            setErros(erros => {
+              return {...erros, emailUsado: true}
+            })
+          }
+        })
+      }, 800)
     }
-    timeoutCheckEmail.current = setTimeout(() => {
-      console.log('mandou')
-    }, 800)
-    // if(timeoutCheckEmail.current == undefined) {
-    //   timeoutCheckEmail.current = setTimeout(() => {
-    //     console.log('mandou')
-    //   }, 300)
-    // } else {
-    //   clearTimeout(timeoutCheckEmail.current)
-    //   timeoutCheckEmail.current = undefined
-    //   console.log('clear')
-    // }
   }
   return (
     <>
@@ -121,13 +125,24 @@ const ALterarDados: React.FC = () => {
             <Label icone={AlternateEmailIcon} selecionado={false} marginTop={15}>
               Alterar e-mail
             </Label>
-            <SecondaryInputText placeholder="Digite seu e-mail" defaultValue={dados.email} height={'40px'}
-              margintop={12} disabled={salvando || dados.misc.emailTemporario != undefined} 
-              onKeyUp={(e) => {
-                // const valor = e.currentTarget.value
-                // setErroEmail(!validarEmail(valor))
-                checkEmail('')
-              }}/>
+            <SecondaryInputText placeholder="Digite seu e-mail" type="email" defaultValue={dados.email} 
+              height={'40px'} margintop={12} disabled={salvando || dados.misc.emailTemporario != undefined}
+              onInput={(e) => {
+                const valor = e.currentTarget.value
+                if (valor.length > 0) {
+                  const valido = validarEmail(valor)
+                  setErros({
+                    emailUsado: false,
+                    emailValido: !valido
+                  })
+                  if (valido) checkEmail(valor)
+                } else {
+                  setErros({
+                    emailUsado: false,
+                    emailValido: false
+                  })
+                }
+              }} />
             {dados.misc.emailTemporario && (
               <EmailContainer>
                 <Link style={{marginLeft: '3px'}}>
@@ -141,21 +156,18 @@ const ALterarDados: React.FC = () => {
                 </Link>
               </EmailContainer>
             )}
-            <EmailErroContainer>
-              <WarningIcon width={28} height={28}/>
-              O e-mail digitado é inválido
-            </EmailErroContainer>
+            {(erros.emailValido || erros.emailUsado) && (
+              <EmailErroContainer>
+                <WarningIcon width={28} height={28} />
+                {(erros.emailValido && !erros.emailUsado) && (
+                  <>O e-mail digitado é inválido</>
+                )}
+                {(!erros.emailValido && erros.emailUsado) && (
+                  <>O e-mail já foi utilizado</>
+                )}
+              </EmailErroContainer>
+            )}
           </Container>
-          {/* <h1>t</h1>
-          <h1>t</h1>
-          <h1>t</h1>
-          <h1>t</h1>
-          <h1>t</h1>
-          <h1>t</h1>
-          <h1>t</h1>
-          <h1>t</h1>
-           */}
-
         </MainContainer>
       )}
     </>

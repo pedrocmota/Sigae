@@ -30,9 +30,10 @@ const Select: React.ForwardRefRenderFunction<HTMLInputElement, ISelect> = ({
     defaultValue == undefined ? 0 : defaultValue.length
   )
   const Input = createInput(input)
+  const valorConvertido = converter(options)
   return (
     <Autocomplete
-      options={converter(options) as IOptions[]}
+      options={valorConvertido}
       {...(defaultValue ? {defaultValue: converter([defaultValue])![0]} : {})}
       noOptionsText="Nada encontrado"
       getOptionLabel={(option: any) => option.valor}
