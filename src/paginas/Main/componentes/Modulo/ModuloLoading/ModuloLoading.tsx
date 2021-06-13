@@ -1,5 +1,5 @@
 import React from 'react'
-import Fade from '../../../../../componentes/Fade/Fade'
+import Fadeout from '../../../../../componentes/Fadeout/Fadeout'
 import {Container} from './styles'
 import {ReactComponent as Spinner} from '../../../../../assets/spinner.svg'
 
@@ -9,11 +9,11 @@ interface IModuloLoading {
 
 const ModuloLoading: React.FC<IModuloLoading> = (props) => {
   return (
-    <Fade visible={props.show} timer={200} fadeIn>
+    <Fadeout visible={props.show} timer={10000}>
       <Container>
         <Spinner color={'#434c9c'} />
       </Container>
-    </Fade>
+    </Fadeout>
   )
 }
 

@@ -24,7 +24,7 @@ export const Center = styled.div`
   @media (max-width: 780px) {
     width: 100%;
     height: 100%;
-  } 
+  }
 `
 
 export const Header = styled.header`

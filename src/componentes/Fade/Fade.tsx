@@ -4,11 +4,10 @@ import useDidMountEffect from '../../hooks/useeffects/useDidMountEffect'
 
 export interface IFade extends React.HTMLAttributes<HTMLDivElement> {
   visible: boolean,
-  timer?: number,
-  fadeIn?: boolean
+  timer?: number
 }
 
-const Fade: React.FC<IFade> = ({visible = false, timer = 400, fadeIn, ...props}) => {
+const Fade: React.FC<IFade> = ({visible = false, timer = 400, ...props}) => {
   const container = useRef<HTMLDivElement>()
   useEffect(() => {
     if (visible == false) $(container.current as any).hide()
