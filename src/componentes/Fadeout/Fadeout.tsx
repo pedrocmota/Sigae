@@ -2,13 +2,12 @@ import React, {useRef, useEffect} from 'react'
 import {Container} from './styles'
 
 export interface IFadeout extends React.HTMLAttributes<HTMLDivElement> {
-  visible: boolean,
-  timer?: number
+  visible: boolean
 }
 
-const Fadeout: React.FC<IFadeout> = ({visible = false, timer = 400, ...props}) => {
+const Fadeout: React.FC<IFadeout> = ({visible = false, ...props}) => {
   return (
-    <Container {...props} visible={visible} timer={timer}>
+    <Container {...props} visible={visible}>
       {props.children}
     </Container>
   )

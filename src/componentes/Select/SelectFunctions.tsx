@@ -2,7 +2,7 @@ import React from 'react'
 import InputText from '../InputText/InputText'
 import {IOptions} from './Types'
 
-export const converter = (obj: any) => {
+export const converter:any = (obj: any) => {
   const returnArray: IOptions[] = []
   if (Array.isArray(obj)) {
     const array = obj as string[]
@@ -25,7 +25,17 @@ export const converter = (obj: any) => {
     })
     return returnArray
   }
+  if (typeof obj == 'string') {
+    return {
+      valor: obj
+    }
+  }
   return [{valor: ''}]
+}
+
+export const converterDefaultValue = (obj: string | string[]) => {
+  const formatado = converter(obj)
+  return formatado
 }
 
 export const createPlaceholder = (placeholder: string, numero: number, isMultiple: boolean | undefined) => {

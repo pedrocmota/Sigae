@@ -9,7 +9,7 @@ interface IModuloLoading {
 
 const ModuloLoading: React.FC<IModuloLoading> = (props) => {
   return (
-    <Fadeout visible={props.show} timer={10000}>
+    <Fadeout visible={props.show}>
       <Container>
         <Spinner color={'#434c9c'} />
       </Container>

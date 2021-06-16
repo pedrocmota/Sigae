@@ -36,6 +36,7 @@ const ALterarDados: React.FC = () => {
     emailValido: false,
     emailUsado: false
   })
+
   const timeoutCheckEmail = useRef<NodeJS.Timeout | undefined>()
   const checkEmail = (email: string) => {
     if (timeoutCheckEmail.current != undefined) clearTimeout(timeoutCheckEmail.current)
