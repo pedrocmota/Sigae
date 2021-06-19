@@ -5,14 +5,8 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background-color 200ms, color 200ms;
   }
 
-  /* @font-face {
-    font-family: 'Comfortaa';
-    src: local('Comfortaa'), url('/fontes/Comfortaa-Regular.woff') format('woff');
-  } */
-  
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

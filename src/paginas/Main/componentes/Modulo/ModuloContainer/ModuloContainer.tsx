@@ -1,5 +1,6 @@
 import React, {useState, useContext, useEffect, memo} from 'react'
 import {Redirect} from 'react-router-dom'
+import Remount from '../../../../../componentes/Remount/Remount'
 import {useToasts} from 'react-toast-notifications'
 import {APIContext} from '../../../../../hooks/APIProvider'
 import {MainContext} from '../../../Main'
@@ -50,7 +51,9 @@ const ModuloContainer: React.FC<IModuloContainer> = (props) => {
           ...(loadings.loadingModulo ? {display: 'none'} : {})
         }
         }>
-          <Componente />
+          <Remount inContainer>
+            <Componente />
+          </Remount>
         </div>
       )}
       {!valido && (

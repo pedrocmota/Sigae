@@ -4,7 +4,7 @@ import Label from './componentes/Label/Label'
 import Select from '../../componentes/Select/Select'
 import SecondaryInputText from '../../componentes/SecondaryInputText/SecondaryInputText'
 import Link from '../../componentes/Link/Link'
-import {ModuloContext} from '../../paginas/Main/componentes/Modulo/ModuloProvider/ModuloProvider'
+import {RemountContext} from '../../componentes/Remount/Remount'
 import {MainContext} from '../../paginas/Main/Main'
 import {APIContext} from '../../hooks/APIProvider'
 import Parse from '../../utils/Parse'
@@ -23,15 +23,22 @@ import WarningIcon from '@material-ui/icons/Warning'
 
 const ALterarDados: React.FC = () => {
   const {Requests} = useContext(APIContext)
+  const {keyMount, remount} = useContext(RemountContext)
   const isMounted = useIsMounted()
 
   const {dados} = useContext(MainContext)
   const [botaoSalvar, setBotaoSalvar] = useState(false)
-  const [botaoDesfazer, setBotaoDesfazer] = useState(false)
   const [salvando, setSalvando] = useState(false)
   const [turmasArray, setTurmasArray] = useState<String[]>(
     dados!.estaticos.turmas[dados!.curso][dados!.campus]
   )
+  const [alterados, setAlterados] = useState({
+    nome: false,
+    curso: false,
+    turma: false,
+    disciplinas: false,
+    email: false
+  })
   const [erros, setErros] = useState({
     emailValido: false,
     emailUsado: false
@@ -55,7 +62,7 @@ const ALterarDados: React.FC = () => {
   return (
     <>
       {dados && (
-        <MainContainer>
+        <MainContainer key={keyMount}>
           <Header>
             <TopButton cor="alternative" width={'250px'} margin={{right: 10}}
               disabled={!botaoSalvar || !salvando}>
@@ -63,41 +70,47 @@ const ALterarDados: React.FC = () => {
               <label>Salvar alterações</label>
             </TopButton>
             <TopButton cor="alternative" width={'250px'}
-              disabled={!botaoDesfazer || !salvando}>
+              disabled={!salvando && (
+                !alterados.nome &&
+                !alterados.curso &&
+                !alterados.turma &&
+                !alterados.disciplinas
+              )} onClick={remount}>
               <UndoIcon />
               <label>Descartar alterações</label>
             </TopButton>
           </Header>
           <Container>
-            <Label icone={AccountCircleIcon} selecionado={false}>
+            <Label icone={AccountCircleIcon} selecionado={alterados.nome}>
               Alterar nome de exibição
             </Label>
             <Select placeholder="Escolha seu nome" options={Parse.nomes(dados.nome)}
               defaultValue={dados.nomePreferencial} disabled={salvando} input={SecondaryInputText}
-              inputStyles={{height: '40px'}} margin={{top: 12}} onChange={() => {
-
+              inputStyles={{height: '40px'}} margin={{top: 12}} onChange={(v) => {
+                setAlterados({...alterados, nome: v.valor != dados.nomePreferencial})
               }} onKeyDown={(e) => {
 
               }} />
             {dados.tipo == 'DISCENTE' && (
               <>
-                <Label icone={SchoolIcon} selecionado={false} marginTop={15}>
+                <Label icone={SchoolIcon} selecionado={alterados.curso} marginTop={15}>
                   Alterar curso
                 </Label>
                 <Select placeholder="Escolha seu curso" options={dados.estaticos.cursos}
                   defaultValue={dados.curso} input={SecondaryInputText} disabled={salvando}
-                  inputStyles={{height: '40px'}} onChange={(e) => {
-                    if (e != null) {
-                      const curso = e.valor
+                  inputStyles={{height: '40px'}} onChange={(v) => {
+                    if (v != null) {
+                      const curso = v.valor
                       const turmas = dados.estaticos.turmas[curso][dados.campus]
                       setTurmasArray(turmas)
                     } else {
                       setTurmasArray([])
                     }
+                    setAlterados({...alterados, curso: v.valor != dados.curso})
                   }} onKeyDown={(e) => {
 
                   }} />
-                <Label icone={CreateIcon} selecionado={false} marginTop={15}>
+                <Label icone={CreateIcon} marginTop={15} selecionado={alterados.turma}>
                   Alterar turma
                 </Label>
                 <Select placeholder="Escolha sua turma" options={turmasArray} defaultValue={dados.turma}
@@ -111,7 +124,7 @@ const ALterarDados: React.FC = () => {
             )}
             {dados.tipo == 'DOCENTE' && (
               <>
-                <Label icone={ImportContactsIcon} selecionado={false} marginTop={15}>
+                <Label icone={ImportContactsIcon} selecionado={alterados.disciplinas} marginTop={15}>
                   Alterar disciplinas ministradas
                 </Label>
                 <Select placeholder="Escolha suas disciplinas"
@@ -123,7 +136,7 @@ const ALterarDados: React.FC = () => {
                   }} />
               </>
             )}
-            <Label icone={AlternateEmailIcon} selecionado={false} marginTop={15}>
+            <Label icone={AlternateEmailIcon} selecionado={alterados.email} marginTop={15}>
               Alterar e-mail
             </Label>
             <SecondaryInputText placeholder="Digite seu e-mail" type="email" defaultValue={dados.email}

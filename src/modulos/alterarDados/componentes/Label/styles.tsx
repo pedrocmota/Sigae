@@ -15,8 +15,10 @@ export const Container = styled.div<IContainer>`
   }
   ${({marginTop}) => marginTop && css`
     margin-top: ${marginTop}px;
- `}
- 
+  `}
+  ${({selecionado}) => selecionado && css`
+    color: #4299cc;
+  `}
 `
 export const Texto = styled.div`
   display: flex;
